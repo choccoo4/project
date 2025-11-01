@@ -1,0 +1,591 @@
+.belajar {
+    background-color: #fff8f2;
+    overflow: hidden;
+    width: 100%;
+    min-width: 1440px;
+    min-height: 1355px;
+    position: relative;
+  }
+  
+  .belajar .group {
+    position: absolute;
+    top: 63px;
+    left: 447px;
+    width: 875px;
+    height: 977px;
+  }
+  
+  .belajar .rectangle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 869px;
+    height: 119px;
+    background-color: #ef4444;
+    border-radius: 18px;
+  }
+  
+  .belajar .text-wrapper {
+    position: absolute;
+    top: 68px;
+    left: calc(50.00% - 78px);
+    font-family: "Nunito-Bold", Helvetica;
+    font-weight: 700;
+    color: #ffffff;
+    font-size: 24px;
+    letter-spacing: 0;
+    line-height: normal;
+  }
+  
+  .belajar .simbol-perintah {
+    position: absolute;
+    top: 944px;
+    left: calc(50.00% - 144px);
+    font-family: "Nunito-Bold", Helvetica;
+    font-weight: 700;
+    color: #555555;
+    font-size: 24px;
+    letter-spacing: 0;
+    line-height: normal;
+  }
+  
+  .belajar .div {
+    position: absolute;
+    top: 24px;
+    left: 218px;
+    font-family: "Fredoka-SemiBold", Helvetica;
+    font-weight: 600;
+    color: #ffffff;
+    font-size: 36px;
+    letter-spacing: 0;
+    line-height: normal;
+  }
+  
+  .belajar .frame-wrapper {
+    position: absolute;
+    top: 240px;
+    left: 773px;
+    width: 109px;
+    height: 101px;
+    display: flex;
+    background-color: #ff6f61;
+    border-radius: 54.5px / 50.5px;
+  }
+  
+  .belajar .frame {
+    margin-top: 25px;
+    margin-left: 29px;
+    position: relative;
+    width: 51px;
+    height: 51px;
+  }
+  
+  .belajar .vector {
+    position: absolute;
+    width: 84.38%;
+    height: 81.25%;
+    top: 6.25%;
+    left: 3.12%;
+  }
+  
+  .belajar .div-wrapper {
+    position: absolute;
+    top: 375px;
+    left: 718px;
+    width: 109px;
+    height: 101px;
+    display: flex;
+    background-color: #d9d9d9;
+    border-radius: 54.5px / 50.5px;
+  }
+  
+  .belajar .img {
+    position: absolute;
+    width: 68.75%;
+    height: 68.75%;
+    top: 25.00%;
+    left: 15.62%;
+  }
+  
+  .belajar .group-2 {
+    position: absolute;
+    top: 520px;
+    left: 773px;
+    width: 109px;
+    height: 101px;
+    display: flex;
+    background-color: #d9d9d9;
+    border-radius: 54.5px / 50.5px;
+  }
+  
+  .belajar .vector-wrapper {
+    margin-top: 25px;
+    margin-left: 28px;
+    position: relative;
+    width: 51px;
+    height: 51px;
+  }
+  
+  .belajar .vector-2 {
+    position: absolute;
+    width: 68.75%;
+    height: 87.51%;
+    top: 6.24%;
+    left: 15.62%;
+  }
+  
+  .belajar .group-3 {
+    position: absolute;
+    top: 777px;
+    left: 793px;
+    width: 150px;
+    height: 139px;
+  }
+  
+  .belajar .ellipse {
+    top: 0;
+    left: 0;
+    width: 150px;
+    height: 139px;
+    border-radius: 75px / 69.5px;
+    position: absolute;
+    background-color: #d9d9d9;
+    transform: rotate(180deg);
+  }
+  
+  .belajar .vector-3 {
+    position: absolute;
+    width: 43.75%;
+    height: 38.31%;
+    top: 30.94%;
+    left: 28.00%;
+  }
+  
+  .belajar .group-4 {
+    position: absolute;
+    top: 655px;
+    left: 704px;
+    width: 109px;
+    height: 101px;
+    display: flex;
+    background-color: #d9d9d9;
+    border-radius: 54.5px / 50.5px;
+  }
+  
+  .belajar .img-wrapper {
+    margin-top: 25px;
+    margin-left: 25px;
+    position: relative;
+    width: 51px;
+    height: 51px;
+  }
+  
+  .belajar .vector-4 {
+    position: absolute;
+    width: 75.00%;
+    height: 75.00%;
+    top: 12.50%;
+    left: 12.50%;
+  }
+  
+  .belajar .ellipse-2 {
+    top: 1107px;
+    left: 813px;
+    width: 109px;
+    height: 101px;
+    border-radius: 54.5px / 50.5px;
+    position: absolute;
+    background-color: #d9d9d9;
+    transform: rotate(180deg);
+  }
+  
+  .belajar .frame-2 {
+    position: absolute;
+    top: 1132px;
+    left: 842px;
+    transform: rotate(180deg);
+    width: 51px;
+    height: 51px;
+  }
+  
+  .belajar .vector-5 {
+    position: absolute;
+    width: 84.38%;
+    height: 81.25%;
+    top: 12.50%;
+    left: 3.12%;
+    transform: rotate(-180deg);
+  }
+  
+  .belajar .ellipse-3 {
+    top: 1242px;
+    left: 868px;
+    width: 109px;
+    height: 101px;
+    border-radius: 54.5px / 50.5px;
+    position: absolute;
+    background-color: #d9d9d9;
+    transform: rotate(180deg);
+  }
+  
+  .belajar .frame-3 {
+    position: absolute;
+    top: 1267px;
+    left: 897px;
+    transform: rotate(180deg);
+    width: 51px;
+    height: 51px;
+  }
+  
+  .belajar .vector-6 {
+    position: absolute;
+    width: 68.75%;
+    height: 68.75%;
+    top: 6.25%;
+    left: 15.62%;
+    transform: rotate(-180deg);
+  }
+  
+  .belajar .line {
+    left: 526px;
+    position: absolute;
+    top: 1022px;
+    width: 195px;
+    height: 1px;
+  }
+  
+  .belajar .line-2 {
+    left: 1042px;
+    position: absolute;
+    top: 1022px;
+    width: 195px;
+    height: 1px;
+  }
+  
+  .belajar .village {
+    position: absolute;
+    top: 218px;
+    left: 469px;
+    width: 196px;
+    height: 196px;
+    aspect-ratio: 1;
+    object-fit: cover;
+  }
+  
+  .belajar .village-2 {
+    position: absolute;
+    top: 791px;
+    left: 1126px;
+    width: 163px;
+    height: 163px;
+    aspect-ratio: 1;
+    object-fit: cover;
+  }
+  
+  .belajar .steps {
+    position: absolute;
+    top: 468px;
+    left: 943px;
+    width: 188px;
+    height: 188px;
+    aspect-ratio: 1;
+    object-fit: cover;
+  }
+  
+  .belajar .image {
+    top: 1274px;
+    left: 496px;
+    width: 169px;
+    height: 169px;
+    position: absolute;
+    aspect-ratio: 1;
+    object-fit: cover;
+  }
+  
+  .belajar .forest {
+    position: absolute;
+    top: 1097px;
+    left: 1037px;
+    width: 179px;
+    height: 179px;
+    aspect-ratio: 1;
+    object-fit: cover;
+  }
+  
+  .belajar .text-wrapper-2 {
+    position: absolute;
+    top: 264px;
+    left: 903px;
+    font-family: "Fredoka-SemiBold", Helvetica;
+    font-weight: 600;
+    color: #000000;
+    font-size: 25px;
+    letter-spacing: 0;
+    line-height: normal;
+    white-space: nowrap;
+  }
+  
+  .belajar .image-2 {
+    top: 218px;
+    left: 867px;
+    width: 123px;
+    height: 123px;
+    position: absolute;
+    aspect-ratio: 1;
+    object-fit: cover;
+  }
+  
+  .belajar .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 323px;
+    height: 1355px;
+  }
+  
+  .belajar .rectangle-2 {
+    position: absolute;
+    top: -7px;
+    left: -7px;
+    width: 337px;
+    height: 1369px;
+    background-color: #ffffff;
+    border-right-width: 7px;
+    border-right-style: solid;
+    border-color: #eb580c45;
+  }
+  
+  .belajar .group-5 {
+    position: absolute;
+    top: 828px;
+    left: 46px;
+    width: 133px;
+    height: 51px;
+    display: flex;
+    gap: 6px;
+  }
+  
+  .belajar .exit {
+    width: 42px;
+    height: 51px;
+  }
+  
+  .belajar .text-wrapper-3 {
+    margin-top: 9px;
+    width: 83px;
+    height: 34px;
+    font-family: "Fredoka-SemiBold", Helvetica;
+    font-weight: 600;
+    color: #555555;
+    font-size: 28px;
+    letter-spacing: 0;
+    line-height: normal;
+  }
+  
+  .belajar .group-6 {
+    position: absolute;
+    top: 734px;
+    left: 36px;
+    width: 167px;
+    height: 46px;
+    display: flex;
+    gap: 6px;
+  }
+  
+  .belajar .profile {
+    width: 46px;
+    height: 46px;
+  }
+  
+  .belajar .profile-2 {
+    margin-top: 6px;
+    width: 113px;
+    height: 34px;
+    font-family: "Fredoka-SemiBold", Helvetica;
+    font-weight: 600;
+    color: #555555;
+    font-size: 28px;
+    letter-spacing: 0;
+    line-height: normal;
+  }
+  
+  .belajar .group-7 {
+    position: absolute;
+    top: 465px;
+    left: 39px;
+    width: 195px;
+    height: 44px;
+    display: flex;
+    gap: 6px;
+  }
+  
+  .belajar .trophy {
+    width: 44px;
+    height: 44px;
+  }
+  
+  .belajar .text-wrapper-4 {
+    margin-top: 7px;
+    width: 143px;
+    height: 34px;
+    font-family: "Fredoka-SemiBold", Helvetica;
+    font-weight: 600;
+    color: #555555;
+    font-size: 28px;
+    letter-spacing: 0;
+    line-height: normal;
+  }
+  
+  .belajar .group-8 {
+    position: absolute;
+    top: 559px;
+    left: 39px;
+    width: 161px;
+    height: 38px;
+    display: flex;
+    gap: 5px;
+  }
+  
+  .belajar .badge {
+    width: 45px;
+    height: 38px;
+  }
+  
+  .belajar .text-wrapper-5 {
+    width: 109px;
+    height: 34px;
+    font-family: "Fredoka-SemiBold", Helvetica;
+    font-weight: 600;
+    color: #555555;
+    font-size: 28px;
+    letter-spacing: 0;
+    line-height: normal;
+  }
+  
+  .belajar .group-9 {
+    position: absolute;
+    top: 643px;
+    left: 38px;
+    width: 253px;
+    height: 40px;
+    display: flex;
+    gap: 5px;
+  }
+  
+  .belajar .report {
+    width: 43px;
+    height: 40px;
+  }
+  
+  .belajar .text-wrapper-6 {
+    margin-top: 6px;
+    width: 203px;
+    height: 34px;
+    font-family: "Fredoka-SemiBold", Helvetica;
+    font-weight: 600;
+    color: #555555;
+    font-size: 28px;
+    letter-spacing: 0;
+    line-height: normal;
+  }
+  
+  .belajar .group-10 {
+    position: absolute;
+    top: 379px;
+    left: 46px;
+    width: 94px;
+    height: 35px;
+    display: flex;
+    gap: 7px;
+  }
+  
+  .belajar .target {
+    width: 35px;
+    height: 35px;
+    aspect-ratio: 1;
+    object-fit: cover;
+  }
+  
+  .belajar .text-wrapper-7 {
+    width: 50px;
+    height: 34px;
+    font-family: "Fredoka-SemiBold", Helvetica;
+    font-weight: 600;
+    color: #555555;
+    font-size: 28px;
+    letter-spacing: 0;
+    line-height: normal;
+  }
+  
+  .belajar .group-11 {
+    position: absolute;
+    top: 284px;
+    left: 38px;
+    width: 152px;
+    height: 38px;
+    display: flex;
+    gap: 10px;
+  }
+  
+  .belajar .think-do {
+    width: 43px;
+    height: 38px;
+  }
+  
+  .belajar .text-wrapper-8 {
+    margin-top: 3px;
+    width: 97px;
+    height: 34px;
+    font-family: "Fredoka-SemiBold", Helvetica;
+    font-weight: 600;
+    color: #555555;
+    font-size: 28px;
+    letter-spacing: 0;
+    line-height: normal;
+  }
+  
+  .belajar .rectangle-3 {
+    position: absolute;
+    top: 179px;
+    left: 9px;
+    width: 306px;
+    height: 78px;
+  }
+  
+  .belajar .group-12 {
+    position: absolute;
+    top: 191px;
+    left: 39px;
+    width: 143px;
+    height: 43px;
+    display: flex;
+    gap: 6px;
+  }
+  
+  .belajar .study {
+    width: 44px;
+    height: 43px;
+  }
+  
+  .belajar .text-wrapper-9 {
+    margin-top: 4px;
+    width: 91px;
+    height: 34px;
+    font-family: "Fredoka-SemiBold", Helvetica;
+    font-weight: 600;
+    color: #555555;
+    font-size: 28px;
+    letter-spacing: 0;
+    line-height: normal;
+  }
+  
+  .belajar .fun-removebg-preview {
+    position: absolute;
+    top: 1px;
+    left: 19px;
+    width: 256px;
+    height: 124px;
+    aspect-ratio: 2.07;
+    object-fit: cover;
+  }
+  

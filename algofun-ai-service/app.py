@@ -1,6 +1,6 @@
 # app.py
 import os
-import json
+from typing import List
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -30,12 +30,19 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# 4. Definisikan request schema
+# 4. Definisikan schema untuk jawaban
+class Answer(BaseModel):
+    q: int
+    question: str
+    student_answer: str
+    correct_answer: str
+    correct: bool
+
 class AnalyzeRequest(BaseModel):
     student_id: int
-    answers: list  # contoh: [{"q":1,"correct":False}, {"q":2,"correct":True}]
+    answers: List[Answer]
 
-# 5. Endpoint tes (buat cek server jalan)
+# 5. Endpoint tes
 @app.get("/")
 def root():
     return {"message": "AI microservice is running 🚀"}
@@ -44,20 +51,25 @@ def root():
 @app.post("/analyze")
 async def analyze(data: AnalyzeRequest):
     try:
-        # Hitung soal yang salah
-        wrong = [a for a in data.answers if a["correct"] is False]
-        weak_points = [f"Q{a['q']}" for a in wrong]
+        # Ambil soal yang salah
+        wrong = [a for a in data.answers if a.correct is False]
+        weak_points = [f"Q{a.q}" for a in wrong]
 
         # Buat prompt untuk Gemini
         prompt = f"""
-        Seorang siswa (ID: {data.student_id}) salah di {len(wrong)} soal: {weak_points}.
-        Tolong buat laporan singkat:
+        Seorang siswa (ID: {data.student_id}) mengerjakan {len(data.answers)} soal.
+        Ia salah pada {len(wrong)} soal: {weak_points}.
+
+        Berikut detail soal yang salah:
+        {[(a.q, a.question, a.student_answer, a.correct_answer) for a in wrong]}
+
+        Tolong buat laporan singkat dalam bahasa yang mudah dipahami anak SD:
         1. Materi yang lemah
         2. Saran latihan tambahan
-        3. Contoh soal baru (1 saja).
+        3. Contoh soal baru (1 saja, sesuai level kelas 3–5 SD).
         """
 
-        # Panggil Gemini
+        # Panggil Gemini API
         response = client.models.generate_content(
             model=MODEL,
             contents=prompt

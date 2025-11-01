@@ -35,11 +35,26 @@
             0% { transform: scaleX(0); }
             100% { transform: scaleX(1); }
         }
+        @keyframes timer-glow {
+            0%, 100% { box-shadow: 0 0 5px rgba(220, 38, 38, 0.5); }
+            50% { box-shadow: 0 0 20px rgba(220, 38, 38, 0.8), 0 0 30px rgba(220, 38, 38, 0.6); }
+        }
+        @keyframes timer-urgent {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        @keyframes timer-flash {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
         .bounce-animation { animation: bounce 0.6s ease-in-out; }
         .shake-animation { animation: shake 0.5s ease-in-out; }
         .pulse-animation { animation: pulse 0.3s ease-in-out; }
         .wiggle-animation { animation: wiggle 0.3s ease-in-out; }
         .grow-animation { animation: grow 0.5s ease-out; }
+        .timer-glow { animation: timer-glow 2s ease-in-out infinite; }
+        .timer-urgent { animation: timer-urgent 0.5s ease-in-out infinite; }
+        .timer-flash { animation: timer-flash 1s ease-in-out infinite; }
         .font-poppins { font-family: 'Poppins', sans-serif; }
     </style>
 </head>
@@ -57,8 +72,38 @@
             <span class="hidden sm:inline">Keluar</span>
         </a>
 
-        <!-- Progress bar konsisten dengan warna aplikasi -->
-        <div class="flex-1 mx-8 flex items-center">
+        <!-- Timer yang menarik - dipindah ke atas progress bar -->
+        <div class="flex-1 mx-8 flex flex-col items-center">
+            <!-- Timer -->
+            <div class="flex items-center space-x-2 text-white px-4 py-2 rounded-xl shadow-md font-semibold timer-glow mb-3" 
+                 :class="timeLeft <= 10 ? 'bg-gradient-to-r from-[#DC2626] to-[#EF4444] timer-urgent' : 'bg-gradient-to-r from-[#DC2626] to-[#EF4444]'"
+                 x-data="timerApp()" 
+                 x-init="startTimer()">
+                <div class="relative">
+                    <i data-lucide="clock" class="w-5 h-5" :class="timeLeft <= 10 ? 'animate-spin timer-flash' : 'animate-spin'"></i>
+                    <div class="absolute -top-1 -right-1 w-2 h-2 rounded-full animate-ping" 
+                         :class="timeLeft <= 10 ? 'bg-yellow-300' : 'bg-white'"></div>
+                </div>
+                <div class="flex flex-col items-center">
+                    <span class="font-extrabold text-lg" 
+                          x-text="timeLeft" 
+                          :class="timeLeft <= 10 ? 'text-yellow-300 animate-bounce timer-flash' : 'text-white'"></span>
+                    <span class="text-xs font-medium">detik</span>
+                </div>
+                <div class="w-8 h-8 relative">
+                    <svg class="w-8 h-8 transform -rotate-90" viewBox="0 0 36 36">
+                        <path class="text-white/30" stroke="currentColor" stroke-width="3" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                        <path class="transition-all duration-1000" 
+                              :class="timeLeft <= 10 ? 'text-yellow-300' : 'text-white'"
+                              stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" 
+                              :stroke-dasharray="circumference" 
+                              :stroke-dashoffset="circumference - (timeLeft / 60) * circumference"
+                              d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                    </svg>
+                </div>
+            </div>
+            
+            <!-- Progress bar konsisten dengan warna aplikasi -->
             @php $percent = $total > 0 ? round(($id / $total) * 100) : 0; @endphp
             <div class="w-full flex flex-col items-center">
                 <div class="w-full h-4 bg-gray-200 rounded-full overflow-hidden shadow-inner">
@@ -229,6 +274,73 @@
                 init() {
                     // Initialize progress bar
                     this.progress = {{ $percent }};
+                }
+            };
+        }
+
+        // Alpine.js data untuk timer
+        function timerApp() {
+            return {
+                timeLeft: 60, // 1 menit = 60 detik
+                circumference: 2 * Math.PI * 15.9155, // radius = 15.9155
+                timerInterval: null,
+                
+                startTimer() {
+                    this.timerInterval = setInterval(() => {
+                        if (this.timeLeft > 0) {
+                            this.timeLeft--;
+                            
+                            // Ketika waktu habis, otomatis submit atau skip
+                            if (this.timeLeft === 0) {
+                                this.handleTimeUp();
+                            }
+                        }
+                    }, 1000);
+                },
+                
+                handleTimeUp() {
+                    // Hentikan timer
+                    if (this.timerInterval) {
+                        clearInterval(this.timerInterval);
+                    }
+                    
+                    // Tampilkan notifikasi waktu habis
+                    this.showTimeUpNotification();
+                    
+                    // Otomatis skip ke soal berikutnya setelah 2 detik
+                    setTimeout(() => {
+                        const skipBtn = document.getElementById('skip-btn');
+                        if (skipBtn) {
+                            skipBtn.click();
+                        }
+                    }, 2000);
+                },
+                
+                showTimeUpNotification() {
+                    // Buat notifikasi waktu habis
+                    const notification = document.createElement('div');
+                    notification.className = 'fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 bg-red-500 text-white px-8 py-6 rounded-2xl shadow-2xl text-center animate-bounce';
+                    notification.innerHTML = `
+                        <div class="text-4xl mb-3">⏰</div>
+                        <div class="text-xl font-bold mb-2">Waktu Habis!</div>
+                        <div class="text-sm">Otomatis lanjut ke soal berikutnya...</div>
+                    `;
+                    
+                    document.body.appendChild(notification);
+                    
+                    // Hapus notifikasi setelah 3 detik
+                    setTimeout(() => {
+                        notification.remove();
+                    }, 3000);
+                },
+                
+                // Method untuk reset timer (bisa dipanggil saat pindah soal)
+                resetTimer() {
+                    if (this.timerInterval) {
+                        clearInterval(this.timerInterval);
+                    }
+                    this.timeLeft = 60;
+                    this.startTimer();
                 }
             };
         }

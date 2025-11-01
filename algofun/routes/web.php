@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\students\LevelController;
+use App\Http\Controllers\Students\BelajarController;
 
 
 Route::get('/', function () {
@@ -12,69 +13,7 @@ Route::get('/dashboard', function () {
     return view('students.dashboard');
 });
 
-Route::get('/belajar', function () {
-    return view('students.roadmap');
-});
-
-//Route::get('/soal-mc', function () {
-//$question = [
-//'type' => 'multiple_choice',
-//'text' => 'Apa yang harus dilakukan setelah bangun tidur?',
-//'image' => 'bangun.png', // optional
-//'options' => ['Tidur lagi', 'Mandi', 'Main game'],
-//'correct' => 'Mandi'
-//];
-//return view('students.multiple', compact('question'));
-//});
-
-//Route::get('/soal', function () {
-//$question = [
-//'type' => 'ordering',
-//'text' => 'Apa urutan langkah yang tepat?',
-//'images' => ['mandi.png','sekolah.png','sarapan.png'],
-//'options' => ['Sarapan', 'Mandi', 'Sekolah'],
-//'correct' => ['Mandi','Sarapan','Sekolah']
-//];
-//return view('students.ordering', compact('question'));
-//});
-
-//Route::get('/soal-matching', function () {
-//$question = [
-//'type' => 'matching',
-//'text' => 'Cocokkan benda dengan fungsinya',
-//'left' => [
-//['id' => 1, 'text' => 'Sikat Gigi'],
-//['id' => 2, 'text' => 'Buku']
-//],
-//'right' => [
-//['id' => 'a', 'text' => 'Membaca'],
-//['id' => 'b', 'text' => 'Membersihkan gigi']
-//],
-//'correct' => [
-//[1,'b'], [2,'a']
-// ]
-//];
-//return view('students.matching', compact('question'));
-//});
-
-//Route::get('/soal-fill', function () {
-//$question = [
-//'type' => 'fill_blank',
-//'text' => 'Lengkapi kalimat berikut:',
-//'sentence' => 'Air berwarna <b>____</b>.',
-//'correct' => 'bening'
-//];
-//return view('students.fillblank', compact('question'));
-//});
-
-//Route::get('/soal-truefalse', function () {
-//$question = [
-//   'type' => 'true_false',
-//    'text' => 'Matahari terbit dari Barat.',
-//    'correct' => false
-//];
-//return view('students.true', compact('question'));
-//});
+Route::get('/belajar', [BelajarController::class, 'index']);
 
 use App\Http\Controllers\Students\QuizController;
 use App\Http\Controllers\AIController;
@@ -87,7 +26,7 @@ Route::get('/quiz-finish', [QuizController::class, 'finish'])->name('quiz.finish
 
 // Route untuk halaman hasil quiz
 Route::get('/quiz-results', function () {
-    return view('quiz-results');
+    return view('questions.quiz-results');
 });
 
 Route::get('/soal/{id}', function ($id) {

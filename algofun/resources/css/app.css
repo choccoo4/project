@@ -10,20 +10,46 @@
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
 
-/* Global font application */
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&display=swap');
+
+/* Body default pakai Nunito */
 body {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Nunito', sans-serif;
+    color: #555555;
+    background-color: #FFF9F5;
 }
 
-/* Custom utility classes */
-.font-poppins {
-    font-family: 'Poppins', sans-serif;
+/* Custom classes */
+.font-fredoka {
+    font-family: 'Fredoka', sans-serif !important;
+}
+
+.font-nunito {
+    font-family: 'Nunito', sans-serif !important;
+}
+
+/* Versi spesifik weight */
+.font-nunito-semibold {
+    font-family: 'Nunito', sans-serif !important;
+    font-weight: 600;
+}
+
+.font-nunito-extrabold {
+    font-family: 'Nunito', sans-serif !important;
+    font-weight: 800;
 }
 
 /* Enhanced animations */
 @keyframes confetti {
-    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-    100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(-100vh) rotate(360deg);
+        opacity: 0;
+    }
 }
 
 .confetti-animation {
@@ -35,4 +61,17 @@ body {
     transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 150ms;
+}
+
+/* Sembunyikan scrollbar khusus di sidebar */
+.sidebar::-webkit-scrollbar {
+    display: none;
+    /* untuk Chrome, Safari */
+}
+
+.sidebar {
+    -ms-overflow-style: none;
+    /* untuk Internet Explorer dan Edge */
+    scrollbar-width: none;
+    /* untuk Firefox */
 }

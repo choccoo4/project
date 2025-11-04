@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\students\LevelController;
 use App\Http\Controllers\Students\BelajarController;
+use App\Http\Controllers\Admin\AdminController;
 
 
 Route::get('/', function () {
@@ -82,3 +83,4 @@ Route::get('/generate-soal-ai', [AIController::class, 'generateQuestion']);
 Route::get('/debug-gemini', function() {
     dd(config('services.gemini.key'), config('services.gemini.model'));
 });
+Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');

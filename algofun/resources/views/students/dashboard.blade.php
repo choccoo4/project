@@ -1,4 +1,4 @@
-@extends('layouts.students')
+@extends('layouts.student')
 
 @section('content')
 <div class="min-h-screen bg-[#FFF8F2] p-6">

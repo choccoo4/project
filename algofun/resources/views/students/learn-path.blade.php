@@ -1,4 +1,4 @@
-@extends('layouts.students')
+@extends('layouts.student')
 
 @section('title', 'Belajar - Semua Level')
 

@@ -1,11 +1,11 @@
 @extends('layouts.admin')
 
 @section('content')
-<div class="min-h-screen bg-[#FFF8F2] p-6 font-fredoka">
+<div class="min-h-screen bg-[#FFF8F2] p-6">
 
   <!-- Header -->
   <header class="flex justify-between items-center mb-8 bg-white rounded-2xl shadow px-6 py-4">
-    <h1 class="text-2xl font-extrabold text-[#EB580C] flex items-center gap-2">
+    <h1 class="font-fredoka text-2xl font-extrabold text-[#EB580C] flex items-center gap-2">
       <img src="https://img.icons8.com/color/96/combo-chart--v1.png" class="w-8 h-8" alt="Dashboard">
       Dashboard Admin
     </h1>
@@ -20,11 +20,11 @@
 
     <!-- Grafik Progres -->
     <div class="bg-white rounded-2xl shadow p-6">
-      <h2 class="text-xl font-bold mb-4 text-[#555555] flex items-center gap-2">
+      <h2 class="font-fredoka text-xl font-bold mb-4 text-[#555555] flex items-center gap-2">
         <img src="https://img.icons8.com/color/96/graph--v1.png" class="w-6 h-6">
         Distribusi Level Siswa
       </h2>
-      <canvas id="progressChart" class="w-full h-64"></canvas>
+      <canvas id="progressChart" class="w-full" style="max-height: 280px;"></canvas>
       <p class="mt-3 text-sm text-gray-500 text-center italic">
         Menunjukkan berapa banyak siswa berada di setiap level pembelajaran
       </p>
@@ -32,24 +32,24 @@
 
     <!-- Grafik Topik Tersulit -->
     <div class="bg-white rounded-2xl shadow p-6">
-      <h2 class="text-xl font-bold mb-4 text-[#555555] flex items-center gap-2">
+      <h2 class="font-fredoka text-xl font-bold mb-4 text-[#555555] flex items-center gap-2">
         <img src="https://img.icons8.com/color/96/pie-chart.png" class="w-6 h-6">
         Topik Tersulit
       </h2>
-      <canvas id="difficultyChart" class="w-full h-64"></canvas>
+      <canvas id="difficultyChart" class="w-full" style="max-height: 280px;"></canvas>
     </div>
 
   </div>
 
   <!-- Insight AI -->
   <div class="bg-white rounded-2xl shadow p-6 mt-8 border-l-8 border-[#EB580C]">
-    <h2 class="text-xl font-bold mb-4 text-[#555555] flex items-center gap-2">
+    <h2 class="font-fredoka text-xl font-bold mb-4 text-[#555555] flex items-center gap-2">
       <img src="https://img.icons8.com/color/96/artificial-intelligence.png" class="w-6 h-6">
       Insight AI
     </h2>
     <div class="bg-[#FFD6A5] rounded-xl shadow p-4 flex items-center gap-4">
       <img src="https://img.icons8.com/color/96/idea.png" class="w-10 h-10">
-      <p class="text-lg font-semibold text-gray-700 leading-relaxed">
+      <p class="text-gray-700 text-sm leading-relaxed">
         30% siswa gagal di <b>soal cerita pecahan</b>.<br>
         Level 3 – Step 4 paling sering diulang.<br>
         AI menghasilkan <b>230 soal baru</b> minggu ini.
@@ -59,17 +59,17 @@
 
   <!-- Konten Menunggu Validasi -->
   <div class="bg-white rounded-2xl shadow p-6 mt-8">
-    <h2 class="text-xl font-bold text-[#555555] mb-6 flex items-center gap-2">
+    <h2 class="font-fredoka text-xl font-bold text-[#555555] mb-6 flex items-center gap-2">
       <img src="https://img.icons8.com/color/96/open-book--v1.png" class="w-6 h-6">
       Konten Menunggu Validasi
     </h2>
 
     <div class="space-y-4">
-      <div class="bg-[#C8EEFF] border border-gray-300 rounded-xl p-4 hover:shadow-md transition">
-        <p class="text-lg font-bold text-gray-700">Pecahan Lanjutan</p>
+      <div class="bg-[#C8EEFF] border border-gray-300 rounded-lg p-4 hover:shadow-md transition">
+        <p class="text-sm font-bold text-gray-700">Pecahan Lanjutan</p>
       </div>
-      <div class="bg-[#C8EEFF] border border-gray-300 rounded-xl p-4 hover:shadow-md transition">
-        <p class="text-lg font-bold text-gray-700">Soal Cerita Waktu</p>
+      <div class="bg-[#C8EEFF] border border-gray-300 rounded-lg p-4 hover:shadow-md transition">
+        <p class="text-sm font-bold text-gray-700">Soal Cerita Waktu</p>
       </div>
     </div>
 

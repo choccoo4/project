@@ -152,12 +152,10 @@
     <!-- Floating Button: + Kelas -->
     <button
         @click="window.location.href='{{ url('/kelas/tambah') }}'"
-        class="fixed bottom-6 right-6 flex items-center gap-2 rounded-full border-2 border-[#8EE000] bg-white text-[#555555] font-semibold shadow-md hover:shadow-[#8EE000]/40 px-5 py-3 transition-all duration-300 hover:scale-105">
+        class="fixed bottom-20 md:bottom-6 right-6 flex items-center gap-2 rounded-full border-2 border-[#8EE000] bg-white text-[#555555] font-semibold shadow-md hover:shadow-[#8EE000]/40 px-5 py-3 transition-all duration-300 hover:scale-105 z-40">
         <img src="https://img.icons8.com/?size=100&id=63650&format=png&color=000000" alt="Tambah" class="w-5 h-5">
         <span class="hidden sm:inline font-fredoka">Kelas</span>
     </button>
-
-
 </div>
 
 <!-- animasi keyframe progress bar -->

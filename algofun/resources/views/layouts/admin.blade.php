@@ -4,7 +4,7 @@
 
 @section('sidebar')
 <aside
-    x-data="{ open: true, menuDataset: false, menuAI: false, menuUser: false }"
+    x-data="{ menuDataset: false, menuAI: false, menuUser: false }"
     x-show="open"
     x-transition.duration.300ms
     class="sidebar w-72 bg-white border-r-4 border-orange-500 flex flex-col py-8 h-screen
@@ -20,11 +20,11 @@
     </div>
 
     <!-- Navigation -->
-    <nav class="flex flex-col w-full gap-4 font-fredoka text-lg font-semibold">
+    <nav class="flex flex-col w-full gap-4 text-lg font-semibold">
 
         <!-- Dashboard -->
         <a href="{{ route('admin.dashboard') }}"
-            class="flex items-center gap-3 px-5 py-4 rounded-2xl border transition-all duration-200
+            class="font-fredoka flex items-center gap-3 px-5 py-4 rounded-2xl border transition-all duration-200
                 hover:bg-[#FFF3E0] hover:border-[#F5D49F]
                 {{ request()->routeIs('admin.dashboard') ? 'bg-[#FFF3E0] border-[#F5D49F] text-[#EB580C]' : 'border-transparent' }}">
             <img src="https://img.icons8.com/color/96/combo-chart--v1.png" class="w-7 h-7 hover:scale-110" alt="Dashboard">
@@ -35,7 +35,7 @@
         <div>
             <button @click="menuDataset = !menuDataset"
                 class="w-full flex items-center justify-between px-5 py-4 rounded-2xl border border-transparent hover:bg-[#FFF3E0]/60 transition">
-                <div class="flex items-center gap-3">
+                <div class="font-fredoka flex items-center gap-3">
                     <img src="https://img.icons8.com/color/96/open-book--v1.png" class="w-7 h-7 hover:scale-110" alt="Dataset">
                     <span>Konten & Dataset</span>
                 </div>
@@ -47,10 +47,10 @@
             </button>
 
             <div x-show="menuDataset" x-transition.duration.300ms class="ml-11 space-y-2 mt-2">
-                <a href="#" class="flex items-center gap-2 text-base text-gray-600 hover:text-[#EB580C] transition">
+                <a href="#" class="font-fredoka flex items-center gap-2 text-base text-gray-600 hover:text-[#EB580C] transition">
                     <img src="https://img.icons8.com/color/96/upload--v1.png" class="w-5 h-5"> Upload Dataset
                 </a>
-                <a href="#" class="flex items-center gap-2 text-base text-gray-600 hover:text-[#EB580C] transition">
+                <a href="#" class="font-fredoka flex items-center gap-2 text-base text-gray-600 hover:text-[#EB580C] transition">
                     <img src="https://img.icons8.com/color/96/data-configuration.png" class="w-5 h-5"> Manajemen Dataset
                 </a>
             </div>
@@ -60,7 +60,7 @@
         <div>
             <button @click="menuAI = !menuAI"
                 class="w-full flex items-center justify-between px-5 py-4 rounded-2xl border border-transparent hover:bg-[#FFF3E0]/60 transition">
-                <div class="flex items-center gap-3">
+                <div class="font-fredoka flex items-center gap-3">
                     <img src="https://img.icons8.com/color/96/artificial-intelligence.png" class="w-7 h-7 hover:scale-110" alt="AI">
                     <span>Pusat AI</span>
                 </div>
@@ -72,8 +72,8 @@
             </button>
 
             <div x-show="menuAI" x-transition.duration.300ms class="ml-11 space-y-2 mt-2">
-                <a href="#" class="flex items-center gap-2 text-base text-gray-600 hover:text-[#EB580C] transition">
-                    <img src="https://img.icons8.com/color/96/quiz.png" class="w-5 h-5"> Rekomendasi Soal
+                <a href="#" class="font-fredoka flex items-center gap-2 text-base text-gray-600 hover:text-[#EB580C] transition">
+                    <img src="https://img.icons8.com/?size=100&id=5ime9fHkckQl&format=png&color=000000" class="w-5 h-5"> Rekomendasi Soal
                 </a>
             </div>
         </div>
@@ -82,7 +82,7 @@
         <div>
             <button @click="menuUser = !menuUser"
                 class="w-full flex items-center justify-between px-5 py-4 rounded-2xl border border-transparent hover:bg-[#FFF3E0]/60 transition">
-                <div class="flex items-center gap-3">
+                <div class="font-fredoka flex items-center gap-3">
                     <img src="https://img.icons8.com/color/96/conference-call.png" class="w-7 h-7 hover:scale-110" alt="Users">
                     <span>Daftar Pengguna</span>
                 </div>
@@ -94,10 +94,10 @@
             </button>
 
             <div x-show="menuUser" x-transition.duration.300ms class="ml-11 space-y-2 mt-2">
-                <a href="#" class="flex items-center gap-2 text-base text-gray-600 hover:text-[#EB580C] transition">
+                <a href="#" class="font-fredoka flex items-center gap-2 text-base text-gray-600 hover:text-[#EB580C] transition">
                     <img src="https://img.icons8.com/color/96/student-center.png" class="w-5 h-5"> Siswa
                 </a>
-                <a href="#" class="flex items-center gap-2 text-base text-gray-600 hover:text-[#EB580C] transition">
+                <a href="#" class="font-fredoka flex items-center gap-2 text-base text-gray-600 hover:text-[#EB580C] transition">
                     <img src="https://img.icons8.com/color/96/training.png" class="w-5 h-5"> Guru
                 </a>
             </div>
@@ -105,14 +105,14 @@
 
         <!-- Analisis & Insight -->
         <a href="#"
-            class="flex items-center gap-3 px-5 py-4 rounded-2xl border border-transparent hover:bg-[#FFF3E0] hover:border-[#F5D49F] transition">
+            class="font-fredoka flex items-center gap-3 px-5 py-4 rounded-2xl border border-transparent hover:bg-[#FFF3E0] hover:border-[#F5D49F] transition">
             <img src="https://img.icons8.com/color/96/analytics.png" class="w-7 h-7 hover:scale-110" alt="Analisis">
             <span>Analisis & Insight</span>
         </a>
 
         <!-- Laporan & Ekspor -->
         <a href="#"
-            class="flex items-center gap-3 px-5 py-4 rounded-2xl border border-transparent hover:bg-[#FFF3E0] hover:border-[#F5D49F] transition">
+            class="font-fredoka flex items-center gap-3 px-5 py-4 rounded-2xl border border-transparent hover:bg-[#FFF3E0] hover:border-[#F5D49F] transition">
             <img src="https://img.icons8.com/color/96/export.png" class="w-7 h-7 hover:scale-110" alt="Laporan">
             <span>Laporan & Ekspor</span>
         </a>
@@ -120,7 +120,7 @@
 
     <!-- Logout -->
     <div class="mt-6">
-        <a href="#" class="flex items-center gap-3 px-5 py-4 rounded-2xl border border-transparent hover:bg-[#FFF3E0] hover:border-[#F5D49F] transition">
+        <a href="#" class="font-fredoka flex items-center gap-3 px-5 py-4 rounded-2xl border border-transparent hover:bg-[#FFF3E0] hover:border-[#F5D49F] transition">
             <img src="https://img.icons8.com/color/96/logout-rounded-up.png" class="w-7 h-7 hover:scale-110" alt="Keluar">
             <span>Keluar</span>
         </a>

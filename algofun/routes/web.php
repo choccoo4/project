@@ -5,8 +5,10 @@ use App\Http\Controllers\students\LevelController;
 use App\Http\Controllers\Students\BelajarController;
 use App\Http\Controllers\Students\LatihanController;
 use App\Http\Controllers\Students\MisiController;
-use App\Http\Controllers\Admin\AdminController;
-
+use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Students\QuizController;
+use App\Http\Controllers\AIController;
+use App\Http\Controllers\Teacher\DashboardController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -24,19 +26,12 @@ Route::get('/misi', function () {
     return view('students.misi');
 });
 
-
 Route::get('/belajar', [BelajarController::class, 'index']);
-
-use App\Http\Controllers\Students\QuizController;
-use App\Http\Controllers\AIController;
-
 
 Route::get('/quiz', [QuizController::class, 'start'])->name('quiz.start');
 Route::get('/quiz/{index}', [QuizController::class, 'show'])->name('quiz.show');
 Route::get('/quiz/{index}/next', [QuizController::class, 'next'])->name('quiz.next'); // NEW
-Route::get('/quiz-finish', [QuizController::class, 'finish'])->name('quiz.finish');
 
-// Route untuk halaman hasil quiz
 Route::get('/quiz-results', function () {
     return view('questions.quiz-results');
 });
@@ -94,4 +89,7 @@ Route::get('/generate-soal-ai', [AIController::class, 'generateQuestion']);
 Route::get('/debug-gemini', function() {
     dd(config('services.gemini.key'), config('services.gemini.model'));
 });
-Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+Route::get('/admin/dashboard', [AdminDashboardController::class, 'dashboard'])->name('admin.dashboard');
+
+
+Route::get('/guru/dashboard', [DashboardController::class, 'dashboard'])->name('guru.dashboard');

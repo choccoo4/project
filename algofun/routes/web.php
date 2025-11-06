@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\students\LevelController;
 use App\Http\Controllers\Students\BelajarController;
+use App\Http\Controllers\Students\LatihanController;
+use App\Http\Controllers\Students\MisiController;
 use App\Http\Controllers\Admin\AdminController;
 
 
@@ -13,6 +15,15 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('students.dashboard');
 });
+
+Route::get('/latihan', function () {
+    return view('students.latihan');
+});
+
+Route::get('/misi', function () {
+    return view('students.misi');
+});
+
 
 Route::get('/belajar', [BelajarController::class, 'index']);
 

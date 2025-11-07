@@ -43,17 +43,19 @@
 
   <!-- Insight AI -->
   <div class="bg-white rounded-2xl shadow p-6 mt-8 border-l-8 border-[#EB580C]">
-    <h2 class="font-fredoka text-xl font-bold mb-4 text-[#555555] flex items-center gap-2">
-      <img src="https://img.icons8.com/color/96/artificial-intelligence.png" class="w-6 h-6">
-      Insight AI
-    </h2>
-    <div class="bg-[#FFD6A5] rounded-xl shadow p-4 flex items-center gap-4">
-      <img src="https://img.icons8.com/color/96/idea.png" class="w-10 h-10">
-      <p class="text-gray-700 text-sm leading-relaxed">
-        30% siswa gagal di <b>soal cerita pecahan</b>.<br>
-        Level 3 – Step 4 paling sering diulang.<br>
-        AI menghasilkan <b>230 soal baru</b> minggu ini.
-      </p>
+    <div class="flex items-center gap-3 mb-3">
+      <img src="https://img.icons8.com/color/48/artificial-intelligence.png" class="w-10 h-10">
+      <h3 class="text-[#EB580C] font-fredoka text-2xl font-semibold">Evaluasi Belajar (AI Insight)</h3>
+    </div>
+    <div class="bg-orange-200 p-5 rounded-2xl shadow-md flex gap-4">
+      <img src="https://img.icons8.com/color/48/idea.png" class="w-10 h-10">
+      <div>
+        <p class="text-gray-700 text-sm leading-relaxed">
+          30% siswa gagal di <b>soal cerita pecahan</b>.<br>
+          Level 3 – Step 4 paling sering diulang.<br>
+          AI menghasilkan <b>230 soal baru</b> minggu ini.
+        </p>
+      </div>
     </div>
   </div>
 </div>

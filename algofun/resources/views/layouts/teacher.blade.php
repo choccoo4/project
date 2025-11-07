@@ -30,29 +30,30 @@
             <span>Dashboard</span>
         </a>
 
-        <!-- Kelas & Papan Skor -->
-        <a href="#"
+        <!-- Kelas -->
+        <a href="{{ route('guru.kelas') }}"
             class="font-fredoka flex items-center gap-3 px-5 py-4 rounded-2xl border transition-all duration-200
-                hover:bg-[#FFF3E0] hover:border-[#F5D49F]
-                {{ request()->routeIs('guru.kelas') ? 'bg-[#FFF3E0] border-[#F5D49F] text-[#EB580C]' : 'border-transparent' }}">
+        hover:bg-[#FFF3E0] hover:border-[#F5D49F]
+        {{ request()->routeIs('guru.kelas*') ? 'bg-[#FFF3E0] border-[#F5D49F] text-[#EB580C]' : 'border-transparent' }}">
             <img src="https://img.icons8.com/color/96/classroom.png" alt="Kelas" class="w-7 h-7 hover:scale-110">
             <span>Kelas</span>
         </a>
 
-        <a href="{{ url('/papan-skor') }}"
+
+        <a href="{{ route('guru.papanskor') }}"
             class="font-fredoka flex items-center gap-3 px-5 py-4 rounded-2xl border transition-all duration-200
                 hover:bg-[#FFF3E0] hover:border-[#F5D49F]
-                {{ request()->is('papan-skor') ? 'bg-[#FFF3E0] border-[#F5D49F]' : 'border-transparent' }}">
+                {{ request()->routeIs('guru.papanskor') ? 'bg-[#FFF3E0] border-[#F5D49F]' : 'border-transparent' }}">
             <img src="https://img.icons8.com/color/96/trophy.png" alt="Papan Skor" class="w-7 h-7 hover:scale-110">
             <span>Papan Skor</span>
         </a>
 
         <!-- Data Diri -->
-        <a href="#"
+        <a href="{{ route('guru.profil') }}"
             class="font-fredoka flex items-center gap-3 px-5 py-4 rounded-2xl border transition-all duration-200
                 hover:bg-[#FFF3E0] hover:border-[#F5D49F]
-                {{ request()->routeIs('guru.data-diri') ? 'bg-[#FFF3E0] border-[#F5D49F] text-[#EB580C]' : 'border-transparent' }}">
-            <img src="https://img.icons8.com/color/96/user.png" alt="Data Diri" class="w-7 h-7 hover:scale-110">
+                {{ request()->routeIs('guru.profil') ? 'bg-[#FFF3E0] border-[#F5D49F] text-[#EB580C]' : 'border-transparent' }}">
+            <img src="https://img.icons8.com/color/48/000000/user-folder.png" alt="Data Diri" class="w-7 h-7 hover:scale-110">
             <span>Data Diri</span>
         </a>
 
@@ -71,23 +72,23 @@
 @section('bottom-nav')
 <!-- Bottom Navigation (Mobile) -->
 <nav class="md:hidden fixed bottom-0 left-0 w-full bg-white border-t border-orange-300 flex justify-around py-2 z-30 shadow-lg">
-    <a href="#" class="flex flex-col items-center text-xs font-fredoka {{ request()->routeIs('guru.dashboard') ? 'text-orange-500' : 'text-gray-400' }}">
+    <a href="{{ route('guru.dashboard') }}" class="flex flex-col items-center text-xs font-fredoka {{ request()->routeIs('guru.dashboard') ? 'text-orange-500' : 'text-gray-400' }}">
         <img src="https://img.icons8.com/color/96/combo-chart--v1.png" class="w-6 h-6">
         <span>Dashboard</span>
     </a>
 
-    <a href="#" class="flex flex-col items-center text-xs font-fredoka {{ request()->routeIs('guru.kelas') ? 'text-orange-500' : 'text-gray-400' }}">
+    <a href="{{ route('guru.kelas') }}" class="flex flex-col items-center text-xs font-fredoka {{ request()->routeIs('guru.kelas') ? 'text-orange-500' : 'text-gray-400' }}">
         <img src="https://img.icons8.com/color/96/classroom.png" class="w-6 h-6">
         <span>Kelas</span>
     </a>
 
-    <a href="{{ url('/papan-skor') }}" class="flex flex-col items-center text-xs font-fredoka {{ request()->is('papan-skor') ? 'text-orange-500' : 'text-gray-400' }}">
+    <a href="{{ route('guru.papanskor') }}" class="flex flex-col items-center text-xs font-fredoka {{ request()->is('papan-skor') ? 'text-orange-500' : 'text-gray-400' }}">
         <img src="https://img.icons8.com/color/96/trophy.png" class="w-6 h-6">
         <span>Skor</span>
     </a>
 
-    <a href="#" class="flex flex-col items-center text-xs font-fredoka {{ request()->routeIs('guru.data-diri') ? 'text-orange-500' : 'text-gray-400' }}">
-        <img src="https://img.icons8.com/color/96/user.png" class="w-6 h-6">
+    <a href="{{ route('guru.profil') }}" class="flex flex-col items-center text-xs font-fredoka {{ request()->routeIs('guru.data-diri') ? 'text-orange-500' : 'text-gray-400' }}">
+        <img src="https://img.icons8.com/color/48/000000/user-folder.png" class="w-6 h-6">
         <span>Data Diri</span>
     </a>
 

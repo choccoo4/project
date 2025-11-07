@@ -9,6 +9,10 @@ use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Students\QuizController;
 use App\Http\Controllers\AIController;
 use App\Http\Controllers\Teacher\DashboardController;
+use App\Http\Controllers\Teacher\ClassController;
+use App\Http\Controllers\Teacher\ScoreboardController;
+use App\Http\Controllers\Teacher\ProfileController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -86,10 +90,17 @@ Route::get('/soal/{id}', function ($id) {
 Route::get('/test-gemini', [AIController::class, 'ask']);
 Route::get('/generate-soal-ai', [AIController::class, 'generateQuestion']);
 
-Route::get('/debug-gemini', function() {
+Route::get('/debug-gemini', function () {
     dd(config('services.gemini.key'), config('services.gemini.model'));
 });
 Route::get('/admin/dashboard', [AdminDashboardController::class, 'dashboard'])->name('admin.dashboard');
 
 
 Route::get('/guru/dashboard', [DashboardController::class, 'dashboard'])->name('guru.dashboard');
+Route::get('/guru/kelas', [ClassController::class, 'kelas'])->name('guru.kelas');
+Route::get('/guru/papanskor', [ScoreboardController::class, 'index'])->name('guru.papanskor');
+Route::get('/guru/datadiri', [ProfileController::class, 'profil'])->name('guru.profil');
+Route::get('/guru/kelas', [ClassController::class, 'kelas'])->name('guru.kelas');
+Route::get('/guru/kelas/{id}', [ClassController::class, 'show'])->name('guru.kelas.show');
+Route::get('/guru/kelas/{id}/report/{student_id}', [ClassController::class, 'studentReport'])->name('guru.kelas.report');
+Route::get('/guru/kelas/{id}/pengaturan', [ClassController::class, 'settings'])->name('guru.kelas.settings');

@@ -10,7 +10,7 @@ class ClassController extends Controller
     // halaman daftar kelas (view front-end)
     public function kelas()
     {
-        return view('teacher.kelas');
+        return view('teacher.classes');
     }
 
     // detail kelas -> menampilkan daftar siswa (dummy)
@@ -23,7 +23,7 @@ class ClassController extends Controller
         ];
 
         // kalau mau, bisa juga pass $id kelas ke view: compact('siswa', 'id')
-        return view('teacher.kelas-detail', compact('siswa', 'id'));
+        return view('teacher.detail-classes', compact('siswa', 'id'));
     }
 
     // laporan siswa per individu (frontend dummy)

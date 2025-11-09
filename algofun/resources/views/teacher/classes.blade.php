@@ -17,13 +17,22 @@
     <!-- Grid Kelas -->
     <div class="bg-white rounded-2xl shadow-lg p-8 border border-orange-100">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            @foreach (['orange-400' => 'Matematika 3D', 'lime-400' => 'Kelas B', 'sky-300' => 'Kelas C'] as $color => $kelas)
+            @php
+            $kelasList = [
+            ['nama' => 'Matematika 3D', 'warna' => 'bg-orange-400'],
+            ['nama' => 'Kelas B', 'warna' => 'bg-lime-400'],
+            ['nama' => 'Kelas C', 'warna' => 'bg-sky-300'],
+            ];
+            @endphp
+
+            @foreach ($kelasList as $kelas)
             <a href="{{ route('guru.kelas.show', ['id' => 1]) }}">
                 <div
-                    class="bg-{{ $color }} rounded-2xl shadow-md p-6 flex flex-col items-center justify-center transform hover:-translate-y-1 hover:rotate-1 transition-all duration-300 cursor-pointer">
+                    class="{{ $kelas['warna'] }} rounded-2xl shadow-md p-6 flex flex-col items-center justify-center 
+        transform hover:-translate-y-1 hover:rotate-1 transition-all duration-300 cursor-pointer">
                     <img src="https://img.icons8.com/color/96/conference-call--v1.png"
                         alt="Kelas" class="w-24 h-24 mb-3 drop-shadow-md">
-                    <h2 class="text-xl font-nunito font-bold text-black">{{ $kelas }}</h2>
+                    <h2 class="text-xl font-nunito font-bold text-black">{{ $kelas['nama'] }}</h2>
                 </div>
             </a>
             @endforeach
@@ -32,10 +41,10 @@
 
     <!-- Floating Button -->
     <button
-        @click="openModal = true"
-        class="fixed bottom-8 right-8 flex items-center gap-2 rounded-full border-2 border-[#8EE000] bg-white text-[#555555] font-semibold shadow-lg hover:shadow-[#8EE000]/40 px-6 py-3 transition-all duration-300 hover:scale-105 z-40">
-        <img src="https://img.icons8.com/color/48/add.png" alt="Tambah" class="w-6 h-6">
-        <span class="font-fredoka hidden sm:inline font-fredoka">Kelas</span>
+        @click="window.location.href='{{ url('/kelas/tambah') }}'"
+        class="fixed bottom-20 md:bottom-6 right-6 flex items-center gap-2 rounded-full border-2 border-[#8EE000] bg-white text-[#555555] font-semibold shadow-md hover:shadow-[#8EE000]/40 px-5 py-3 transition-all duration-300 hover:scale-105 z-40">
+        <img src="https://img.icons8.com/?size=100&id=63650&format=png&color=000000" alt="Tambah" class="w-5 h-5">
+        <span class="hidden sm:inline font-fredoka">Kelas</span>
     </button>
 
     <!-- Modal Tambah Kelas -->

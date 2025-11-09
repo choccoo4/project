@@ -25,8 +25,8 @@ class LaporanSiswaController extends Controller
         ];
 
         $chartData = [
-            'labels' => ['5', '6', '7', '8', '9', '10'],
-            'values' => [8, 14, 5, 9, 11, 4, 16],
+            'labels' => ['1', '2', '3'],
+            'values' => [88.6, 84.4, 95.4],
         ];
 
         $aiInsight = [

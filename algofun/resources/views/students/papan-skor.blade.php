@@ -1,7 +1,7 @@
 @extends('layouts.student')
 
 @section('content')
-<div x-data="{ tab: 'mingguan' }" class="p-8 w-full bg-[#FFF7EB] min-h-screen font-nunito">
+<div x-data="{ tab: 'mingguan' }" class="p-8 w-full bg-[#FFF8F2] min-h-screen font-nunito">
 
   {{-- HEADER --}}
   <header class="flex justify-between items-center bg-white rounded-2xl shadow-md px-8 py-4 mb-8">
@@ -15,7 +15,7 @@
       </span>
       <div class="relative">
         <img src="{{ asset('icons/avatar-hero.png') }}" alt="Avatar"
-             class="w-12 h-12 rounded-full border-4 border-[#EB580C] shadow">
+          class="w-12 h-12 rounded-full border-4 border-[#EB580C] shadow">
         <span class="absolute -top-2 -right-2 bg-[#EB580C] text-white text-xs font-bold px-2 py-1 rounded-full shadow">
           Lv. 1
         </span>
@@ -42,7 +42,7 @@
     <div x-show="tab==='mingguan'" x-cloak>
       {{-- ICON TROPHY BESAR --}}
       <div class="flex justify-center mb-6">
-        <img src="{{ asset('icons/big-trophy.png') }}" class="w-35 h-30" alt="Trophy Besar">
+        <img src="{{ asset('icons/big-trophy.png') }}" class="w-50 h-41" alt="Trophy Besar">
       </div>
 
       {{-- TABEL PAPAN SKOR --}}
@@ -52,9 +52,9 @@
           {{-- Rank --}}
           <div class="w-10 text-center font-bold text-gray-600">
             @if ($item['medal'])
-              <img src="{{ asset('icons/'.$item['medal']) }}" alt="Medal" class="w-6 h-6 mx-auto">
+            <img src="{{ asset('icons/'.$item['medal']) }}" alt="Medal" class="w-6 h-6 mx-auto">
             @else
-              {{ $item['rank'] }}
+            {{ $item['rank'] }}
             @endif
           </div>
 

@@ -49,10 +49,10 @@
         </a>
 
         <!-- Data Diri -->
-        <a href="{{ route('guru.profil') }}"
+        <a href="{{ route('guru.profile') }}"
             class="font-fredoka flex items-center gap-3 px-5 py-4 rounded-2xl border transition-all duration-200
                 hover:bg-[#FFF3E0] hover:border-[#F5D49F]
-                {{ request()->routeIs('guru.profil') ? 'bg-[#FFF3E0] border-[#F5D49F] text-[#EB580C]' : 'border-transparent' }}">
+                {{ request()->routeIs('guru.profile') ? 'bg-[#FFF3E0] border-[#F5D49F] text-[#EB580C]' : 'border-transparent' }}">
             <img src="https://img.icons8.com/color/48/000000/user-folder.png" alt="Data Diri" class="w-7 h-7 hover:scale-110">
             <span>Data Diri</span>
         </a>
@@ -87,7 +87,7 @@
         <span>Skor</span>
     </a>
 
-    <a href="{{ route('guru.profil') }}" class="flex flex-col items-center text-xs font-fredoka {{ request()->routeIs('guru.data-diri') ? 'text-orange-500' : 'text-gray-400' }}">
+    <a href="{{ route('guru.profile') }}" class="flex flex-col items-center text-xs font-fredoka {{ request()->routeIs('guru.data-diri') ? 'text-orange-500' : 'text-gray-400' }}">
         <img src="https://img.icons8.com/color/48/000000/user-folder.png" class="w-6 h-6">
         <span>Data Diri</span>
     </a>

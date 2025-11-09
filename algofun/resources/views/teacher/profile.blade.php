@@ -12,7 +12,7 @@
             <h1 class="font-fredoka text-2xl font-extrabold text-[#EB580C]">Data Diri</h1>
         </div>
         <p class="text-gray-800 font-nunito text-lg">
-            Halo, <b class="text-[#EB580C]">Septia</b>
+            Halo, <b class="text-[#EB580C]">{{ $dataDiri['nama_lengkap'] ?? 'Septia' }}</b>
         </p>
     </div>
 
@@ -34,30 +34,30 @@
         </div>
 
         <!-- Form data diri -->
-        <div class="space-y-6 font-nunito text-gray-700">
+        <form class="space-y-8 font-nunito text-gray-700">
 
             <!-- Nama Lengkap -->
             <div class="grid grid-cols-3 items-center">
                 <label class="font-semibold text-right pr-6">Nama Lengkap</label>
-                <input type="text" value="Septia"
-                    readonly
-                    class="col-span-2 w-full border border-[#EAEAEA] rounded-lg px-4 py-2 bg-[#FDFDFD] text-[#7C7C7C] focus:outline-none">
+                <input type="text" value="{{ $dataDiri['nama_lengkap'] ?? 'Septia Riski Masturiy' }}"
+                    class="col-span-2 w-full border border-[#EAEAEA] rounded-lg px-4 py-2 
+                    bg-[#FDFDFD] text-[#333] focus:outline-none focus:ring-2 focus:ring-[#EB580C]">
             </div>
 
             <!-- Nama Pengguna -->
             <div class="grid grid-cols-3 items-center">
                 <label class="font-semibold text-right pr-6">Nama Pengguna</label>
-                <input type="text" value="Septia R"
-                    readonly
-                    class="col-span-2 w-full border border-[#EAEAEA] rounded-lg px-4 py-2 bg-[#FDFDFD] text-[#7C7C7C] focus:outline-none">
+                <input type="text" value="{{ $dataDiri['nama_pengguna'] ?? 'septia_rm' }}"
+                    class="col-span-2 w-full border border-[#EAEAEA] rounded-lg px-4 py-2 
+                    bg-[#FDFDFD] text-[#333] focus:outline-none focus:ring-2 focus:ring-[#EB580C]">
             </div>
 
             <!-- Email -->
             <div class="grid grid-cols-3 items-center">
                 <label class="font-semibold text-right pr-6">Email</label>
-                <input type="text" value="septia@gmail.com"
-                    readonly
-                    class="col-span-2 w-full border border-[#EAEAEA] rounded-lg px-4 py-2 bg-[#FDFDFD] text-[#7C7C7C] focus:outline-none">
+                <input type="email" value="{{ $dataDiri['email'] ?? 'septia@gmail.com' }}"
+                    class="col-span-2 w-full border border-[#EAEAEA] rounded-lg px-4 py-2 
+                    bg-[#FDFDFD] text-[#333] focus:outline-none focus:ring-2 focus:ring-[#EB580C]">
             </div>
 
             <!-- Asal Sekolah -->
@@ -68,9 +68,9 @@
                         @change="otherSchool = $event.target.value === 'lainnya'"
                         class="w-full border border-[#EAEAEA] rounded-lg px-4 py-2 bg-white text-[#333] focus:outline-none">
                         <option value="">-- Pilih Sekolah --</option>
-                        <option value="SD Negeri 001">SD Negeri 001</option>
-                        <option value="SD Negeri 002">SD Negeri 002</option>
-                        <option value="SD Negeri 003">SD Negeri 003</option>
+                        <option value="SD Negeri 001" {{ (isset($dataDiri['asal_sekolah']) && $dataDiri['asal_sekolah'] == 'SD Negeri 001') ? 'selected' : '' }}>SD Negeri 001</option>
+                        <option value="SD Negeri 002" {{ (isset($dataDiri['asal_sekolah']) && $dataDiri['asal_sekolah'] == 'SD Negeri 002') ? 'selected' : '' }}>SD Negeri 002</option>
+                        <option value="SD Negeri 003" {{ (isset($dataDiri['asal_sekolah']) && $dataDiri['asal_sekolah'] == 'SD Negeri 003') ? 'selected' : '' }}>SD Negeri 003</option>
                         <option value="lainnya">Lainnya...</option>
                     </select>
 
@@ -85,28 +85,29 @@
             <!-- NIP -->
             <div class="grid grid-cols-3 items-center">
                 <label class="font-semibold text-right pr-6">NIP</label>
-                <input type="text" placeholder="Belum diisi"
-                    readonly
-                    class="col-span-2 w-full border border-[#EAEAEA] rounded-lg px-4 py-2 bg-[#FDFDFD] text-gray-400 italic focus:outline-none">
+                <input type="text" value="{{ $dataDiri['nip'] ?? '' }}"
+                    placeholder="Belum diisi"
+                    class="col-span-2 w-full border border-[#EAEAEA] rounded-lg px-4 py-2 
+                    bg-[#FDFDFD] text-[#333] focus:outline-none focus:ring-2 focus:ring-[#EB580C]">
             </div>
-        </div>
 
-        <!-- Tombol Aksi -->
-        <div class="flex justify-end gap-6 mt-12">
-            <!-- Batal -->
-            <button
-                class="w-26 h-11 bg-[#F4F4F4] rounded-xl shadow-[0px_8px_4px_rgba(0,0,0,0.25)] 
-                text-[#4C4C4C] text-lg font-fredoka font-semibold hover:bg-white/50 transition-all duration-300">
-                Batal
-            </button>
+            <!-- Tombol Aksi -->
+            <div class="flex justify-end gap-6 mt-12">
+                <!-- Batal -->
+                <button type="reset"
+                    class="w-26 h-11 bg-[#F4F4F4] rounded-xl shadow-[0px_8px_4px_rgba(0,0,0,0.25)] 
+                    text-[#4C4C4C] text-lg font-fredoka font-semibold hover:bg-white/50 transition-all duration-300">
+                    Batal
+                </button>
 
-            <!-- Simpan -->
-            <button
-                class="w-26 h-11 bg-[#8EE000] rounded-xl shadow-[0px_8px_4px_rgba(0,0,0,0.25)] 
-                text-white text-lg font-fredoka font-semibold hover:bg-[#ff6a1f] transition-all duration-300">
-                Simpan
-            </button>
-        </div>
+                <!-- Simpan -->
+                <button type="submit"
+                    class="w-26 h-11 bg-[#8EE000] rounded-xl shadow-[0px_8px_4px_rgba(0,0,0,0.25)] 
+                    text-white text-lg font-fredoka font-semibold hover:bg-[#ff6a1f] transition-all duration-300">
+                    Simpan
+                </button>
+            </div>
+        </form>
     </div>
 </div>
 @endsection

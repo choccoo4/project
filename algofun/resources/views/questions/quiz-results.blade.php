@@ -1,388 +1,131 @@
-<!doctype html>
-<html lang="id" x-data="quizResult()" class="antialiased">
+@extends('layouts.quiz')
 
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Hasil Quiz • AlgoFun</title>
+@section('title', 'Ringkasan Hasil Kuis')
 
-    <!-- Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+@section('content')
 
-    <!-- Tailwind CDN (for quick paste) — replace with your compiled CSS in production -->
-    <script src="https://cdn.tailwindcss.com"></script>
+<!-- ===== HEADER ===== -->
+<header class="flex justify-between items-center bg-[#FFF8F2] px-3 sm:px-5 md:px-6 py-3 sm:py-4 rounded-2xl mb-6 sm:mb-8 gap-3 sm:gap-4">
 
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <!-- kiri: judul dan siswa -->
+    <div class="flex items-center justify-between w-full lg:w-auto bg-white rounded-2xl px-3 sm:px-5 py-3 shadow-md gap-3 sm:gap-6 flex-1 mr-0 lg:mr-4">
+        <div class="flex items-center gap-2 sm:gap-3 font-fredoka">
+            <img src="https://img.icons8.com/color/48/test-passed.png" class="w-6 sm:w-8 h-6 sm:h-8" alt="Quiz Icon">
+            <h1 class="text-[clamp(14px,2vw,20px)] font-extrabold text-[#EB580C]">Ringkasan Hasil Kuis</h1>
+        </div>
 
-    <!-- Alpine -->
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+        <div class="flex items-center gap-2 sm:gap-3 font-nunito">
+            <span class="text-[clamp(12px,2vw,16px)] text-gray-700 hidden xs:inline">
+                Halo, <b class="text-[#EB580C]">{{ Auth::user()->name ?? 'Siswa' }}</b>
+            </span>
+            <div class="relative">
+                <img src="/icons/avatar-hero.png" alt="Avatar"
+                    class="w-10 sm:w-12 md:w-14 h-10 sm:h-12 md:h-14 rounded-full border-4 border-[#EB580C] shadow">
+                <span class="absolute -top-1 -right-2 bg-[#EB580C] text-white text-[10px] sm:text-xs font-bold px-1.5 py-0.5 rounded-full shadow">
+                    Lv. 1
+                </span>
+            </div>
+        </div>
+    </div>
 
-    <style>
-        :root {
-            --accent: #EB580C;
-            /* Oranye utama */
-            --bg: #FFF8F2;
-            /* Kuning pastel / near-white */
-            --success: #22C55E;
-            /* Hijau */
-            --info: #3B82F6;
-            /* Biru muda */
-            --text: #374151;
-            /* teks utama */
-        }
+    <!-- kanan: tombol beranda -->
+    <a href="{{ url('/dashboard') }}"
+        class="bg-white rounded-2xl shadow-md flex items-center justify-center hover:bg-orange-50 transition font-fredoka
+               w-10 h-10 sm:w-auto sm:h-auto sm:px-5 sm:py-3 gap-0 sm:gap-2">
+        <!-- icon -->
+        <img src="https://img.icons8.com/fluency/32/home.png" alt="Beranda" class="w-6 h-6 sm:w-7 sm:h-7">
+        <!-- teks hanya muncul di tablet/desktop -->
+        <span class="hidden sm:inline text-[clamp(12px,2vw,16px)] text-gray-700">Beranda</span>
+    </a>
+</header>
 
-        body {
-            font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-            background: var(--bg);
-            color: var(--text);
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
-        /* Circular progress (SVG) animation helper */
-        .progress-ring__circle {
-            transition: stroke-dashoffset 800ms cubic-bezier(.2, .9, .2, 1);
-            transform: rotate(-90deg);
-            transform-origin: 50% 50%;
-        }
-
-        /* confetti pieces */
-        .conf-piece {
-            position: fixed;
-            width: 10px;
-            height: 10px;
-            border-radius: 2px;
-            z-index: 60;
-            pointer-events: none;
-            will-change: transform, opacity;
-        }
-
-        /* subtle bounce for icons */
-        .btn-raise {
-            transition: transform .18s ease, box-shadow .18s ease;
-        }
-
-        .btn-raise:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-        }
-
-        /* small helper to visually hide but keep accessible */
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border: 0;
-        }
-    </style>
-</head>
-
-<body>
-
-    <!-- Confetti container -->
-    <div id="confetti-root" aria-hidden="true"></div>
-
-    <!-- Page container -->
-    <div class="min-h-screen flex flex-col items-center px-4 py-8">
-
-        <!-- Header -->
-        <header class="w-full max-w-4xl flex items-center justify-between mb-6">
-            <div class="flex items-center gap-3">
-                <div class="w-12 h-12 rounded-2xl flex items-center justify-center bg-white shadow">
-                    <!-- use lucide award icon -->
-                    <i data-lucide="award" class="w-6 h-6 text-[var(--accent)]"></i>
+<!-- ===== MAIN CONTENT ===== -->
+<div class="bg-white border border-zinc-300 rounded-2xl shadow p-4 sm:p-6 md:p-8">
+    <div class="grid grid-cols-12 gap-6 sm:gap-8">
+        <!-- LEFT -->
+        <div class="col-span-12 lg:col-span-8">
+            <div class="flex items-start gap-4 sm:gap-6">
+                <div class="w-16 sm:w-20 md:w-24 h-16 sm:h-20 md:h-24 bg-white border border-zinc-300 rounded-2xl flex items-center justify-center shadow">
+                    <img src="https://img.icons8.com/?size=100&id=gJNnE7dfS2hb&format=png&color=000000" alt="ikon prestasi" class="w-10 sm:w-12 md:w-16 h-10 sm:h-12 md:h-16">
                 </div>
                 <div>
-                    <h1 class="text-xl font-extrabold" style="color:var(--accent)">AlgoFun • Hasil Quiz</h1>
-                    <p class="text-sm text-gray-600">Ringkasan hasil & hadiah XP kamu</p>
+                    <h2 class="text-[#EB580C] font-fredoka font-extrabold text-[clamp(20px,3vw,28px)] leading-snug">Kamu Hebat!</h2>
+                    <p class="mt-1 sm:mt-2 text-[clamp(12px,2.2vw,18px)] text-gray-700">
+                        Kamu sudah menyelesaikan <strong>Kuis Level 1 Step 1</strong>
+                    </p>
                 </div>
             </div>
 
-            <nav class="flex items-center gap-3">
-                <a href="/dashboard" class="inline-flex items-center gap-2 bg-white rounded-2xl px-3 py-2 shadow text-sm hover:bg-white/80 btn-raise">
-                    <i data-lucide="home" class="w-4 h-4 text-[var(--text)]"></i>
-                    <span class="text-[var(--text)] font-semibold">Beranda</span>
-                </a>
-            </nav>
-        </header>
-
-        <!-- Main card -->
-        <main class="w-full max-w-4xl">
-            <section class="bg-white rounded-2xl shadow p-6 lg:p-8">
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
-
-                    <!-- LEFT: big result + feedback -->
-                    <div class="lg:col-span-2 rounded-xl p-4">
-                        <!-- hero -->
-                        <div class="flex items-center gap-4 mb-4">
-                            <div class="w-20 h-20 rounded-2xl flex items-center justify-center bg-[var(--accent)]/10 border border-[var(--accent)]/10">
-                                <i data-lucide="trophy" class="w-8 h-8 text-[var(--accent)]"></i>
-                            </div>
-                            <div>
-                                <h2 class="text-2xl font-extrabold" style="color:var(--accent)" x-text="result.title">Kerja Bagus!</h2>
-                                <p class="text-sm text-gray-600 mt-1" x-text="result.subtitle">Kamu menyelesaikan kuis — berikut ringkasannya.</p>
-                            </div>
-                        </div>
-
-                        <!-- feedback box -->
-                        <div class="rounded-2xl p-4 mb-4 border border-[var(--accent)]/10 bg-[var(--accent)]/5">
-                            <div class="flex items-center gap-4">
-                                <div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-sm">
-                                    <i :data-lucide="result.icon" class="w-6 h-6 text-[var(--accent)]"></i>
-                                </div>
-                                <div>
-                                    <div class="font-semibold text-[var(--text)]" x-text="result.message">Bagus — teruskan!</div>
-                                    <div class="text-xs text-gray-500">Tip: klik "Ulangi" untuk latihan tambahan.</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- stats badges -->
-                        <div class="grid grid-cols-3 gap-3 mt-2">
-                            <div class="bg-white rounded-2xl p-3 shadow border border-gray-100 flex flex-col items-center">
-                                <div class="text-xs text-gray-500">Benar</div>
-                                <div class="text-2xl font-extrabold text-[var(--success)]" x-text="correctCount">0</div>
-                            </div>
-                            <div class="bg-white rounded-2xl p-3 shadow border border-gray-100 flex flex-col items-center">
-                                <div class="text-xs text-gray-500">Salah</div>
-                                <div class="text-2xl font-extrabold text-red-500" x-text="wrongCount">0</div>
-                            </div>
-                            <div class="bg-white rounded-2xl p-3 shadow border border-gray-100 flex flex-col items-center">
-                                <div class="text-xs text-gray-500">XP</div>
-                                <div class="text-2xl font-extrabold text-yellow-600" x-text="xp">0</div>
-                            </div>
-                        </div>
-
-                        <!-- progress (linear) -->
-                        <div class="mt-5">
-                            <div class="flex items-center justify-between mb-2">
-                                <div class="text-sm font-semibold text-[var(--text)]">Progress</div>
-                                <div class="text-sm font-semibold text-[var(--accent)]" x-text="`${correctCount}/${totalQuestions}`">0/0</div>
-                            </div>
-
-                            <div class="w-full bg-gray-200 rounded-full h-4 overflow-hidden">
-                                <div id="linear-bar" class="h-full bg-[var(--accent)] transition-all duration-700" :style="`width:${percentage}%`"></div>
-                            </div>
-
-                            <div class="text-xs text-gray-500 mt-2" x-text="`${percentage}% selesai`">0% selesai</div>
-                        </div>
-                    </div>
-
-                    <!-- RIGHT: circular progress + actions -->
-                    <aside class="flex flex-col items-center gap-4 p-4">
-                        <!-- circular progress SVG -->
-                        <div class="rounded-2xl bg-white p-4 shadow w-48 flex flex-col items-center">
-                            <svg width="120" height="120" viewBox="0 0 120 120" class="mb-2">
-                                <defs>
-                                    <linearGradient id="g1" x1="0" x2="1" y1="0" y2="1">
-                                        <stop offset="0" stop-color="#FFB703" />
-                                        <stop offset="1" stop-color="#EB580C" />
-                                    </linearGradient>
-                                </defs>
-                                <circle cx="60" cy="60" r="48" fill="#fff" stroke="#f0f0f0" stroke-width="8"></circle>
-                                <circle cx="60" cy="60" r="48" fill="transparent" stroke="url(#g1)" stroke-width="8"
-                                    stroke-linecap="round" class="progress-ring__circle" :stroke-dasharray="strokeDashArray" :style="`stroke-dashoffset:${strokeDashOffset}`" />
-                                <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" class="font-bold" style="fill:var(--text); font-size:18px;" x-text="`${percentage}%`">0%</text>
-                            </svg>
-
-                            <div class="text-sm text-gray-600 mb-2">Kamu menyelesaikan</div>
-                            <div class="text-lg font-extrabold text-[var(--accent)]" x-text="levelText">Level</div>
-
-                            <div class="mt-3 w-full">
-                                <button @click="retry()" class="w-full inline-flex items-center justify-center gap-2 px-3 py-2 rounded-2xl bg-[var(--accent)] text-white font-semibold btn-raise">
-                                    <i data-lucide="refresh-cw" class="w-4 h-4"></i> Ulangi
-                                </button>
-                                <a href="/dashboard" class="mt-2 w-full inline-flex items-center justify-center gap-2 px-3 py-2 rounded-2xl bg-[var(--info)] text-white font-semibold btn-raise">
-                                    <i data-lucide="home" class="w-4 h-4"></i> Beranda
-                                </a>
-                            </div>
-                        </div>
-
-                        <!-- small tips card -->
-                        <div class="w-full rounded-2xl p-3 bg-[var(--bg)] border border-[var(--accent)]/10 text-sm text-gray-700">
-                            <div class="font-semibold text-[var(--accent)] mb-1">Tips Cepat</div>
-                            <div x-text="quickTip">Coba ulang materi bagian yang salah.</div>
-                        </div>
-                    </aside>
-
+            <!-- STAT -->
+            <div class="mt-8 flex justify-between gap-3 sm:gap-4">
+                <div class="flex-1 bg-white border border-zinc-200 rounded-2xl shadow-sm py-4 text-center">
+                    <div class="text-green-700 text-[clamp(14px,2.2vw,22px)] font-extrabold">Benar</div>
+                    <div class="text-[clamp(20px,3vw,32px)] font-extrabold mt-1">{{ $correct ?? 12 }}</div>
                 </div>
-            </section>
-        </main>
+                <div class="flex-1 bg-white border border-zinc-200 rounded-2xl shadow-sm py-4 text-center">
+                    <div class="text-red-600 text-[clamp(14px,2.2vw,22px)] font-extrabold">Salah</div>
+                    <div class="text-[clamp(20px,3vw,32px)] font-extrabold mt-1">{{ $wrong ?? 3 }}</div>
+                </div>
+                <div class="flex-1 bg-white border border-zinc-200 rounded-2xl shadow-sm py-4 text-center">
+                    <div class="text-yellow-500 text-[clamp(14px,2.2vw,22px)] font-extrabold">XP</div>
+                    <div class="text-[clamp(20px,3vw,32px)] font-extrabold mt-1">{{ $xp ?? 35 }}</div>
+                </div>
+            </div>
+
+            <!-- AI INSIGHT -->
+            <div class="mt-10 border border-gray-300 rounded-2xl p-5 sm:p-6 bg-orange-50 shadow-inner">
+                <div class="flex items-center gap-3 mb-3">
+                    <img src="/icons/robot.png" class="w-8 sm:w-10 h-8 sm:h-10" alt="Robot Icon">
+                    <h3 class="text-[#EB580C] font-fredoka text-[clamp(16px,2.5vw,24px)] font-semibold">Evaluasi Belajar (AI Insight)</h3>
+                </div>
+                <div class="bg-orange-200 p-4 rounded-2xl flex gap-3 items-start">
+                    <img src="https://img.icons8.com/color/48/idea.png" class="w-8 sm:w-10 h-8 sm:h-10" alt="Insight Icon">
+                    <p class="text-gray-700 text-[clamp(12px,2vw,16px)] leading-relaxed">
+                        Kamu masih lemah di <b>“Soal Cerita Bilangan Cacah sampai 10.000”</b><br>
+                        Latih lagi bagian ini biar naik level lebih cepat!
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT -->
+        <div class="col-span-12 lg:col-span-4 flex flex-col gap-6 mt-6 lg:mt-0">
+            <div class="bg-white border border-zinc-300 rounded-2xl shadow p-5 sm:p-6 text-center">
+                <div
+                    x-data="{
+                        percent: {{ $percent ?? 80 }},
+                        radius: 72,
+                        get circumference(){ return 2 * Math.PI * this.radius },
+                        get dashOffset(){ return this.circumference * (1 - this.percent/100) }
+                    }"
+                    class="flex flex-col items-center">
+                    <svg class="w-32 sm:w-40 h-32 sm:h-40" viewBox="0 0 200 200">
+                        <g transform="translate(100,100)">
+                            <circle r="72" fill="transparent" stroke="#E5E7EB" stroke-width="14"></circle>
+                            <circle r="72" fill="transparent" stroke="#EB580C" stroke-width="14" stroke-linecap="round"
+                                :stroke-dasharray="(2 * Math.PI * 72).toFixed(2)"
+                                :stroke-dashoffset="dashOffset.toFixed(2)"
+                                transform="rotate(-90)"></circle>
+                            <text x="0" y="7" text-anchor="middle" style="font-size:22px; fill:#374151;"
+                                class="font-nunito font-bold" x-text="percent + '%'"></text>
+                        </g>
+                    </svg>
+
+                    <div class="mt-4 w-full">
+                        <button class="w-full bg-[#EB580C] text-white rounded-3xl py-2.5 sm:py-3 font-fredoka shadow-md hover:bg-[#ff6b1c] text-[clamp(12px,2vw,16px)]">Ulangi</button>
+                        <button class="w-full mt-3 bg-lime-500 text-white rounded-3xl py-2.5 sm:py-3 font-fredoka shadow-md hover:bg-lime-600 text-[clamp(12px,2vw,16px)]">Ulas Pelajaran</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white border border-zinc-300 rounded-2xl shadow p-5 sm:p-6 text-center">
+                <div class="flex justify-center mb-2">
+                    <img src="assets/badges/sicepat.png" alt="pencapaian" class="w-14 sm:w-20 h-14 sm:h-20">
+                </div>
+                <h4 class="text-[#EB580C] text-[clamp(14px,2vw,20px)] font-fredoka">Pencapaian Baru!</h4>
+                <p class="text-gray-700 font-semibold mt-1 text-[clamp(12px,1.8vw,16px)]">Si Cepat Hitung</p>
+            </div>
+        </div>
     </div>
-
-    <!-- Script: Alpine data + animations -->
-    <script>
-        document.addEventListener('alpine:init', () => {
-            Alpine.data('quizResult', () => ({
-
-                // data placeholders (ambil dari localStorage atau dummy)
-                correctCount: 0,
-                wrongCount: 0,
-                xp: 0,
-                totalQuestions: 0,
-                percentage: 0,
-                levelText: 'Desa Pemula',
-                result: {
-                    title: 'Kerja Bagus!',
-                    subtitle: 'Ringkasan hasilmu',
-                    icon: 'trophy',
-                    message: 'Terus berlatih untuk dapat lebih banyak XP!'
-                },
-                quickTip: 'Ulangi soal yang salah dan coba lagi!',
-
-                // computed helpers for SVG circle
-                strokeDashArray: null,
-                strokeDashOffset: null,
-
-                init() {
-                    // load results (format sama seperti yang kamu simpan)
-                    const stored = JSON.parse(localStorage.getItem('quizResults') || 'null');
-                    const data = stored || {
-                        correctCount: 3,
-                        wrongCount: 1,
-                        totalQuestions: 4,
-                        xp: 30
-                    };
-
-                    this.correctCount = data.correctCount || 0;
-                    this.wrongCount = data.wrongCount || 0;
-                    this.xp = data.xp || 0;
-                    this.totalQuestions = data.totalQuestions || 0;
-                    this.percentage = this.totalQuestions > 0 ? Math.round((this.correctCount / this.totalQuestions) * 100) : 0;
-
-                    // result message & icon based on percentage (consistent and simple)
-                    if (this.percentage >= 90) {
-                        this.result.title = 'Sempurna!';
-                        this.result.icon = 'award';
-                        this.result.message = 'Luar biasa — kamu hebat!';
-                        this.levelText = 'Master';
-                        this.quickTip = 'Ayo tantang dirimu di level berikutnya!';
-                        this.triggerConfetti();
-                    } else if (this.percentage >= 70) {
-                        this.result.title = 'Bagus!';
-                        this.result.icon = 'star';
-                        this.result.message = 'Kamu hampir sempurna — lanjutkan!';
-                        this.levelText = 'Terampil';
-                        this.quickTip = 'Ulangi 1-2 soal yang salah untuk jadi lebih kuat.';
-                        this.triggerConfetti();
-                    } else if (this.percentage >= 50) {
-                        this.result.title = 'Cukup!';
-                        this.result.icon = 'thumbs-up';
-                        this.result.message = 'Usaha bagus — terus berlatih!';
-                        this.levelText = 'Berlatih';
-                        this.quickTip = 'Perhatikan penjelasan pada soal yang salah.';
-                    } else {
-                        this.result.title = 'Tetap Semangat!';
-                        this.result.icon = 'heart';
-                        this.result.message = 'Jangan khawatir — coba lagi dan kamu pasti bisa!';
-                        this.levelText = 'Pemula';
-                        this.quickTip = 'Coba ulang kuis untuk memperbaiki skor.';
-                    }
-
-                    // prepare SVG circular progress values
-                    const radius = 48; // matches SVG r
-                    const circumference = 2 * Math.PI * radius;
-                    this.strokeDashArray = `${circumference} ${circumference}`;
-                    // offset such that 0% shows full circumference hidden (stroke-dashoffset = circumference)
-                    this.strokeDashOffset = circumference - (this.percentage / 100) * circumference;
-
-                    // animate linear bar (slightly delayed for feel)
-                    setTimeout(() => {
-                        const linear = document.getElementById('linear-bar');
-                        if (linear) linear.style.width = `${this.percentage}%`;
-                    }, 200);
-
-                    // animate numbers (gentle)
-                    setTimeout(() => this.animateNumber('#', '#'), 250);
-
-                    // render lucide icons
-                    if (window.lucide && typeof window.lucide.createIcons === 'function') {
-                        window.lucide.createIcons();
-                    }
-                },
-
-                // simple confetti effect (pastel pieces)
-                triggerConfetti() {
-                    const root = document.getElementById('confetti-root');
-                    if (!root) return;
-                    const colors = ['#FEC5E5', '#A2D2FF', '#C8FFD4', '#FFF6BD', '#E5B8F4'];
-                    for (let i = 0; i < 36; i++) {
-                        const el = document.createElement('div');
-                        el.className = 'conf-piece';
-                        el.style.left = Math.random() * 100 + 'vw';
-                        el.style.top = (-10 - Math.random() * 30) + 'vh';
-                        el.style.background = colors[Math.floor(Math.random() * colors.length)];
-                        el.style.transform = `translateY(0) rotate(${Math.random()*360}deg)`;
-                        el.style.opacity = '0.95';
-                        el.style.width = `${6 + Math.random()*8}px`;
-                        el.style.height = `${6 + Math.random()*8}px`;
-                        // animate using CSS + JS
-                        const duration = 2000 + Math.random() * 2000;
-                        el.animate([{
-                                transform: `translateY(0) rotate(0deg)`,
-                                opacity: 1
-                            },
-                            {
-                                transform: `translateY(${80 + Math.random()*400}vh) rotate(${540 + Math.random()*720}deg)`,
-                                opacity: 0
-                            }
-                        ], {
-                            duration,
-                            easing: 'cubic-bezier(.2,.9,.2,1)'
-                        });
-                        root.appendChild(el);
-                        setTimeout(() => el.remove(), duration + 100);
-                    }
-                },
-
-                // Called when user clicks retry
-                retry() {
-                    // simple redirect — you can change to route or in-page reset
-                    window.location.href = '/soal/1';
-                },
-
-                // small animated counters if needed (kept minimal)
-                animateNumber() {
-                    const correctEl = document.querySelector('[x-text="correctCount"]') || document.getElementById('correct-count');
-                    const wrongEl = document.querySelector('[x-text="wrongCount"]') || document.getElementById('wrong-count');
-                    const xpEl = document.querySelector('[x-text="xp"]') || null;
-
-                    // animate by simple increments (non-blocking)
-                    function tween(el, from, to, ms = 1000) {
-                        if (!el) return;
-                        const start = performance.now();
-                        const step = (now) => {
-                            const t = Math.min((now - start) / ms, 1);
-                            const val = Math.round(from + (to - from) * t);
-                            el.textContent = val;
-                            if (t < 1) requestAnimationFrame(step);
-                        };
-                        requestAnimationFrame(step);
-                    }
-
-                    tween(document.getElementById('correct-count'), 0, this.correctCount, 900);
-                    tween(document.getElementById('wrong-count'), 0, this.wrongCount, 900);
-                    const xpNode = document.getElementById('xp-node');
-                    if (xpNode) tween(xpNode, 0, this.xp, 1000);
-                }
-
-            }));
-        });
-
-        // init data after DOM ready (so Alpine init runs)
-        document.addEventListener('DOMContentLoaded', () => {
-            // Alpine will auto init; ensure icons are rendered
-            if (window.lucide && typeof window.lucide.createIcons === 'function') {
-                window.lucide.createIcons();
-            }
-        });
-    </script>
-</body>
-
-</html>
+</div>
+@endsection

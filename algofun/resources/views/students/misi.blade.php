@@ -31,9 +31,9 @@
         <div class="flex flex-col gap-6">
 
             <!-- Misi 1 -->
-            <div class="bg-[#FFF8F2] rounded-xl border border-gray-200 shadow p-4" 
-                 x-data="{ progress: 0, target: 60 }"
-                 x-init="let interval = setInterval(() => { 
+            <div class="bg-[#FFF8F2] rounded-xl border border-gray-200 shadow p-4"
+                x-data="{ progress: 0, target: 60 }"
+                x-init="let interval = setInterval(() => { 
                     if (progress < target) progress += 1; else clearInterval(interval);
                  }, 15)">
                 <div class="flex justify-between items-center mb-2">
@@ -41,18 +41,19 @@
                     <span class="text-sm text-gray-500" x-text="`${progress}/50`"></span>
                 </div>
                 <div class="h-3 bg-gray-200 rounded-full overflow-hidden">
-                    <div class="h-full bg-[#FBBF24] rounded-full transition-all duration-100 ease-out" 
-                         :style="`width: ${progress}%;`"></div>
+                    <div class="h-full bg-[#FBBF24] rounded-full transition-all duration-100 ease-out"
+                        :style="`width: ${progress}%;`"></div>
                 </div>
-                <p class="mt-2 text-sm text-gray-600 flex items-center gap-1">
-                    🎁 +10 XP + Badge “Rajin Hari Ini”
+                <p class="mt-2 text-sm text-gray-600 flex items-center gap-2">
+                    <img src="https://img.icons8.com/color/48/gift--v1.png" class="w-5 h-5" alt="Reward">
+                    +10 XP + Badge “Rajin Hari Ini”
                 </p>
             </div>
 
             <!-- Misi 2 -->
             <div class="bg-[#FFF8F2] rounded-xl border border-gray-200 shadow p-4"
-                 x-data="{ progress: 0, target: 60 }"
-                 x-init="let interval = setInterval(() => { 
+                x-data="{ progress: 0, target: 60 }"
+                x-init="let interval = setInterval(() => { 
                     if (progress < target) progress += 1; else clearInterval(interval);
                  }, 15)">
                 <div class="flex justify-between items-center mb-2">
@@ -61,17 +62,18 @@
                 </div>
                 <div class="h-3 bg-gray-200 rounded-full overflow-hidden">
                     <div class="h-full bg-[#FBBF24] rounded-full transition-all duration-100 ease-out"
-                         :style="`width: ${progress}%;`"></div>
+                        :style="`width: ${progress}%;`"></div>
                 </div>
-                <p class="mt-2 text-sm text-gray-600 flex items-center gap-1">
-                    🎁 +5 XP
+                <p class="mt-2 text-sm text-gray-600 flex items-center gap-2">
+                    <img src="https://img.icons8.com/color/48/gift--v1.png" class="w-5 h-5" alt="Reward">
+                    +5 XP
                 </p>
             </div>
 
             <!-- Misi 3 -->
             <div class="bg-[#FFF8F2] rounded-xl border border-gray-200 shadow p-4"
-                 x-data="{ progress: 0, target: 50 }"
-                 x-init="let interval = setInterval(() => { 
+                x-data="{ progress: 0, target: 50 }"
+                x-init="let interval = setInterval(() => { 
                     if (progress < target) progress += 1; else clearInterval(interval);
                  }, 15)">
                 <div class="flex justify-between items-center mb-2">
@@ -80,10 +82,11 @@
                 </div>
                 <div class="h-3 bg-gray-200 rounded-full overflow-hidden">
                     <div class="h-full bg-[#FBBF24] rounded-full transition-all duration-100 ease-out"
-                         :style="`width: ${progress}%;`"></div>
+                        :style="`width: ${progress}%;`"></div>
                 </div>
-                <p class="mt-2 text-sm text-gray-600 flex items-center gap-1">
-                    🎁 Badge “Penyuka Tantangan”
+                <p class="mt-2 text-sm text-gray-600 flex items-center gap-2">
+                    <img src="https://img.icons8.com/color/48/prize.png" class="w-5 h-5" alt="Badge Icon">
+                    Badge “Penyuka Tantangan”
                 </p>
             </div>
 

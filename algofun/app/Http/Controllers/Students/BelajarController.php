@@ -13,8 +13,7 @@ class BelajarController extends Controller
         $levels = [
             (object)[
                 'number' => 1,
-                'title' => 'Urutan Langkah',
-                'subtitle' => 'Desa Pemula',
+                'title' => 'Bilangan Cacah sampai 1.000',
                 'steps' => [
                     (object)[
                         'left_icon' => 'https://img.icons8.com/color/96/village.png',
@@ -40,8 +39,7 @@ class BelajarController extends Controller
             ],
             (object)[
                 'number' => 2,
-                'title' => 'Perulangan Dasar',
-                'subtitle' => 'Taman Kode',
+                'title' => 'Kalimat Matematika',
                 'steps' => [
                     (object)[
                         'left_icon' => 'https://img.icons8.com/color/96/robot-2.png',
@@ -67,6 +65,9 @@ class BelajarController extends Controller
             ],
         ];
 
-        return view('students.learn-path', compact('levels'));
+        // Dummy data untuk frontend - step aktif
+        $activeStepIndex = 2; // Step ke-3 sebagai aktif (0-based index)
+
+        return view('students.learn-path', compact('levels', 'activeStepIndex'));
     }
 }

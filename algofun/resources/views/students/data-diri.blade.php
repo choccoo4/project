@@ -1,7 +1,7 @@
 @extends('layouts.student')
 
 @section('content')
-<div class="min-h-screen bg-[#FFF8F2] p-6 flex flex-col items-center" x-data="{ editing: false }">
+<div class="min-h-screen bg-[#FFF8F2] p-6 flex flex-col items-center" x-data="{ otherSchool: false }">
 
   {{-- HEADER --}}
   <header class="flex justify-between items-center mb-8 bg-white rounded-2xl shadow px-6 py-4 w-full max-w-6xl">
@@ -9,13 +9,14 @@
       <img src="https://img.icons8.com/color/96/user.png" class="w-8 h-8" alt="Data Diri">
       Data Diri
     </h1>
-    <div class="flex items-center space-x-4 font-nunito-semibold">
+    <div class="flex items-center space-x-4 font-nunito">
       <span class="text-gray-700 text-lg">
         Halo, <b class="text-[#EB580C]">{{ $dataDiri['nama_lengkap'] }}</b>
       </span>
       <div class="relative">
-        <img src="/icons/avatar-hero.png" alt="Avatar"
-             class="w-14 h-14 rounded-full border-4 border-[#EB580C] shadow-md cursor-pointer">
+        <img src="{{ asset('icons/avatar-hero.png') }}"
+          alt="Avatar"
+          class="w-14 h-14 rounded-full border-4 border-[#EB580C] shadow-md cursor-pointer">
         <span class="absolute -top-2 -right-2 bg-[#EB580C] text-white text-xs font-bold px-2 py-1 rounded-full shadow">
           Lv. 1
         </span>
@@ -24,96 +25,104 @@
   </header>
 
   {{-- KONTEN --}}
-  <div class="w-full max-w-4xl bg-white rounded-2xl shadow p-10">
+  <div class="w-full max-w-4xl bg-white rounded-2xl shadow p-10 border border-[#E7E7E7]">
 
-    {{-- FOTO PROFIL (DI TENGAH) --}}
-    <div class="flex flex-col items-center relative">
+    {{-- FOTO PROFIL --}}
+    <div class="flex flex-col items-center mb-10 relative">
       <div class="relative">
-        <img src="/icons/avatar-hero.png" 
-             class="w-60 h-60 rounded-xl border-4 border-[#EB580C] object-cover shadow-md" 
-             alt="Profile">
-        <button class="absolute bottom-2 right-2 bg-[#EB580C] text-white rounded-full p-2 hover:bg-[#d94f0c] transition" 
-                x-on:click="editing = !editing">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
-               stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L7.5 21H3v-4.5L16.732 3.732z" />
-          </svg>
+        <img src="{{ asset('icons/avatar-hero.png') }}"
+          class="w-40 h-40 rounded-xl border border-gray-300 bg-[#FFF8F2] object-cover"
+          alt="Profile">
+        <button
+          class="absolute bottom-2 right-2 bg-white border border-gray-300 rounded-full p-2 shadow-sm hover:bg-gray-100">
+          <img src="https://img.icons8.com/ios-glyphs/20/EB580C/edit.png" alt="Edit" class="w-4 h-4">
         </button>
-      </div>
-
-      {{-- XP & RUNTUNAN --}}
-      <div class="flex justify-between w-full max-w-md mt-6">
-        <div class="flex items-center gap-2 bg-[#FFF2CC] px-5 py-3 rounded-xl font-semibold text-gray-700 shadow">
-          <img src="{{ asset('icons/runtutan.png') }}" alt="Runtunan Icon" class="w-6 h-6"> <span>{{ $dataDiri['runtunan_hari'] }}</span> <span class="text-sm">Runtunan Hari</span>
-        </div>
-        <div class="flex items-center gap-2 bg-[#FFE3B0] px-5 py-3 rounded-xl font-semibold text-gray-700 shadow">
-         <img src="{{ asset('icons/xp.png') }}" alt="Xp Icon" class="w-6 h-6"> <span>{{ $dataDiri['total_xp'] }}</span> <span class="text-sm">Total XP</span>
-        </div>
       </div>
     </div>
 
-    {{-- FORM DATA DIRI (LABEL KIRI, INPUT KANAN) --}}
-    <form class="mt-10 space-y-8">
-      {{-- Kelas & Guru --}}
-      <div>
-        <label class="block font-semibold text-gray-700 mb-1">Kelasku</label>
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between bg-[#FFF8E7] border border-[#EB580C]/40 rounded-xl p-4">
-          <div>
-            <p class="font-bold text-[#EB580C] text-lg">{{ $dataDiri['kelas'] }}</p>
-            <p class="text-gray-600 text-sm">Guru: <b>{{ $dataDiri['guru'] }}</b></p>
+    {{-- FORM DATA DIRI --}}
+    <form class="space-y-8 font-nunito text-gray-700">
+
+      {{-- Kelasku --}}
+      <div class="grid grid-cols-3 items-start">
+        <label class="font-semibold text-right pr-6 pt-2">Kelasku</label>
+        <div class="col-span-2 bg-[#FFF8E7] border border-[#EB580C]/40 rounded-xl p-4">
+          <div class="flex justify-between items-center">
+            <div>
+              <p class="font-bold text-[#EB580C] text-lg">{{ $dataDiri['kelas'] ?? 'Matematik3D' }}</p>
+              <p class="text-gray-600 text-sm">{{ $dataDiri['guru'] ?? 'Septia Riski Masturiy' }}</p>
+            </div>
+            <button type="button" class="hover:bg-gray-200 rounded-full p-2 transition">
+              <img src="https://img.icons8.com/ios-glyphs/24/fa314a/delete-sign.png" alt="Keluar Kelas" class="w-5 h-5">
+            </button>
           </div>
-          <button type="button" 
-                  class="mt-2 sm:mt-0 bg-[#EB580C] hover:bg-[#d94f0c] text-white text-sm px-4 py-2 rounded-lg font-semibold shadow">
-            Ganti Kelas
-          </button>
         </div>
       </div>
-        
-        {{-- Nama Lengkap --}}
-        <div class="flex items-center justify-between">
-          <span class="font-semibold text-gray-700 w-1/3">Nama Lengkap</span>
-          <input type="text" value="{{ $dataDiri['nama_lengkap'] }}"
-                 class="border border-gray-300 rounded-lg px-4 py-2 w-2/3 focus:ring-2 focus:ring-[#EB580C]">
-        </div>
 
-        {{-- Nama Pengguna --}}
-        <div class="flex items-center justify-between">
-          <span class="font-semibold text-gray-700 w-1/3">Nama Pengguna</span>
-          <input type="text" value="{{ $dataDiri['nama_pengguna'] }}"
-                 class="border border-gray-300 rounded-lg px-4 py-2 w-2/3 focus:ring-2 focus:ring-[#EB580C]">
-        </div>
+      {{-- Nama Lengkap --}}
+      <div class="grid grid-cols-3 items-center">
+        <label class="font-semibold text-right pr-6">Nama Lengkap</label>
+        <input type="text" value="{{ $dataDiri['nama_lengkap'] }}"
+          class="col-span-2 w-full border border-[#EAEAEA] rounded-lg px-4 py-2 bg-[#FDFDFD] text-[#333] focus:outline-none focus:ring-2 focus:ring-[#EB580C]">
+      </div>
 
-        {{-- Email --}}
-        <div class="flex items-center justify-between">
-          <span class="font-semibold text-gray-700 w-1/3">Email</span>
-          <input type="email" value="{{ $dataDiri['email'] }}"
-                 class="border border-gray-300 rounded-lg px-4 py-2 w-2/3 focus:ring-2 focus:ring-[#EB580C]">
-        </div>
+      {{-- Nama Pengguna --}}
+      <div class="grid grid-cols-3 items-center">
+        <label class="font-semibold text-right pr-6">Nama Pengguna</label>
+        <input type="text" value="{{ $dataDiri['nama_pengguna'] }}"
+          class="col-span-2 w-full border border-[#EAEAEA] rounded-lg px-4 py-2 bg-[#FDFDFD] text-[#333] focus:outline-none focus:ring-2 focus:ring-[#EB580C]">
+      </div>
 
-        {{-- Asal Sekolah --}}
-        <div class="flex items-center justify-between">
-          <span class="font-semibold text-gray-700 w-1/3">Asal Sekolah</span>
-          <input type="text" value="{{ $dataDiri['asal_sekolah'] }}"
-                 class="border border-gray-300 rounded-lg px-4 py-2 w-2/3 focus:ring-2 focus:ring-[#EB580C]">
-        </div>
+      {{-- Email --}}
+      <div class="grid grid-cols-3 items-center">
+        <label class="font-semibold text-right pr-6">Email</label>
+        <input type="email" value="{{ $dataDiri['email'] }}"
+          class="col-span-2 w-full border border-[#EAEAEA] rounded-lg px-4 py-2 bg-[#FDFDFD] text-[#333] focus:outline-none focus:ring-2 focus:ring-[#EB580C]">
+      </div>
 
-        {{-- NISN --}}
-        <div class="flex items-center justify-between">
-          <span class="font-semibold text-gray-700 w-1/3">NISN</span>
-          <input type="text" value="{{ $dataDiri['nisn'] }}"
-                 class="border border-gray-300 rounded-lg px-4 py-2 w-2/3 focus:ring-2 focus:ring-[#EB580C]">
-        </div>
+      {{-- Asal Sekolah --}}
+      <div class="grid grid-cols-3 items-start">
+        <label class="font-semibold text-right pr-6 pt-2">Asal Sekolah</label>
+        <div class="col-span-2 space-y-3">
+          <select
+            @change="otherSchool = $event.target.value === 'lainnya'"
+            class="w-full border border-[#EAEAEA] rounded-lg px-4 py-2 bg-white text-[#333] focus:outline-none">
+            <option value="">-- Pilih Sekolah --</option>
+            <option value="SD Negeri 001">SD Negeri 001</option>
+            <option value="SD Negeri 002">SD Negeri 002</option>
+            <option value="SD Negeri 003">SD Negeri 003</option>
+            <option value="lainnya">Lainnya...</option>
+          </select>
 
-      {{-- Tombol Simpan --}}
-      <div class="flex justify-end pt-4">
-        <button type="submit"
-                class="bg-[#A3E635] hover:bg-[#84CC16] text-white font-semibold px-8 py-3 rounded-full shadow-md transition">
+          <div x-show="otherSchool" x-transition>
+            <input type="text" placeholder="Tulis nama sekolah Anda"
+              class="w-full border border-[#EAEAEA] rounded-lg px-4 py-2 bg-[#FDFDFD] text-[#333] focus:outline-none">
+          </div>
+        </div>
+      </div>
+
+      {{-- NISN --}}
+      <div class="grid grid-cols-3 items-center">
+        <label class="font-semibold text-right pr-6">NISN</label>
+        <input type="text" value="{{ $dataDiri['nisn'] }}"
+          class="col-span-2 w-full border border-[#EAEAEA] rounded-lg px-4 py-2 bg-[#FDFDFD] text-[#333] focus:outline-none focus:ring-2 focus:ring-[#EB580C]">
+      </div>
+
+      {{-- Tombol Aksi --}}
+      <div class="flex justify-end gap-6 mt-12">
+        <button
+          class="w-26 h-11 bg-[#F4F4F4] rounded-xl shadow-[0px_8px_4px_rgba(0,0,0,0.25)] 
+          text-[#4C4C4C] text-lg font-fredoka font-semibold hover:bg-white/50 transition-all duration-300">
+          Batal
+        </button>
+
+        <button
+          class="w-26 h-11 bg-[#8EE000] rounded-xl shadow-[0px_8px_4px_rgba(0,0,0,0.25)] 
+          text-white text-lg font-fredoka font-semibold hover:bg-[#ff6a1f] transition-all duration-300">
           Simpan
         </button>
       </div>
     </form>
-   </div>
   </div>
 </div>
 @endsection

@@ -32,7 +32,7 @@
 
         <!-- Profil -->
         <div class="flex items-center gap-4 mb-8">
-            <img src="https://img.icons8.com/color/96/user.png" alt="Foto Siswa" class="w-16 h-16 rounded-full border-2 border-[#EB580C]">
+            <img src="/icons/avatar-hero.png" alt="Foto Siswa" class="w-16 h-16 rounded-full border-2 border-[#EB580C]">
             <h2 class="text-3xl font-bold font-nunito">ChoccoLatter</h2>
         </div>
 
@@ -157,7 +157,7 @@
                         beginAtZero: true,
                         max: 100,
                         ticks: {
-                            stepSize: 10,
+                            stepSize: 20,
                             color: '#4B5563',
                             font: {
                                 size: 12,

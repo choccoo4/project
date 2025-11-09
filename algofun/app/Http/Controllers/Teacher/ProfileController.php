@@ -9,6 +9,6 @@ class ProfileController extends Controller
 {
     public function profil()
     {
-        return view('teacher.profil');
+        return view('teacher.profile');
     }
 }

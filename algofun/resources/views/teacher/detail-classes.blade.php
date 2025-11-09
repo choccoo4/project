@@ -57,7 +57,7 @@
                             class="border-b border-gray-200 hover:bg-orange-50 transition cursor-pointer"
                             onclick="window.location.href='{{ route('guru.kelas.report', ['id' => 1, 'student_id' => $index + 1]) }}'">
                             <td class="flex items-center gap-3 px-6 py-3 font-bold font-nunito">
-                                <img src="https://img.icons8.com/color/96/student-male--v1.png"
+                                <img src="/icons/avatar-hero.png"
                                     class="w-7 h-7 rounded-full border-2 border-orange-600"
                                     alt="avatar">
                                 {{ $item->nama }}

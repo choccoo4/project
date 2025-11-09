@@ -43,7 +43,7 @@ class QuizController extends Controller
             ],
             5 => [
                 'type' => 'drag_drop',
-                'text' => 'Seret kata untuk membentuk kalimat: "Saya pergi sekolah"',
+                'text' => '"Saya pergi sekolah"',
                 'options' => ['Saya', 'sekolah', 'pergi'],
                 'correct' => ['Saya', 'pergi', 'sekolah']
             ],

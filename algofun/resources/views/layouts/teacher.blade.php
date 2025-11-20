@@ -43,7 +43,7 @@
         <a href="{{ route('guru.papanskor') }}"
             class="font-fredoka flex items-center gap-3 px-5 py-4 rounded-2xl border transition-all duration-200
                 hover:bg-[#FFF3E0] hover:border-[#F5D49F]
-                {{ request()->routeIs('guru.papanskor') ? 'bg-[#FFF3E0] border-[#F5D49F]' : 'border-transparent' }}">
+                {{ request()->routeIs('guru.papanskor') ? 'bg-[#FFF3E0] border-[#F5D49F] text-[#EB580C]' : 'border-transparent' }}">
             <img src="https://img.icons8.com/color/96/trophy.png" alt="Papan Skor" class="w-7 h-7 hover:scale-110">
             <span>Papan Skor</span>
         </a>
@@ -82,12 +82,12 @@
         <span>Kelas</span>
     </a>
 
-    <a href="{{ route('guru.papanskor') }}" class="flex flex-col items-center text-xs font-fredoka {{ request()->is('papan-skor') ? 'text-orange-500' : 'text-gray-400' }}">
+    <a href="{{ route('guru.papanskor') }}" class="flex flex-col items-center text-xs font-fredoka {{ request()->routeIs('guru.papanskor') ? 'text-orange-500' : 'text-gray-400' }}">
         <img src="https://img.icons8.com/color/96/trophy.png" class="w-6 h-6">
         <span>Skor</span>
     </a>
 
-    <a href="{{ route('guru.profile') }}" class="flex flex-col items-center text-xs font-fredoka {{ request()->routeIs('guru.data-diri') ? 'text-orange-500' : 'text-gray-400' }}">
+    <a href="{{ route('guru.profile') }}" class="flex flex-col items-center text-xs font-fredoka {{ request()->routeIs('guru.profile') ? 'text-orange-500' : 'text-gray-400' }}">
         <img src="https://img.icons8.com/color/48/000000/user-folder.png" class="w-6 h-6">
         <span>Data Diri</span>
     </a>

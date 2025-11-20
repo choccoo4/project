@@ -4,16 +4,29 @@
 <div class="min-h-screen bg-[#FFF8F2] p-6">
 
   <!-- Header -->
-  <header class="flex justify-between items-center mb-8 bg-white rounded-2xl shadow px-6 py-4">
-    <h1 class="font-fredoka text-2xl font-extrabold text-[#EB580C] flex items-center gap-2">
-      <img src="https://img.icons8.com/color/96/combo-chart--v1.png" class="w-8 h-8" alt="Dashboard">
-      Dashboard Guru
-    </h1>
-    <div class="flex items-center gap-4">
-      <img src="https://img.icons8.com/color/96/appointment-reminders.png" class="w-8 h-8" alt="Notifikasi">
-      <p class="text-gray-800 text-lg">Halo, <b class="text-[#EB580C]">Septia</b></p>
+  <header class="mb-8 bg-white rounded-2xl shadow px-4 sm:px-6 py-4 
+        flex items-center justify-between">
+
+    <!-- Left: Icon + Judul -->
+    <div class="flex items-center gap-3">
+      <img src="https://img.icons8.com/color/96/combo-chart--v1.png"
+        class="w-7 h-7 sm:w-8 sm:h-8" alt="Dashboard">
+
+      <h1 class="text-xl sm:text-2xl font-extrabold text-[#EB580C] font-fredoka">
+        Dashboard Guru
+      </h1>
     </div>
+
+    <!-- Right: User greeting (Desktop only) -->
+    <div class="hidden sm:flex items-center space-x-4 font-nunito">
+      <img src="https://img.icons8.com/color/96/appointment-reminders.png" class="w-8 h-8" alt="Notifikasi">
+      <span class="text-gray-700 text-lg">
+        Halo, <b class="text-[#EB580C]">Septia</b>
+      </span>
+    </div>
+
   </header>
+
 
   <!-- Grid utama -->
   <div class="grid grid-cols-1 md:grid-cols-2 gap-8">

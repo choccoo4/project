@@ -50,6 +50,14 @@ Route::get('/misi', function () {
     return view('students.misi');
 });
 
+Route::get('/onboarding', function () {
+    return view('students.onboarding');
+});
+
+Route::get('/peraturan', function () {
+    return view('students.rule');
+});
+
 Route::get('/belajar', [BelajarController::class, 'index'])->name('students.belajar');
 Route::get('/lencana', [LencanaController::class, 'index'])->name('lencana.index');
 Route::get('/laporan-belajar', [LaporanSiswaController::class, 'index'])->name('laporan.belajar');
@@ -86,3 +94,7 @@ Route::get('/guru/datadiri', [ProfileController::class, 'profil'])->name('guru.p
 Route::get('/guru/kelas/{id}', [ClassController::class, 'show'])->name('guru.kelas.show');
 Route::get('/guru/kelas/{id}/report/{student_id}', [ClassController::class, 'studentReport'])->name('guru.kelas.report');
 Route::get('/guru/kelas/{id}/pengaturan', [ClassController::class, 'settings'])->name('guru.kelas.settings');
+
+Route::get('/', function () {
+    return view('public.landing');
+});

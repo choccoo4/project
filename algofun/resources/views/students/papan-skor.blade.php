@@ -1,78 +1,89 @@
 @extends('layouts.student')
 
-@section('content')
-<div x-data="{ tab: 'mingguan' }" class="p-8 w-full bg-[#FFF8F2] min-h-screen font-nunito">
+@section('title', 'Papan Skor')
 
-  {{-- HEADER --}}
-  <header class="flex justify-between items-center bg-white rounded-2xl shadow-md px-8 py-4 mb-8">
-    <h1 class="text-2xl font-extrabold text-[#EB580C] flex items-center gap-3 font-fredoka">
-      <img src="https://img.icons8.com/color/96/trophy.png" class="w-8 h-8" alt="Trophy">
-      Papan Skor
-    </h1>
-    <div class="flex items-center space-x-4">
+@section('content')
+<div class="min-h-screen bg-[#FFF8F2] p-4 sm:p-6">
+
+  <!-- Header -->
+  <header class="mb-8 bg-white rounded-2xl shadow px-4 sm:px-6 py-4 flex items-center justify-between">
+
+    <!-- Left: Logo + Judul -->
+    <div class="flex items-center gap-3">
+      <img src="https://img.icons8.com/color/96/trophy.png" class="w-7 h-7 sm:w-8 sm:h-8" alt="Trophy">
+      <h1 class="text-xl sm:text-2xl font-extrabold text-[#EB580C] font-fredoka">
+        Papan Skor
+      </h1>
+    </div>
+
+    <!-- Right: User info -->
+    <!-- Desktop -->
+    <div class="hidden sm:flex items-center space-x-4 font-nunito-semibold">
       <span class="text-gray-700 text-lg">
-        Halo, <b class="text-[#EB580C]">{{ Auth::user()->name ?? 'Chocco' }}</b>
+        Halo, <b class="text-[#EB580C]">{{ Auth::user()->name ?? 'Siswa' }}</b>
       </span>
       <div class="relative">
-        <img src="{{ asset('icons/avatar-hero.png') }}" alt="Avatar"
-          class="w-12 h-12 rounded-full border-4 border-[#EB580C] shadow">
+        <img src="{{ asset('icons/avatar-hero.png') }}" alt="Avatar" class="w-14 h-14 rounded-full border-4 border-[#EB580C] shadow-md">
         <span class="absolute -top-2 -right-2 bg-[#EB580C] text-white text-xs font-bold px-2 py-1 rounded-full shadow">
           Lv. 1
         </span>
       </div>
     </div>
+    <!-- Mobile -->
+    <div class="sm:hidden relative">
+      <img src="{{ asset('icons/avatar-hero.png') }}" alt="Avatar" class="w-10 h-10 rounded-full border-2 border-[#EB580C] shadow-md">
+      <span class="absolute -top-1 -right-1 bg-[#EB580C] text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full shadow">
+        Lv. 1
+      </span>
+    </div>
   </header>
 
-  {{-- TAB MENU --}}
-  <div class="flex w-full max-w-2xl mx-auto bg-white rounded-t-2xl overflow-hidden shadow-md">
-    <button @click="tab='mingguan'"
-      :class="tab==='mingguan' ? 'bg-[#FFF2CC] text-[#EB580C]' : 'bg-white text-gray-700'"
-      class="flex-1 py-3 font-semibold text-center transition">
-      Mingguan
-    </button>
-    <button @click="tab='kelas'"
-      :class="tab==='kelas' ? 'bg-[#FFF2CC] text-[#EB580C]' : 'bg-white text-gray-700'"
-      class="flex-1 py-3 font-semibold text-center transition">
-      Kelas Saya
-    </button>
-  </div>
+  <!-- Card Papan Skor -->
+  <div class="bg-white shadow-lg rounded-2xl p-6 w-full max-w-2xl mx-auto">
 
-  {{-- KONTEN --}}
-  <div class="bg-white shadow-lg rounded-b-2xl p-8 w-full max-w-2xl mx-auto">
-    <div x-show="tab==='mingguan'" x-cloak>
-      {{-- ICON TROPHY BESAR --}}
-      <div class="flex justify-center mb-6">
-        <img src="{{ asset('icons/big-trophy.png') }}" class="w-50 h-41" alt="Trophy Besar">
-      </div>
-
-      {{-- TABEL PAPAN SKOR --}}
-      <div class="divide-y divide-gray-200">
-        @foreach ($papanSkor as $item)
-        <div class="flex justify-between items-center py-3">
-          {{-- Rank --}}
-          <div class="w-10 text-center font-bold text-gray-600">
-            @if ($item['medal'])
-            <img src="{{ asset('icons/'.$item['medal']) }}" alt="Medal" class="w-6 h-6 mx-auto">
-            @else
-            {{ $item['rank'] }}
-            @endif
-          </div>
-
-          {{-- Nama + Avatar --}}
-          <div class="flex items-center gap-3 flex-1">
-            <img src="{{ asset('icons/avatar-hero.png') }}" class="w-10 h-10 rounded-full border border-gray-200" alt="Avatar">
-            <span class="font-semibold text-gray-800">{{ $item['nama'] }}</span>
-          </div>
-
-          {{-- XP --}}
-          <div class="text-[#FF7A00] font-bold">{{ $item['xp'] }} XP</div>
-        </div>
-        @endforeach
-      </div>
+    <!-- Trophy Icon -->
+    <div class="flex justify-center mb-6">
+      <img src="{{ asset('icons/big-trophy.png') }}" class="w-40 h-32 sm:w-50 sm:h-41" alt="Trophy Besar">
     </div>
 
-    <div x-show="tab==='kelas'" x-cloak>
-      <p class="text-center text-gray-500 py-10">Belum ada data untuk tab ini.</p>
+    <!-- Garis -->
+    <div class="w-full border-t border-gray-300 mb-4"></div>
+
+    <!-- Daftar Papan Skor -->
+    <div class="divide-y divide-gray-200">
+      @php
+      $papanSkor = [
+      ['rank' => 1, 'nama' => 'Chocco', 'xp' => 320, 'medal' => 'gold.png'],
+      ['rank' => 2, 'nama' => 'Latte', 'xp' => 290, 'medal' => 'silver.png'],
+      ['rank' => 3, 'nama' => 'Mocca', 'xp' => 275, 'medal' => 'bronze.png'],
+      ['rank' => 4, 'nama' => 'Cowi', 'xp' => 265, 'medal' => null],
+      ['rank' => 5, 'nama' => 'Molly', 'xp' => 265, 'medal' => null],
+      ['rank' => 6, 'nama' => 'Oreo', 'xp' => 250, 'medal' => null],
+      ];
+      @endphp
+
+      @foreach ($papanSkor as $item)
+      <div class="flex justify-between items-center py-3">
+        <!-- Rank -->
+        <div class="w-10 text-center font-bold text-gray-600">
+          @if ($item['medal'])
+          <img src="{{ asset('icons/'.$item['medal']) }}" alt="Medal" class="w-6 h-6 mx-auto">
+          @else
+          {{ $item['rank'] }}
+          @endif
+        </div>
+
+        <!-- Nama + Avatar -->
+        <div class="flex items-center gap-3 flex-1 min-w-0">
+          <img src="{{ asset('icons/avatar-hero.png') }}"
+            class="w-10 h-10 rounded-full border border-gray-200 flex-shrink-0" alt="Avatar">
+          <span class="font-semibold text-gray-800 truncate">{{ $item['nama'] }}</span>
+        </div>
+
+        <!-- XP -->
+        <div class="text-[#FF7A00] font-bold ml-4 flex-shrink-0">{{ $item['xp'] }} XP</div>
+      </div>
+      @endforeach
     </div>
   </div>
 </div>

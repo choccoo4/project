@@ -1,24 +1,48 @@
 @extends('layouts.student')
 
+@section('title', 'Dashboard')
+
 @section('content')
 <div class="min-h-screen bg-[#FFF8F2] p-6">
 
     <!-- Header -->
-    <header class="flex justify-between items-center mb-8 bg-white rounded-2xl shadow px-6 py-4">
-        <h1 class="text-2xl font-extrabold text-[#EB580C] flex items-center gap-2 font-fredoka">
-            <img src="https://img.icons8.com/doodle/48/control-panel.png" class="w-8 h-8" alt="Dashboard">
-            Dashboard Siswa
-        </h1>
-        <div class="flex items-center space-x-4 font-nunito-semibold">
-            <span class="text-gray-700 text-lg">Halo,
-                <b class="text-[#EB580C]">{{ Auth::user()->name ?? 'Siswa' }}</b>
+    <header class="mb-8 bg-white rounded-2xl shadow px-4 sm:px-6 py-4 
+    flex items-center justify-between">
+
+        <!-- Left: Logo + Judul -->
+        <div class="flex items-center gap-3">
+            <img src="https://img.icons8.com/doodle/48/control-panel.png"
+                class="w-7 h-7 sm:w-8 sm:h-8" alt="Dashboard">
+
+            <h1 class="text-xl sm:text-2xl font-extrabold text-[#EB580C] font-fredoka">
+                Dashboard Siswa
+            </h1>
+        </div>
+
+        <!-- Right: User (Desktop Only) -->
+        <div class="hidden sm:flex items-center space-x-4 font-nunito-semibold">
+            <span class="text-gray-700 text-lg">
+                Halo, <b class="text-[#EB580C]">{{ Auth::user()->name ?? 'Siswa' }}</b>
             </span>
+
             <div class="relative">
-                <img src="/icons/avatar-hero.png" alt="Avatar" class="w-15 h-15 rounded-full border-4 border-[#EB580C] shadow-md">
-                <span class="absolute -top-2 -right-2 bg-[#EB580C] text-white text-xs font-bold px-2 py-1 rounded-full shadow">
+                <img src="/icons/avatar-hero.png" alt="Avatar"
+                    class="w-14 h-14 rounded-full border-4 border-[#EB580C] shadow-md">
+                <span
+                    class="absolute -top-2 -right-2 bg-[#EB580C] text-white text-xs font-bold px-2 py-1 rounded-full shadow">
                     Lv. 1
                 </span>
             </div>
+        </div>
+
+        <!-- Right: Avatar (Mobile Only) -->
+        <div class="sm:hidden relative">
+            <img src="/icons/avatar-hero.png" alt="Avatar"
+                class="w-10 h-10 rounded-full border-2 border-[#EB580C] shadow-md">
+            <span
+                class="absolute -top-1 -right-1 bg-[#EB580C] text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full shadow">
+                Lv. 1
+            </span>
         </div>
     </header>
 
@@ -59,27 +83,25 @@
                 Lencana
             </h2>
 
-            <div class="grid grid-cols-2 gap-4">
-                <!-- Pemula Hebat (bintang kuning → card biru lembut biar kontras) -->
-                <div class="flex flex-col items-center justify-center bg-blue-200 text-gray-800 p-4 rounded-xl shadow hover:scale-110 hover:rotate-2 transition">
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-2 gap-4">
+                <div class="flex flex-col items-center justify-center bg-blue-200 text-gray-800 p-4 rounded-xl shadow hover:scale-105 transition">
                     <img src="https://img.icons8.com/keek/100/filled-star.png" class="w-10 h-10 mb-2">
-                    <span class="font-semibold text-sm">Pemula Hebat</span>
+                    <span class="font-semibold text-xs sm:text-sm text-center">Pemula Hebat</span>
                 </div>
 
-                <!-- Juara Level 1 (ikon piala emas → card hijau lembut biar kontras) -->
-                <div class="flex flex-col items-center justify-center bg-green-200 text-gray-800 p-4 rounded-xl shadow hover:scale-110 hover:rotate-2 transition">
+                <div class="flex flex-col items-center justify-center bg-green-200 text-gray-800 p-4 rounded-xl shadow hover:scale-105 transition">
                     <img src="https://img.icons8.com/keek/100/trophy.png" class="w-10 h-10 mb-2">
-                    <span class="font-semibold text-sm">Juara Level 1</span>
+                    <span class="font-semibold text-xs sm:text-sm text-center">Juara Level 1</span>
                 </div>
 
-                <!-- Lencana terkunci -->
                 <div class="flex flex-col items-center justify-center bg-gray-100 text-gray-400 p-4 rounded-xl shadow-inner">
                     <img src="https://img.icons8.com/color/48/lock--v1.png" class="w-8 h-8 mb-2 opacity-60">
-                    <span class="font-semibold text-sm">Terkunci</span>
+                    <span class="font-semibold text-xs sm:text-sm text-center">Terkunci</span>
                 </div>
+
                 <div class="flex flex-col items-center justify-center bg-gray-100 text-gray-400 p-4 rounded-xl shadow-inner">
                     <img src="https://img.icons8.com/color/48/lock--v1.png" class="w-8 h-8 mb-2 opacity-60">
-                    <span class="font-semibold text-sm">Terkunci</span>
+                    <span class="font-semibold text-xs sm:text-sm text-center">Terkunci</span>
                 </div>
             </div>
         </div>
@@ -109,9 +131,11 @@
     </div>
 
     <!-- Evaluasi Diri (AI Insight) -->
-    <div class="mt-8 bg-white rounded-2xl shadow p-6 flex flex-col md:flex-row justify-between items-center border-l-8 border-orange-400">
+    <div class="mt-8 bg-white rounded-2xl shadow p-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-l-8 border-orange-400">
+
+        <!-- Icon + Text -->
         <div class="flex items-start gap-3">
-            <div class="bg-yellow-100 p-3 rounded-full shadow-inner">
+            <div class="bg-yellow-100 p-3 rounded-full shadow-inner hidden sm:flex">
                 <img src="https://img.icons8.com/color/48/idea.png" alt="Insight" class="w-6 h-6">
             </div>
             <div>
@@ -123,14 +147,14 @@
             </div>
         </div>
 
-        <div class="mt-4 md:mt-0">
+        <!-- Button -->
+        <div class="mt-4 md:mt-0 w-full md:w-auto">
             <a href="{{ url('/latihan') }}"
-                class="bg-[#FFB84C] hover:bg-[#FFA500] text-white font-semibold px-5 py-2 rounded-full shadow-md transition font-fredoka">
+                class="bg-[#FFB84C] hover:bg-[#FFA500] text-white font-semibold px-5 py-3 rounded-full shadow-md transition font-fredoka w-full sm:w-auto text-center">
                 Latihan Lagi
             </a>
         </div>
     </div>
-
 
     <!-- Reward Harian -->
     <div class="mt-8 bg-yellow-100 rounded-2xl shadow p-6 flex items-center justify-between hover:scale-[1.02] transition">
@@ -156,6 +180,62 @@
         <img src="https://img.icons8.com/?size=100&id=63650&format=png&color=000000" alt="Tambah" class="w-5 h-5">
         <span class="hidden sm:inline font-fredoka">Kelas</span>
     </button>
+
+    <!-- Modal -->
+    <div x-data="{ openModal: false, kode: '' }">
+
+        <!-- Floating Button: + Kelas -->
+        <button
+            @click="openModal = true"
+            class="fixed bottom-20 md:bottom-6 right-6 flex items-center gap-2 rounded-full border-2 border-[#8EE000] bg-white text-[#555555] font-semibold shadow-md hover:shadow-[#8EE000]/40 px-5 py-3 transition-all duration-300 hover:scale-105 z-40">
+            <img src="https://img.icons8.com/?size=100&id=63650&format=png&color=000000" alt="Tambah" class="w-5 h-5">
+            <span class="hidden sm:inline font-fredoka">Kelas</span>
+        </button>
+
+        <!-- Modal Tambah Kelas (Siswa) -->
+        <div x-show="openModal" x-transition.opacity
+            class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
+
+            <div @click.outside="openModal = false"
+                class="bg-white w-[90%] max-w-md rounded-2xl p-6 shadow-lg border border-orange-100"
+                x-transition.scale>
+
+                <h2 class="font-fredoka text-2xl font-extrabold text-[#EB580C] mb-4 text-center">
+                    Gabung Kelas
+                </h2>
+
+                <form @submit.prevent class="space-y-5">
+
+                    <!-- Input Kode Kelas -->
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-1">Kode Kelas</label>
+                        <input type="text"
+                            x-model="kode"
+                            placeholder="Masukkan kode kelas"
+                            class="w-full rounded-lg border border-gray-300 px-4 py-2 focus:ring-2 focus:ring-orange-400 focus:outline-none uppercase tracking-widest"
+                            maxlength="8">
+                    </div>
+
+                    <!-- Tombol -->
+                    <div class="flex justify-end gap-3 mt-6">
+                        <button type="button"
+                            @click="openModal = false"
+                            class="font-fredoka px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-all duration-200">
+                            Batal
+                        </button>
+
+                        <button type="submit"
+                            class="font-fredoka px-5 py-2 bg-[#8EE000] text-white rounded-lg font-semibold hover:bg-lime-500 transition-all duration-200">
+                            Gabung
+                        </button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+
+    </div>
 </div>
 
 <!-- animasi keyframe progress bar -->

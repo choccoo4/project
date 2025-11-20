@@ -23,7 +23,7 @@
 
     <!-- ========================= HEADER ========================= -->
     <header
-        class="sticky top-0 z-20 bg-orange-50/95 backdrop-blur-sm px-4 py-3 sm:px-6 flex items-center justify-between gap-3 max-w-4xl mx-auto w-full">
+        class="sticky top-0 z-20 backdrop-blur-sm px-4 py-3 sm:px-6 flex items-center justify-between gap-3 max-w-4xl mx-auto w-full">
 
         <!-- Tombol Exit -->
         <a href="{{ url('/belajar') }}"

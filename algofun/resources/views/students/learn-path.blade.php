@@ -1,6 +1,6 @@
 @extends('layouts.student')
 
-@section('title', 'Belajar - Semua Level')
+@section('title', 'Belajar')
 
 @section('content')
 <main class="relative min-h-screen font-sans py-10 px-4 md:px-10" x-data="learningPath()">
@@ -47,7 +47,7 @@
         <header class="relative text-center mb-16">
             <div class="mx-auto rounded-2xl px-8 py-6 shadow-lg w-full md:max-w-3xl border-b-4"
                 style="background-color: {{ $color['primary'] }}; border-color: {{ $color['secondary'] }};">
-                <h2 class="text-2xl font-bold text-white tracking-tight">
+                <h2 class="text-2xl font-fredoka font-semibold text-white tracking-tight">
                     Level {{ $level->number }} - {{ $level->title }}
                 </h2>
             </div>
@@ -136,7 +136,7 @@
                                     <div class="text-center mt-2">
                                         <button
                                             @click="openPanel({{ $levelIndex }}, {{ $index }}, {{ $progress }}, false, '{{ $stepTitles[$index] }}', '{{ $color['primary'] }}', '{{ $color['secondary'] }}', '{{ $leftPercent }}', '{{ $topPercent }}', '{{ $step->left_icon }}')"
-                                            class="bg-green-500 hover:bg-green-600 text-white text-xs font-bold px-4 py-2 rounded-full transition-colors shadow">
+                                            class="bg-green-500 hover:bg-green-600 text-white text-xs font-semibold font-fredoka px-4 py-2 rounded-full transition-colors shadow">
                                             MULAI
                                         </button>
                                     </div>

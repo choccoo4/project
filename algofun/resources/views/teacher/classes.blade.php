@@ -6,12 +6,27 @@
 <div x-data="{ openModal: false, kodeKelas: '' }" class="min-h-screen bg-[#FFF8F2] p-6 relative">
 
     <!-- Header -->
-    <header class="flex justify-between items-center mb-10 bg-white rounded-2xl shadow-md px-6 py-4 border border-orange-100">
+    <header class="mb-8 bg-white rounded-2xl shadow px-4 sm:px-6 py-4 
+        flex items-center justify-between">
+
+        <!-- Left: Icon + Judul -->
         <div class="flex items-center gap-3">
-            <img src="https://img.icons8.com/color/96/class.png" alt="Daftar Kelas" class="w-9 h-9 animate-bounce-slow">
-            <h1 class="font-fredoka text-2xl font-extrabold text-[#EB580C]">Daftar Kelas</h1>
+            <img src="https://img.icons8.com/color/96/class.png"
+                class="w-7 h-7 sm:w-8 sm:h-8" alt="Dashboard">
+
+            <h1 class="text-xl sm:text-2xl font-extrabold text-[#EB580C] font-fredoka">
+                Daftar Kelas
+            </h1>
         </div>
-        <p class="text-gray-800 text-lg font-nunito">Halo, <b class="text-[#EB580C]">Septia</b></p>
+
+        <!-- Right: User greeting (Desktop only) -->
+        <div class="hidden sm:flex items-center space-x-4 font-nunito">
+            <img src="https://img.icons8.com/color/96/appointment-reminders.png" class="w-8 h-8" alt="Notifikasi">
+            <span class="text-gray-700 text-lg">
+                Halo, <b class="text-[#EB580C]">Septia</b>
+            </span>
+        </div>
+
     </header>
 
     <!-- Grid Kelas -->
@@ -41,11 +56,12 @@
 
     <!-- Floating Button -->
     <button
-        @click="window.location.href='{{ url('/kelas/tambah') }}'"
+        @click="openModal = true"
         class="fixed bottom-20 md:bottom-6 right-6 flex items-center gap-2 rounded-full border-2 border-[#8EE000] bg-white text-[#555555] font-semibold shadow-md hover:shadow-[#8EE000]/40 px-5 py-3 transition-all duration-300 hover:scale-105 z-40">
         <img src="https://img.icons8.com/?size=100&id=63650&format=png&color=000000" alt="Tambah" class="w-5 h-5">
         <span class="hidden sm:inline font-fredoka">Kelas</span>
     </button>
+
 
     <!-- Modal Tambah Kelas -->
     <div x-show="openModal" x-transition.opacity class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">

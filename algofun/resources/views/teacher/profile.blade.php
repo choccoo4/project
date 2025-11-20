@@ -3,28 +3,42 @@
 @section('title', 'Data Diri Guru')
 
 @section('content')
-<div class="min-h-screen bg-[#FFF8F2] p-6" x-data="{ otherSchool: false }">
+<div class="min-h-screen bg-[#FFF8F2] p-4 sm:p-6" x-data="{ otherSchool: false }">
 
     <!-- Header -->
-    <div class="bg-white rounded-2xl shadow flex justify-between items-center px-8 py-4 mb-10 border border-[#F3E0D3]">
-        <div class="flex items-center space-x-3">
-            <img src="https://img.icons8.com/color/48/000000/user-folder.png" alt="Data Diri" class="w-9 h-9">
-            <h1 class="font-fredoka text-2xl font-extrabold text-[#EB580C]">Data Diri</h1>
+    <header class="mb-6 sm:mb-8 bg-white rounded-2xl shadow px-4 sm:px-6 py-4 
+        flex items-center justify-between">
+
+        <!-- Left: Icon + Judul -->
+        <div class="flex items-center gap-3">
+            <img src="https://img.icons8.com/color/48/000000/user-folder.png"
+                class="w-7 h-7 sm:w-8 sm:h-8" alt="Data Diri">
+
+            <h1 class="text-lg sm:text-2xl font-extrabold text-[#EB580C] font-fredoka">
+                Data Diri
+            </h1>
         </div>
-        <p class="text-gray-800 font-nunito text-lg">
-            Halo, <b class="text-[#EB580C]">{{ $dataDiri['nama_lengkap'] ?? 'Septia' }}</b>
-        </p>
-    </div>
+
+        <!-- Right: User greeting (Desktop only) -->
+        <div class="hidden sm:flex items-center space-x-4 font-nunito">
+            <img src="https://img.icons8.com/color/96/appointment-reminders.png" class="w-8 h-8" alt="Notifikasi">
+            <span class="text-gray-700 text-lg">
+                Halo, <b class="text-[#EB580C]">Septia</b>
+            </span>
+        </div>
+
+    </header>
 
     <!-- Card utama -->
-    <div class="bg-white rounded-2xl shadow-md border border-[#E7E7E7] max-w-4xl mx-auto px-10 py-10">
+    <div class="bg-white rounded-2xl shadow-md border border-[#E7E7E7] max-w-4xl mx-auto px-5 sm:px-10 py-8 sm:py-10">
 
         <!-- Foto profil -->
-        <div class="flex flex-col items-center mb-10 relative">
+        <div class="flex flex-col items-center mb-10">
             <div class="relative">
                 <img src="https://img.icons8.com/color/96/000000/teacher.png"
                     alt="Foto Profil"
-                    class="w-40 h-40 rounded-xl border border-gray-300 bg-[#FFF8F2] object-cover">
+                    class="w-32 h-32 sm:w-40 sm:h-40 rounded-xl border border-gray-300 bg-[#FFF8F2] object-cover">
+
                 <!-- Tombol edit foto -->
                 <button
                     class="absolute bottom-2 right-2 bg-white border border-gray-300 rounded-full p-2 shadow-sm hover:bg-gray-100">
@@ -37,33 +51,37 @@
         <form class="space-y-8 font-nunito text-gray-700">
 
             <!-- Nama Lengkap -->
-            <div class="grid grid-cols-3 items-center">
-                <label class="font-semibold text-right pr-6">Nama Lengkap</label>
-                <input type="text" value="{{ $dataDiri['nama_lengkap'] ?? 'Septia Riski Masturiy' }}"
-                    class="col-span-2 w-full border border-[#EAEAEA] rounded-lg px-4 py-2 
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 items-center">
+                <label class="font-semibold sm:text-right">Nama Lengkap</label>
+                <input type="text"
+                    value="{{ $dataDiri['nama_lengkap'] ?? 'Septia Riski Masturiy' }}"
+                    class="sm:col-span-2 w-full border border-[#EAEAEA] rounded-lg px-4 py-2 
                     bg-[#FDFDFD] text-[#333] focus:outline-none focus:ring-2 focus:ring-[#EB580C]">
             </div>
 
             <!-- Nama Pengguna -->
-            <div class="grid grid-cols-3 items-center">
-                <label class="font-semibold text-right pr-6">Nama Pengguna</label>
-                <input type="text" value="{{ $dataDiri['nama_pengguna'] ?? 'septia_rm' }}"
-                    class="col-span-2 w-full border border-[#EAEAEA] rounded-lg px-4 py-2 
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 items-center">
+                <label class="font-semibold sm:text-right">Nama Pengguna</label>
+                <input type="text"
+                    value="{{ $dataDiri['nama_pengguna'] ?? 'septia_rm' }}"
+                    class="sm:col-span-2 w-full border border-[#EAEAEA] rounded-lg px-4 py-2 
                     bg-[#FDFDFD] text-[#333] focus:outline-none focus:ring-2 focus:ring-[#EB580C]">
             </div>
 
             <!-- Email -->
-            <div class="grid grid-cols-3 items-center">
-                <label class="font-semibold text-right pr-6">Email</label>
-                <input type="email" value="{{ $dataDiri['email'] ?? 'septia@gmail.com' }}"
-                    class="col-span-2 w-full border border-[#EAEAEA] rounded-lg px-4 py-2 
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 items-center">
+                <label class="font-semibold sm:text-right">Email</label>
+                <input type="email"
+                    value="{{ $dataDiri['email'] ?? 'septia@gmail.com' }}"
+                    class="sm:col-span-2 w-full border border-[#EAEAEA] rounded-lg px-4 py-2 
                     bg-[#FDFDFD] text-[#333] focus:outline-none focus:ring-2 focus:ring-[#EB580C]">
             </div>
 
             <!-- Asal Sekolah -->
-            <div class="grid grid-cols-3 items-start">
-                <label class="font-semibold text-right pr-6 pt-2">Asal Sekolah</label>
-                <div class="col-span-2 space-y-3">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 items-start">
+                <label class="font-semibold sm:text-right pt-1">Asal Sekolah</label>
+
+                <div class="sm:col-span-2 space-y-3">
                     <select
                         @change="otherSchool = $event.target.value === 'lainnya'"
                         class="w-full border border-[#EAEAEA] rounded-lg px-4 py-2 bg-white text-[#333] focus:outline-none">
@@ -74,7 +92,7 @@
                         <option value="lainnya">Lainnya...</option>
                     </select>
 
-                    <!-- Input manual sekolah lain -->
+                    <!-- Input manual -->
                     <div x-show="otherSchool" x-transition>
                         <input type="text" placeholder="Tulis nama sekolah Anda"
                             class="w-full border border-[#EAEAEA] rounded-lg px-4 py-2 bg-[#FDFDFD] text-[#333] focus:outline-none">
@@ -83,30 +101,30 @@
             </div>
 
             <!-- NIP -->
-            <div class="grid grid-cols-3 items-center">
-                <label class="font-semibold text-right pr-6">NIP</label>
-                <input type="text" value="{{ $dataDiri['nip'] ?? '' }}"
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 items-center">
+                <label class="font-semibold sm:text-right">NIP</label>
+                <input type="text"
+                    value="{{ $dataDiri['nip'] ?? '' }}"
                     placeholder="Belum diisi"
-                    class="col-span-2 w-full border border-[#EAEAEA] rounded-lg px-4 py-2 
+                    class="sm:col-span-2 w-full border border-[#EAEAEA] rounded-lg px-4 py-2 
                     bg-[#FDFDFD] text-[#333] focus:outline-none focus:ring-2 focus:ring-[#EB580C]">
             </div>
 
             <!-- Tombol Aksi -->
-            <div class="flex justify-end gap-6 mt-12">
-                <!-- Batal -->
+            <div class="flex flex-col sm:flex-row justify-end gap-3 sm:gap-6 mt-12">
                 <button type="reset"
-                    class="w-26 h-11 bg-[#F4F4F4] rounded-xl shadow-[0px_8px_4px_rgba(0,0,0,0.25)] 
+                    class="w-full sm:w-28 h-11 bg-[#F4F4F4] rounded-xl shadow-[0px_8px_4px_rgba(0,0,0,0.25)] 
                     text-[#4C4C4C] text-lg font-fredoka font-semibold hover:bg-white/50 transition-all duration-300">
                     Batal
                 </button>
 
-                <!-- Simpan -->
                 <button type="submit"
-                    class="w-26 h-11 bg-[#8EE000] rounded-xl shadow-[0px_8px_4px_rgba(0,0,0,0.25)] 
+                    class="w-full sm:w-28 h-11 bg-[#8EE000] rounded-xl shadow-[0px_8px_4px_rgba(0,0,0,0.25)] 
                     text-white text-lg font-fredoka font-semibold hover:bg-[#ff6a1f] transition-all duration-300">
                     Simpan
                 </button>
             </div>
+
         </form>
     </div>
 </div>

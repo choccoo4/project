@@ -12,6 +12,9 @@ use App\Http\Controllers\Students\LaporanSiswaController;
 use App\Http\Controllers\Students\DataDiriController;
 use App\Http\Controllers\Students\PapanSkorController;
 use App\Http\Controllers\Students\QuizController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\PasswordController;
 
 // AI Controller
 use App\Http\Controllers\AIController;
@@ -37,6 +40,22 @@ Route::get('/', function () {
 // =========================
 // STUDENTS
 // =========================
+Route::get('/register', [RegisterController::class, 'showForm'])->name('register');
+Route::post('/register', [RegisterController::class, 'register'])->name('register.post');
+
+// LOGIN
+Route::get('/login', [LoginController::class, 'showLogin'])->name('login');
+Route::post('/login', [LoginController::class, 'login'])->name('login.post');
+
+
+// LUPA PASSWORD
+Route::get('/forgot-password', [PasswordController::class, 'forgotPassword'])->name('password.request');
+Route::post('/forgot-password', [PasswordController::class, 'sendResetLink'])->name('password.email');
+
+// RESET PASSWORD
+Route::get('/reset-password/{token}', [PasswordController::class, 'showResetForm'])->name('password.reset');
+Route::post('/reset-password', [PasswordController::class, 'resetPassword'])->name('password.update');
+
 
 Route::get('/dashboard', function () {
     return view('students.dashboard');

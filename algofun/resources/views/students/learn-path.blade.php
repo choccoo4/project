@@ -295,13 +295,18 @@
             },
 
             startLearning() {
+                let stepId = this.panelData.isCompleted ? this.panelData.stepId : this.panelData.stepId;
+                let url;
+
                 if (this.panelData.isCompleted) {
-                    // Redirect ke latihan
-                    console.log('Redirect to practice');
+                    // Redirect ke latihan/quiz
+                    url = "{{ url('/soal') }}/" + stepId;
                 } else {
-                    // Redirect ke pembelajaran
-                    console.log('Redirect to learning');
+                    // Redirect ke halaman belajar step
+                    url = "{{ url('/belajar') }}/" + stepId; // ganti dengan route belajar jika ada
                 }
+
+                window.location.href = url;
                 this.closePanel();
             }
         }

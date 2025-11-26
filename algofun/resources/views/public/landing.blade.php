@@ -13,7 +13,6 @@
 <body class="bg-[#FFF8F2] text-gray-700 font-nunito">
 
     <!-- NAVBAR -->
-    <!-- NAVBAR -->
     <nav class="w-full px-6 py-4 bg-white shadow-sm sticky top-0 z-50">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
 
@@ -30,15 +29,19 @@
                 <a href="#fitur"
                     class="font-fredoka font-semibold px-4 py-2 text-orange-500 hover:text-orange-600">Fitur</a>
 
-                <a href="{{ url('/login') }}"
-                    class="font-fredoka px-5 py-2 rounded-xl border border-orange-400 text-orange-500 font-semibold hover:bg-orange-50">
+                {{-- Login Button --}}
+                <x-button
+                    variant="outline"
+                    href="{{ url('/login') }}">
                     Login
-                </a>
+                </x-button>
 
-                <a href="{{ url('/register') }}"
-                    class="font-fredoka px-5 py-2 rounded-xl bg-orange-500 text-white font-semibold hover:bg-orange-600">
+                {{-- Daftar Button --}}
+                <x-button
+                    variant="primary"
+                    href="{{ url('/register') }}">
                     Daftar
-                </a>
+                </x-button>
             </div>
 
             <!-- MOBILE: HAMBURGER -->
@@ -49,8 +52,7 @@
         </div>
 
         <!-- MOBILE MENU DROPDOWN -->
-        <div id="mobile-menu"
-            class="hidden flex flex-col bg-white shadow-md rounded-xl mt-4 p-4 md:hidden space-y-2">
+        <div id="mobile-menu" class="hidden flex flex-col bg-white shadow-md rounded-xl mt-4 p-4 md:hidden space-y-2">
 
             <a href="#tentang"
                 class="font-fredoka px-3 py-2 text-orange-500 font-semibold hover:bg-orange-50 rounded-lg">
@@ -64,21 +66,21 @@
 
             <!-- WRAPPER BUTTON LOGIN & DAFTAR -->
             <div class="flex flex-col space-y-2 mt-3">
-
-                <!-- LOGIN -->
-                <a href="{{ url('/login') }}"
-                    class="w-full text-center font-fredoka px-4 py-3 rounded-xl border border-orange-400
-            text-orange-500 font-semibold hover:bg-orange-50 shadow-sm">
+                {{-- Login Mobile --}}
+                <x-button
+                    variant="outline"
+                    block
+                    href="{{ url('/login') }}">
                     Login
-                </a>
+                </x-button>
 
-                <!-- DAFTAR -->
-                <a href="{{ url('/register') }}"
-                    class="w-full text-center font-fredoka px-4 py-3 rounded-xl bg-orange-500 text-white
-            font-semibold shadow hover:bg-orange-600">
+                {{-- Daftar Mobile --}}
+                <x-button
+                    variant="primary"
+                    block
+                    href="{{ url('/register') }}">
                     Daftar
-                </a>
-
+                </x-button>
             </div>
         </div>
     </nav>
@@ -97,15 +99,21 @@
             </p>
 
             <div class="mt-8 flex gap-4">
-                <a href="{{ url('/register') }}"
-                    class="font-fredoka px-7 py-3 bg-orange-500 text-white rounded-2xl font-semibold shadow hover:bg-orange-600">
+                {{-- Mulai Sekarang --}}
+                <x-button
+                    variant="primary"
+                    size="lg"
+                    href="{{ url('/register') }}">
                     Mulai Sekarang
-                </a>
+                </x-button>
 
-                <a href="#fitur"
-                    class="font-fredoka px-7 py-3 border border-orange-400 text-orange-500 rounded-2xl font-semibold hover:bg-orange-50">
+                {{-- Lihat Fitur --}}
+                <x-button
+                    variant="outline"
+                    size="lg"
+                    href="#fitur">
                     Lihat Fitur
-                </a>
+                </x-button>
             </div>
         </div>
 
@@ -231,14 +239,16 @@
             <h3 class="font-fredoka text-3xl md:text-4xl text-[#EB580C] font-bold">
                 Siap Mulai Petualangan Belajar?
             </h3>
-            <p class="mt-3 text-gray-600">
+            <p class="mt-3 mb-4 text-gray-600">
                 Buat akun gratis dan mulai belajar algoritma dengan cara yang lebih seru dan interaktif!
             </p>
 
-            <a href="{{ url('/register') }}"
-                class="font-fredoka inline-block mt-8 px-7 py-3 bg-orange-500 text-white rounded-2xl font-semibold shadow hover:bg-orange-600">
+            <x-button
+                variant="primary"
+                size="lg"
+                href="{{ url('/register') }}">
                 Daftar Sekarang
-            </a>
+            </x-button>
         </div>
     </section>
 

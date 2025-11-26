@@ -112,8 +112,22 @@
                     </svg>
 
                     <div class="mt-4 w-full">
-                        <button class="w-full bg-[#EB580C] text-white rounded-3xl py-2.5 sm:py-3 font-fredoka shadow-md hover:bg-[#ff6b1c] text-[clamp(12px,2vw,16px)]">Ulangi</button>
-                        <button class="w-full mt-3 bg-lime-500 text-white rounded-3xl py-2.5 sm:py-3 font-fredoka shadow-md hover:bg-lime-600 text-[clamp(12px,2vw,16px)]">Ulas Pelajaran</button>
+                        <x-button
+                            variant="primary"
+                            color="#EB580C"
+                            block
+                            href="{{ route('quiz.restart') }}">
+                            Ulangi
+                        </x-button>
+
+                        <x-button
+                            variant="primary"
+                            color="#8EE000"
+                            class="mt-3"
+                            block
+                            href="{{ route('lesson.review') }}">
+                            Ulas Pelajaran
+                        </x-button>
                     </div>
                 </div>
             </div>

@@ -73,7 +73,7 @@ Route::get('/onboarding', function () {
     return view('students.onboarding');
 });
 
-Route::get('/peraturan', function () {
+Route::get('/aturan', function () {
     return view('students.rule');
 });
 
@@ -88,6 +88,8 @@ Route::get('/papan-skor', [PapanSkorController::class, 'index'])->name('students
 // =========================
 Route::get('/soal/{id}', [QuizController::class, 'show'])->name('question.show');
 Route::get('/quiz-results', [QuizController::class, 'results'])->name('quiz.results');
+Route::get('/quiz/restart', [QuizController::class, 'restart'])->name('quiz.restart');
+Route::get('/ulas-pelajaran', [QuizController::class, 'lessonReview'])->name('lesson.review');
 
 // =========================
 // AI

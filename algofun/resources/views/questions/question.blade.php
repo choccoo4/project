@@ -81,41 +81,88 @@
         </button>
     </nav>
 
-    <!-- ========================= FEEDBACK SECTION ========================= -->
+    <!-- ========================= FEEDBACK SECTION - SIMPLE VERSION ========================= -->
     <div x-show="feedback" x-transition
         class="fixed inset-0 bg-black/40 flex items-end sm:items-center justify-center z-50 px-4 pb-6 sm:pb-10">
 
-        <div class="w-full max-w-md sm:max-w-3xl rounded-2xl overflow-hidden shadow-xl"
-            :class="feedback?.type === 'success' ? 'bg-green-50' : 'bg-red-100'">
+        <!-- FEEDBACK BENAR -->
+        <template x-if="feedback?.type === 'success'">
+            <div class="w-full max-w-2xl bg-[#EFFFF3] rounded-2xl overflow-hidden shadow-xl">
+                <div class="p-6 sm:p-8 flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
+                    <!-- Icon -->
+                    <div class="w-16 h-16 sm:w-20 sm:h-20 flex-shrink-0">
+                        <img src="https://img.icons8.com/color/96/checkmark--v1.png" alt="Benar" class="w-full h-full">
+                    </div>
 
-            <div class="flex flex-col items-center justify-center text-center p-6 sm:p-8 space-y-5">
-                <template x-if="feedback?.type === 'success'">
-                    <img src='https://img.icons8.com/emoji/96/check-mark-emoji.png' alt='Benar' class="w-16 h-16 sm:w-20 sm:h-20">
-                </template>
-                <template x-if="feedback?.type === 'error'">
-                    <img src='https://img.icons8.com/emoji/96/cross-mark-emoji.png' alt='Salah' class="w-16 h-16 sm:w-20 sm:h-20">
-                </template>
+                    <!-- Content -->
+                    <div class="flex-1 text-center sm:text-left">
+                        <h2 class="text-xl sm:text-2xl font-fredoka font-semibold text-[#579F52] mb-2"
+                            x-text="feedback?.message"></h2>
+                        <p class="text-[#579F52] font-nunito text-lg">
+                            Terus pertahankan ya!
+                        </p>
+                    </div>
 
-                <h2 class="text-xl sm:text-2xl md:text-3xl font-fredoka font-semibold"
-                    :class="feedback?.type === 'success' ? 'text-green-700' : 'text-red-700'"
-                    x-text="feedback?.message"></h2>
-
-                <template x-if="feedback?.type === 'error' && feedback?.correctAnswer">
-                    <p class="text-base sm:text-lg text-red-800 font-semibold">
-                        Jawaban yang benar: <span x-text="feedback.correctAnswer"></span>
-                    </p>
-                </template>
-
-                <button @click="nextQuestion"
-                    class="w-full sm:w-auto px-6 sm:px-8 py-3 rounded-2xl sm:rounded-3xl font-fredoka text-lg font-semibold text-white shadow-md transition"
-                    :class="feedback?.type === 'success'
-                        ? 'bg-green-500 hover:bg-green-600'
-                        : 'bg-red-500 hover:bg-red-600'">
-                    Lanjutkan
-                </button>
+                    <!-- Button -->
+                    <button @click="nextQuestion()"
+                        class="w-full sm:w-44 h-12 bg-[#8EE000] hover:bg-[#7BC800] rounded-3xl shadow-[0px_8px_4px_0px_rgba(0,0,0,0.25)] 
+                           transition-all duration-300 hover:scale-105 
+                           text-white text-xl font-semibold font-fredoka flex items-center justify-center">
+                        Lanjutkan
+                    </button>
+                </div>
             </div>
-        </div>
+        </template>
+
+        <!-- FEEDBACK SALAH -->
+        <template x-if="feedback?.type === 'error'">
+            <div class="w-full max-w-2xl bg-[#FFE2E2] rounded-2xl overflow-hidden shadow-xl">
+                <div class="p-6 sm:p-8">
+                    <!-- Header -->
+                    <div class="text-center mb-6">
+                        <h2 class="text-xl sm:text-2xl font-fredoka font-semibold text-[#ED4141] mb-2"
+                            x-text="feedback?.message"></h2>
+                        <p class="text-[#ED4141] font-nunito text-lg">
+                            Jawaban yang benar:
+                        </p>
+                    </div>
+
+                    <!-- Correct Answer Display -->
+                    <div class="bg-white rounded-2xl border-2 border-[#ED4141] p-4 sm:p-6 mb-6">
+                        <div class="text-center">
+                            <template x-if="Array.isArray(correctAnswer)">
+                                <div class="flex flex-wrap gap-2 justify-center">
+                                    <template x-for="(answer, index) in correctAnswer" :key="index">
+                                        <div class="bg-[#FFE2E2] text-[#ED4141] text-lg sm:text-xl font-semibold font-nunito 
+                                               px-4 py-2 rounded-xl border border-[#ED4141]"
+                                            x-text="answer"></div>
+                                    </template>
+                                </div>
+                            </template>
+                            <template x-if="!Array.isArray(correctAnswer)">
+                                <div class="text-[#ED4141] text-2xl sm:text-3xl font-bold font-nunito underline py-2"
+                                    x-text="correctAnswer"></div>
+                            </template>
+                        </div>
+                    </div>
+
+                    <!-- Button -->
+                    <button @click="nextQuestion()"
+                        class="w-full h-12 bg-[#E03F00] hover:bg-[#C73600] rounded-3xl shadow-[0px_8px_4px_0px_rgba(0,0,0,0.25)] 
+                           transition-all duration-300 hover:scale-105 
+                           text-white text-xl font-semibold font-fredoka flex items-center justify-center">
+                        Lanjutkan
+                    </button>
+                </div>
+            </div>
+        </template>
     </div>
 </body>
+
+<script>
+    window.correctAnswer = @json($correctAnswer);
+    window.nextQuestionId = @json($nextQuestionId);
+    window.questionOptions = @json($questionOptions ?? []);
+</script>
 
 </html>

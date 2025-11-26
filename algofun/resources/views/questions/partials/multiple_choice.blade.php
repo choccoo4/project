@@ -18,7 +18,7 @@
 </div>
 
 <!-- Pilihan Jawaban -->
-<div id="choices" class="grid grid-cols-1 gap-4 mb-8 w-full sm:max-w-xl mx-auto">
+<div class="grid grid-cols-1 gap-4 mb-8 w-full sm:max-w-xl mx-auto">
     @foreach($question['options'] as $index => $option)
     @php
     $letters = ['A', 'B', 'C', 'D'];
@@ -26,32 +26,55 @@
 
     <button
         type="button"
-        class="choice-btn group flex items-center justify-between w-full bg-white border-2 border-[#FFD8B1] rounded-2xl p-4 shadow-sm 
-               transition-all duration-300 hover:-translate-y-1 hover:shadow-md 
+        class="choice-btn group flex items-center justify-between w-full bg-white border-2 rounded-2xl p-4 shadow-sm 
+               transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:border-[#EB580C]
                focus:outline-none focus:ring-4 focus:ring-[#FCD34D]/30"
-        data-answer="{{ $option }}"
-        data-correct="{{ $option === $question['correct'] ? 'true' : 'false' }}"
+        :class="{
+            'border-[#EB580C] bg-orange-50': userAnswer === '{{ $option }}' && !feedback,
+            'border-green-500 bg-green-50': feedback && userAnswer === '{{ $option }}' && '{{ $option === $question['correct'] }}' === '1',
+            'border-red-500 bg-red-50': feedback && userAnswer === '{{ $option }}' && '{{ $option === $question['correct'] }}' === '',
+            'border-green-500 bg-green-50': feedback && userAnswer !== '{{ $option }}' && '{{ $option === $question['correct'] }}' === '1',
+            'border-[#FFD8B1]': userAnswer !== '{{ $option }}' && !feedback
+        }"
+        @click="if(!feedback) userAnswer = '{{ $option }}'"
+        :disabled="feedback"
         aria-pressed="false"
         role="button">
 
         {{-- Label & isi --}}
         <div class="flex items-center gap-4 text-left">
             {{-- Icon huruf pilihan --}}
-            <div class="w-10 h-10 rounded-full bg-[#FFF0E0] border-2 border-[#FDBA74] flex items-center justify-center shadow-inner">
-                <span class="font-fredoka text-[#EB580C] text-lg font-extrabold">
+            <div class="w-10 h-10 rounded-full flex items-center justify-center shadow-inner"
+                :class="{
+                    'bg-orange-200 border-orange-400': userAnswer === '{{ $option }}' && !feedback,
+                    'bg-green-200 border-green-400': feedback && userAnswer === '{{ $option }}' && '{{ $option === $question['correct'] }}' === '1',
+                    'bg-red-200 border-red-400': feedback && userAnswer === '{{ $option }}' && '{{ $option === $question['correct'] }}' === '',
+                    'bg-green-200 border-green-400': feedback && userAnswer !== '{{ $option }}' && '{{ $option === $question['correct'] }}' === '1',
+                    'bg-[#FFF0E0] border-[#FDBA74]': userAnswer !== '{{ $option }}' && !feedback
+                 }">
+                <span class="font-fredoka text-lg font-extrabold"
+                    :class="{
+                        'text-orange-700': userAnswer === '{{ $option }}' && !feedback,
+                        'text-green-700': feedback && userAnswer === '{{ $option }}' && '{{ $option === $question['correct'] }}' === '1',
+                        'text-red-700': feedback && userAnswer === '{{ $option }}' && '{{ $option === $question['correct'] }}' === '',
+                        'text-green-700': feedback && userAnswer !== '{{ $option }}' && '{{ $option === $question['correct'] }}' === '1',
+                        'text-[#EB580C]': userAnswer !== '{{ $option }}' && !feedback
+                      }">
                     {{ $letters[$index] ?? '?' }}
                 </span>
             </div>
 
             {{-- Isi teks pilihan --}}
-            <span class="choice-label font-nunito text-[#374151] text-base font-semibold leading-snug">
+            <span class="font-nunito text-base font-semibold leading-snug"
+                :class="{
+                    'text-orange-700': userAnswer === '{{ $option }}' && !feedback,
+                    'text-green-700': feedback && userAnswer === '{{ $option }}' && '{{ $option === $question['correct'] }}' === '1',
+                    'text-red-700': feedback && userAnswer === '{{ $option }}' && '{{ $option === $question['correct'] }}' === '',
+                    'text-green-700': feedback && userAnswer !== '{{ $option }}' && '{{ $option === $question['correct'] }}' === '1',
+                    'text-[#374151]': userAnswer !== '{{ $option }}' && !feedback
+                  }">
                 {{ $option }}
             </span>
-        </div>
-
-        {{-- indikator (checklist benar/salah) --}}
-        <div class="choice-indicator w-8 h-8 rounded-full flex items-center justify-center hidden shadow-md">
-            <i data-lucide="check" class="w-5 h-5 text-white"></i>
         </div>
     </button>
     @endforeach

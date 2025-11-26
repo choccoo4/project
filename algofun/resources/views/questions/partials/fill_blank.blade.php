@@ -21,10 +21,12 @@
 
 <!-- Input Jawaban -->
 <div class="relative w-full sm:max-w-xl mx-auto px-1 sm:px-0">
-    <input id="userAnswer"
-        class="border-2 border-[#EB580C]/30 p-4 pr-12 w-full rounded-2xl 
-               focus:ring-4 focus:ring-[#EB580C]/20 focus:border-[#EB580C] transition-all 
-               font-nunito font-semibold text-[#374151] placeholder-[#9CA3AF] text-lg sm:text-base mobile-input"
+    <input
+        x-model="userAnswer"
+        id="userAnswer"
+        class="border-2 border-[#EB580C]/30 p-4 pr-12 w-full rounded-2xl
+    focus:ring-4 focus:ring-[#EB580C]/20 focus:border-[#EB580C] transition-all
+    font-nunito font-semibold text-[#374151] placeholder-[#9CA3AF] text-lg sm:text-base mobile-input"
         placeholder="Ketik jawaban di sini...">
     <div class="absolute right-4 sm:right-6 top-1/2 -translate-y-1/2 pointer-events-none">
         <img src="https://img.icons8.com/color/48/pen.png" class="w-6 h-6 sm:w-6 sm:h-6">

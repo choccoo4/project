@@ -5,12 +5,14 @@
             p-4 lg:p-8 
             mt-0 lg:mt-20"
      x-data="{ role: '', openDropdown: false }">
+    
     {{-- LOGO --}}
     <div class="relative w-full flex justify-center">
         <img src="/images/logo.svg"
              alt="AlgoFun Logo"
              class="absolute -top-23 w-100 drop-shadow-lg">
     </div>
+    
     <h2 class="text-center text-3xl font-fredoka font-semibold text-[#4a5565] mb-2 mt-10">
         Selamat Datang di AlgoFun!
     </h2>
@@ -18,13 +20,31 @@
         Buat akunmu dan ayo belajar dengan seru hari ini.
     </p>
 
+    {{-- ERROR MESSAGES --}}
+    @if($errors->any())
+        <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-4">
+            <ul class="list-disc list-inside text-sm">
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    {{-- SUCCESS MESSAGE --}}
+    @if(session('success'))
+        <div class="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg mb-4">
+            {{ session('success') }}
+        </div>
+    @endif
+
     {{-- FORM --}}
     <form action="{{ route('register.post') }}" method="POST" class="space-y-3 font-nunito">
         @csrf
 
         {{-- ROLE (Custom Dropdown) --}}
         <div>
-            <label class="font-semibold text-gray-800 text-sm block mb-1">Daftar Sebagai?</label>
+            <label class="font-semibold text-gray-800 text-sm block mb-1">Daftar Sebagai? <span class="text-red-500">*</span></label>
             
             {{-- Hidden Input untuk form submission --}}
             <input type="hidden" name="role" :value="role">
@@ -33,7 +53,8 @@
             <div class="relative" @click.outside="openDropdown = false">
                 <button type="button"
                     @click="openDropdown = !openDropdown"
-                    class="w-full border border-[#E7E7E7] rounded-lg px-3 py-2.5 bg-[#FDFDFD] focus:ring-2 focus:ring-[#EB580C] text-sm text-left flex justify-between items-center hover:bg-gray-50 transition">
+                    class="w-full border border-[#E7E7E7] rounded-lg px-3 py-2.5 bg-[#FDFDFD] focus:ring-2 focus:ring-[#EB580C] text-sm text-left flex justify-between items-center hover:bg-gray-50 transition"
+                    :class="{'border-red-500': !role && '{{ $errors->has('role') ? 'true' : 'false' }}' === 'true'}">
                     <span x-text="role ? (role === 'siswa' ? 'Siswa' : 'Guru') : 'Pilih Role'"></span>
                     <svg class="w-4 h-4 text-gray-600" :class="{'rotate-180': openDropdown}" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
@@ -69,31 +90,31 @@
 
         {{-- USERNAME --}}
         <div>
-            <label class="font-semibold text-gray-800 text-sm block mb-1">Nama Pengguna</label>
-            <input type="text" name="username"
-                class="w-full border border-[#E7E7E7] rounded-lg px-3 py-2.5 bg-[#FDFDFD] focus:ring-2 focus:ring-[#EB580C] text-sm transition"
+            <label class="font-semibold text-gray-800 text-sm block mb-1">Nama Pengguna <span class="text-red-500">*</span></label>
+            <input type="text" name="username" value="{{ old('username') }}"
+                class="w-full border border-[#E7E7E7] rounded-lg px-3 py-2.5 bg-[#FDFDFD] focus:ring-2 focus:ring-[#EB580C] text-sm transition @error('username') border-red-500 @enderror"
                 placeholder="Masukkan Nama Pengguna">
         </div>
 
         {{-- EMAIL --}}
         <div>
-            <label class="font-semibold text-gray-800 text-sm block mb-1">Email</label>
-            <input type="email" name="email"
-                class="w-full border border-[#E7E7E7] rounded-lg px-3 py-2.5 bg-[#FDFDFD] focus:ring-2 focus:ring-[#EB580C] text-sm transition"
+            <label class="font-semibold text-gray-800 text-sm block mb-1">Email <span class="text-red-500">*</span></label>
+            <input type="email" name="email" value="{{ old('email') }}"
+                class="w-full border border-[#E7E7E7] rounded-lg px-3 py-2.5 bg-[#FDFDFD] focus:ring-2 focus:ring-[#EB580C] text-sm transition @error('email') border-red-500 @enderror"
                 placeholder="contoh@gmail.com">
         </div>
 
         {{-- PASSWORD --}}
         <div>
-            <label class="font-semibold text-gray-800 text-sm block mb-1">Kata Sandi</label>
+            <label class="font-semibold text-gray-800 text-sm block mb-1">Kata Sandi <span class="text-red-500">*</span></label>
             <input type="password" name="password"
-                class="w-full border border-[#E7E7E7] rounded-lg px-3 py-2.5 bg-[#FDFDFD] focus:ring-2 focus:ring-[#EB580C] text-sm transition"
+                class="w-full border border-[#E7E7E7] rounded-lg px-3 py-2.5 bg-[#FDFDFD] focus:ring-2 focus:ring-[#EB580C] text-sm transition @error('password') border-red-500 @enderror"
                 placeholder="Minimal 8 karakter, mengandung huruf dan angka">
         </div>
 
         {{-- CONFIRM PASSWORD --}}
         <div>
-            <label class="font-semibold text-gray-800 text-sm block mb-1">Konfirmasi Kata Sandi</label>
+            <label class="font-semibold text-gray-800 text-sm block mb-1">Konfirmasi Kata Sandi <span class="text-red-500">*</span></label>
             <input type="password" name="password_confirmation"
                 class="w-full border border-[#E7E7E7] rounded-lg px-3 py-2.5 bg-[#FDFDFD] focus:ring-2 focus:ring-[#EB580C] text-sm transition"
                 placeholder="Konfirmasi Kata Sandi">
@@ -105,12 +126,20 @@
             Daftar
         </button>
 
-        {{-- GOOGLE --}}
-        <button type="button"
-            class="w-full flex items-center justify-center gap-2 bg-white border border-gray-300 py-2.5 rounded-lg text-sm shadow-sm hover:bg-gray-100 transition">
+        {{-- DIVIDER --}}
+        <div class="relative flex items-center justify-center my-4">
+            <div class="border-t border-gray-300 w-full"></div>
+            <span class="absolute bg-white px-3 text-gray-500 text-sm">atau</span>
+        </div>
+
+        {{-- GOOGLE BUTTON --}}
+        <a href="{{ route('google.redirect', ['role' => 'siswa']) }}"
+           x-bind:href="role ? '{{ route('google.redirect') }}?role=' + role : '#'"
+           @click="if(!role) { alert('Silakan pilih role terlebih dahulu!'); $event.preventDefault(); }"
+           class="w-full flex items-center justify-center gap-2 bg-white border border-gray-300 py-2.5 rounded-lg text-sm shadow-sm hover:bg-gray-100 transition">
             <img src="https://img.icons8.com/color/48/google-logo.png" class="w-4">
             <span class="font-nunito">Daftar dengan Google</span>
-        </button>
+        </a>
 
         {{-- LOGIN LINK --}}
         <p class="text-center text-sm text-gray-600 mt-4">

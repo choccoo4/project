@@ -57,13 +57,60 @@
             <span>Data Diri</span>
         </a>
 
-        <!-- Keluar -->
-        <a href="#"
-            class="font-fredoka flex items-center gap-3 px-5 py-4 mt-3 rounded-2xl border transition-all duration-200
-                hover:bg-[#FFF3E0] hover:border-[#F5D49F] border-transparent text-red-500">
-            <img src="https://img.icons8.com/color/96/logout-rounded-up.png" alt="Keluar" class="w-7 h-7 hover:scale-110">
-            <span>Keluar</span>
-        </a>
+        <!-- Form Logout Guru Desktop (Hidden) -->
+<form action="{{ route('logout') }}" method="POST" id="logoutFormGuruDesktop" class="hidden">
+    @csrf
+</form>
+
+<!-- Button Keluar Guru Desktop -->
+<a href="#"
+   onclick="event.preventDefault(); confirmLogoutGuruDesktop();"
+   class="font-fredoka flex items-center gap-3 px-5 py-4 mt-3 rounded-2xl border transition-all duration-200
+          hover:bg-[#FFF3E0] hover:border-[#F5D49F] border-transparent text-red-500">
+    <img src="https://img.icons8.com/color/96/logout-rounded-up.png" alt="Keluar" class="w-7 h-7 hover:scale-110 transition-transform">
+    <span class="hover:text-red-600 transition-colors">Keluar</span>
+</a>
+
+<!-- Script Konfirmasi Logout Guru Desktop -->
+<script>
+function confirmLogoutGuruDesktop() {
+    Swal.fire({
+        title: 'Keluar dari AlgoFun?',
+        text: "Anda yakin ingin keluar dari akun guru?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#EB580C',
+        cancelButtonColor: '#6B7280',
+        confirmButtonText: '<i class="fas fa-sign-out-alt"></i> Ya, Keluar',
+        cancelButtonText: '<i class="fas fa-times"></i> Batal',
+        reverseButtons: true,
+        customClass: {
+            popup: 'rounded-2xl shadow-2xl',
+            title: 'font-fredoka',
+            confirmButton: 'font-fredoka px-6 py-2.5 rounded-lg font-semibold',
+            cancelButton: 'font-fredoka px-6 py-2.5 rounded-lg font-semibold'
+        },
+        background: '#ffffff',
+        backdrop: 'rgba(0,0,0,0.4)'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Tampilkan loading dengan pesan
+            Swal.fire({
+                title: 'Sedang Keluar...',
+                html: 'Terima kasih telah mengajar hari ini! 🎓',
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+            
+            // Submit form logout
+            document.getElementById('logoutFormGuruDesktop').submit();
+        }
+    });
+}
+</script>
     </nav>
 </aside>
 @endsection
@@ -92,9 +139,59 @@
         <span>Data Diri</span>
     </a>
 
-    <a href="#" class="flex flex-col items-center text-xs font-fredoka text-gray-400 hover:text-red-500">
-        <img src="https://img.icons8.com/color/96/logout-rounded-up.png" class="w-6 h-6">
-        <span>Keluar</span>
-    </a>
+    <!-- Form Logout Guru Mobile (Hidden) -->
+<form action="{{ route('logout') }}" method="POST" id="logoutFormGuruMobile" class="hidden">
+    @csrf
+</form>
+
+<!-- Button Keluar Guru Mobile -->
+<a href="#" 
+   onclick="event.preventDefault(); confirmLogoutGuruMobile();"
+   class="flex flex-col items-center text-xs font-fredoka text-gray-400 hover:text-red-500 transition-all">
+    <img src="https://img.icons8.com/color/96/logout-rounded-up.png" class="w-6 h-6 hover:scale-110 transition-transform">
+    <span>Keluar</span>
+</a>
+
+<!-- Script Konfirmasi Logout Guru Mobile -->
+<script>
+function confirmLogoutGuruMobile() {
+    Swal.fire({
+        title: 'Keluar?',
+        text: "Yakin ingin keluar dari akun guru?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#EB580C',
+        cancelButtonColor: '#6B7280',
+        confirmButtonText: 'Ya, Keluar',
+        cancelButtonText: 'Batal',
+        reverseButtons: true,
+        customClass: {
+            popup: 'rounded-2xl',
+            title: 'text-lg font-fredoka',
+            htmlContainer: 'text-sm',
+            confirmButton: 'font-fredoka px-5 py-2 rounded-lg text-sm',
+            cancelButton: 'font-fredoka px-5 py-2 rounded-lg text-sm'
+        }
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Tampilkan loading
+            Swal.fire({
+                title: 'Keluar...',
+                html: 'Sampai bertemu lagi! 🎓',
+                timer: 1000,
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+            
+            // Submit form logout
+            setTimeout(() => {
+                document.getElementById('logoutFormGuruMobile').submit();
+            }, 1000);
+        }
+    });
+}
+</script>
 </nav>
 @endsection

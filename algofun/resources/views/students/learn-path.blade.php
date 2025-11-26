@@ -178,7 +178,7 @@
                 @click.stop
                 :style="panelStyle">
 
-                {{-- Callout Arrow seperti Duolingo --}}
+                {{-- Callout Arrow --}}
                 <div class="absolute w-4 h-4 bg-white transform rotate-45 border-t-2 border-l-2 border-gray-200"
                     :style="arrowStyle"></div>
 

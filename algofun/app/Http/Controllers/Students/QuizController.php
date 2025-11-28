@@ -7,9 +7,6 @@ use Illuminate\Http\Request;
 
 class QuizController extends Controller
 {
-    /**
-     * Get questions data - bisa dipindah ke model/database nanti
-     */
     private function getQuestions()
     {
         return [
@@ -27,7 +24,34 @@ class QuizController extends Controller
                 'correct' => ['Pakai kaos kaki', 'Masukkan kaki ke sepatu', 'Ikat tali sepatu'],
                 'explanation' => 'Urutan yang benar: pakai kaos kaki dulu, lalu masukkan kaki, terakhir ikat tali'
             ],
-            // ... tambahkan soal lainnya sama seperti di atas
+            3 => [
+                'type' => 'matching',
+                'text' => 'Cocokkan benda dengan fungsinya',
+                'left' => [
+                    ['id' => 1, 'text' => 'Pensil'],
+                    ['id' => 2, 'text' => 'Buku']
+                ],
+                'right' => [
+                    ['id' => 'a', 'text' => 'Menulis'],
+                    ['id' => 'b', 'text' => 'Membaca']
+                ],
+                'correct' => [[1, 'a'], [2, 'b']],
+                'explanation' => 'Pensil untuk menulis, buku untuk membaca'
+            ],
+            4 => [
+                'type' => 'fill_blank',
+                'text' => 'Lengkapi kalimat!',
+                'sentence' => 'Air itu rasanya <b>____</b>.',
+                'correct' => 'tawar',
+                'explanation' => 'Air yang bersih rasanya tawar'
+            ],
+            5 => [
+                'type' => 'drag_drop',
+                'text' => 'Susun kalimat: "Saya pergi sekolah"',
+                'options' => ['Saya', 'sekolah', 'pergi'],
+                'correct' => ['Saya', 'pergi', 'sekolah'],
+                'explanation' => 'Susunan yang benar: Saya pergi sekolah'
+            ]
         ];
     }
 

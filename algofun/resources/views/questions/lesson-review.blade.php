@@ -27,12 +27,14 @@
     </div>
 
     <!-- kanan: tombol beranda -->
-    <a href="{{ url('/dashboard') }}"
-        class="bg-white rounded-2xl shadow-md flex items-center justify-center hover:bg-orange-50 transition font-fredoka
-               w-8 h-8 sm:w-10 sm:h-10 md:w-auto md:h-auto md:px-4 md:py-2 lg:px-5 lg:py-3 gap-0 sm:gap-2">
-        <img src="https://img.icons8.com/fluency/32/home.png" alt="Beranda" class="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6">
-        <span class="hidden md:inline text-[clamp(12px,2vw,14px)] text-gray-700">Beranda</span>
-    </a>
+    <x-button
+        variant="secondary"
+        size="md"
+        href="{{ url('/dashboard') }}"
+        icon="https://img.icons8.com/fluency/32/home.png"
+        iconSize="lg">
+        <span class="hidden md:inline">Beranda</span>
+    </x-button>
 </header>
 
 <!-- ===== PROGRESS & STATS ===== -->

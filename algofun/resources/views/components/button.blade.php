@@ -1,9 +1,10 @@
 {{-- resources/views/components/button.blade.php --}}
 @props([
-'variant' => 'primary', // primary | secondary | soft | danger | outline | icon | floating
+'variant' => 'primary', // primary | success | warning | secondary | soft | danger | outline | icon | floating
 'size' => 'md', // sm | md | lg
 'block' => false,
 'icon' => null,
+'iconSize' => 'md', // PROP BARU: sm | md | lg
 'color' => null, // optional override hex or tailwind color
 'href' => null,
 'type' => 'button',
@@ -11,14 +12,29 @@
 ])
 
 @php
-// size map (mobile-first)
+// =============================================
+// SIZE CONFIGURATION
+// =============================================
 $sizes = [
 'sm' => 'px-4 py-2.5 text-[14px] sm:text-[15px]',
 'md' => 'px-5 py-3 text-[16px] sm:text-[17px]',
 'lg' => 'px-6 py-4 text-[18px] sm:text-[20px]',
 ];
 
-// palette (defaults)
+// =============================================
+// ICON SIZE CONFIGURATION (PROP BARU)
+// =============================================
+$iconSizes = [
+'sm' => 'w-4 h-4', // Small icon
+'md' => 'w-5 h-5', // Medium icon (default)
+'lg' => 'w-6 h-6', // Large icon
+];
+
+$iconClass = $iconSizes[$iconSize] ?? $iconSizes['md'];
+
+// =============================================
+// COLOR PALETTE (Design System)
+// =============================================
 $palette = [
 'orange' => '#EB580C',
 'orange_hover' => '#ff6a1f',
@@ -34,11 +50,33 @@ $palette = [
 'neutral_text' => '#4C4C4C',
 ];
 
-// default config per variant (no closures)
+// =============================================
+// VARIANT CONFIGURATIONS
+// =============================================
 if ($variant === 'primary') {
 $cfg = [
 'bg' => $color ?? $palette['orange'],
 'hover' => $color ? null : $palette['orange_hover'],
+'text' => '#FFFFFF',
+'rounded' => 'rounded-3xl',
+'shadow' => 'shadow-md',
+'pclasses' => null,
+'border' => null,
+];
+} elseif ($variant === 'success') {
+$cfg = [
+'bg' => $color ?? $palette['lime'],
+'hover' => $color ? null : $palette['lime_hover'],
+'text' => '#FFFFFF',
+'rounded' => 'rounded-3xl',
+'shadow' => 'shadow-md',
+'pclasses' => null,
+'border' => null,
+];
+} elseif ($variant === 'warning') {
+$cfg = [
+'bg' => $color ?? $palette['yellow'],
+'hover' => $color ? null : $palette['yellow_hover'],
 'text' => '#FFFFFF',
 'rounded' => 'rounded-3xl',
 'shadow' => 'shadow-md',
@@ -75,16 +113,6 @@ $cfg = [
 'pclasses' => null,
 'border' => null,
 ];
-} elseif ($variant === 'outline') {
-$cfg = [
-'bg' => '#FFFFFF',
-'hover' => null,
-'text' => $color ?? $palette['orange'],
-'rounded' => 'rounded-3xl',
-'shadow' => 'shadow-none',
-'pclasses' => null,
-'border' => $color ?? $palette['orange'],
-];
 } elseif ($variant === 'icon') {
 $cfg = [
 'bg' => 'transparent',
@@ -105,6 +133,16 @@ $cfg = [
 'pclasses' => 'px-5 py-3',
 'border' => $color ?? $palette['lime'],
 ];
+} elseif ($variant === 'info') {
+$cfg = [
+'bg' => $color ?? $palette['sky'],
+'hover' => $color ? null : $palette['sky_hover'],
+'text' => '#FFFFFF',
+'rounded' => 'rounded-3xl',
+'shadow' => 'shadow-md',
+'pclasses' => null,
+'border' => null,
+];
 } else {
 // fallback = primary
 $cfg = [
@@ -118,14 +156,18 @@ $cfg = [
 ];
 }
 
-// disabled handling
+// =============================================
+// DISABLED STATE HANDLING
+// =============================================
 if ($disabled) {
 $disabledClass = 'opacity-70 pointer-events-none';
 } else {
 $disabledClass = '';
 }
 
-// compose classes
+// =============================================
+// CSS CLASSES COMPOSITION
+// =============================================
 $base = 'inline-flex items-center justify-center gap-2 font-fredoka font-semibold transition-all duration-300 focus:outline-none';
 $blockClass = $block ? 'w-full' : 'inline-flex';
 $padding = $cfg['pclasses'] ?? $sizes[$size];
@@ -136,14 +178,16 @@ $borderColorStyle = $cfg['border'] ? "border-[{$cfg['border']}]" : '';
 $textColor = $cfg['text'] ?? '#FFFFFF';
 $bgStyle = $cfg['bg'] ? "background: {$cfg['bg']};" : '';
 $hoverBg = $cfg['hover'] ?? null;
-@endphp
 
-@php
-// final classes string (we'll still allow extra classes via $attributes)
+// =============================================
+// FINAL CLASSES STRING
+// =============================================
 $finalClasses = trim("{$base} {$blockClass} {$padding} {$rounded} {$shadow} {$borderClass} {$disabledClass}");
 @endphp
 
-{{-- Render --}}
+{{-- ============================================= --}}
+{{-- RENDER: BUTTON OR LINK --}}
+{{-- ============================================= --}}
 @if($href)
 <a href="{{ $href }}"
     {!! $attributes->merge(['class' => $finalClasses . ' ' . ($cfg['border'] ? $borderColorStyle : '')]) !!}
@@ -153,15 +197,16 @@ $finalClasses = trim("{$base} {$blockClass} {$padding} {$rounded} {$shadow} {$bo
     onmouseleave="this.style.filter='';"
     @endif
     >
+    {{-- ICON HANDLING DENGAN SIZE BARU --}}
     @if($icon)
-    {{-- adjust this block to match your icon system; using <img> fallback --}}
     @if(Str::startsWith($icon, ['http','/']))
-    <img src="{{ $icon }}" class="w-4 h-4" alt="icon">
+    <img src="{{ $icon }}" class="{{ $iconClass }}" alt="icon">
     @else
-    <i data-lucide="{{ $icon }}" class="w-5 h-5"></i>
+    <i data-lucide="{{ $icon }}" class="{{ $iconClass }}"></i>
     @endif
     @endif
 
+    {{-- BUTTON CONTENT --}}
     {{ $slot }}
 </a>
 @else
@@ -174,14 +219,16 @@ $finalClasses = trim("{$base} {$blockClass} {$padding} {$rounded} {$shadow} {$bo
     @endif
     @if($disabled) disabled @endif
     >
+    {{-- ICON HANDLING DENGAN SIZE BARU --}}
     @if($icon)
     @if(Str::startsWith($icon, ['http','/']))
-    <img src="{{ $icon }}" class="w-4 h-4" alt="icon">
+    <img src="{{ $icon }}" class="{{ $iconClass }}" alt="icon">
     @else
-    <i data-lucide="{{ $icon }}" class="w-5 h-5"></i>
+    <i data-lucide="{{ $icon }}" class="{{ $iconClass }}"></i>
     @endif
     @endif
 
+    {{-- BUTTON CONTENT --}}
     {{ $slot }}
 </button>
 @endif

@@ -26,7 +26,7 @@
             </span>
 
             <div class="relative">
-                <img src="/icons/avatar-hero.png" alt="Avatar"
+                <img src="/icons/blank.jpeg" alt="Avatar"
                     class="w-14 h-14 rounded-full border-4 border-[#EB580C] shadow-md">
                 <span
                     class="absolute -top-2 -right-2 bg-[#EB580C] text-white text-xs font-bold px-2 py-1 rounded-full shadow">
@@ -37,7 +37,7 @@
 
         <!-- Right: Mobile Avatar -->
         <div class="sm:hidden relative">
-            <img src="/icons/avatar-hero.png" alt="Avatar"
+            <img src="/icons/blank.jpeg" alt="Avatar"
                 class="w-10 h-10 rounded-full border-2 border-[#EB580C] shadow-md">
             <span
                 class="absolute -top-1 -right-1 bg-[#EB580C] text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full shadow">

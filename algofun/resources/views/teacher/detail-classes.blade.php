@@ -85,7 +85,7 @@
                             onclick="window.location.href='{{ route('guru.kelas.report', ['id' => 1, 'student_id' => $index + 1]) }}'">
 
                             <td class="flex items-center gap-3 px-4 sm:px-6 py-3 font-bold font-nunito whitespace-nowrap">
-                                <img src="/icons/avatar-hero.png"
+                                <img src="/icons/blank.jpeg"
                                     class="w-7 h-7 rounded-full border-2 border-orange-600">
                                 {{ $item->nama }}
                             </td>

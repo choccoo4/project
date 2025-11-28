@@ -84,55 +84,56 @@
             <span>Aturan</span>
         </a>
 
-<!-- Form Logout (Hidden) -->
-<form action="{{ route('logout') }}" method="POST" id="logoutFormSiswaDesktop" class="hidden">
-    @csrf
-</form>
+        <!-- Form Logout (Hidden) -->
+        <form action="{{ route('logout') }}" method="POST" id="logoutFormSiswaDesktop" class="hidden">
+            @csrf
+        </form>
 
-<!-- Button Keluar Desktop -->
-<a href="#" 
-   onclick="event.preventDefault(); confirmLogoutSiswaDesktop();"
-   class="font-fredoka flex items-center gap-3 px-5 py-4 mt-3 rounded-2xl border transition-all duration-200
+        <!-- Button Keluar Desktop -->
+        <a href="#"
+            onclick="event.preventDefault(); confirmLogoutSiswaDesktop();"
+            class="font-fredoka flex items-center gap-3 px-5 py-4 mt-3 rounded-2xl border transition-all duration-200
           hover:bg-[#FFF3E0] hover:border-[#F5D49F] border-transparent">
-    <img src="https://img.icons8.com/color/96/exit.png" alt="Keluar" class="w-7 h-7 hover:scale-110 transition-transform">
-    <span class="text-gray-700 hover:text-red-500 transition-colors">Keluar</span>
-</a>
-<!-- Script Konfirmasi Logout Desktop -->
-<script>
-function confirmLogoutSiswaDesktop() {
-    Swal.fire({
-        title: 'Keluar dari AlgoFun?',
-        text: "Kamu yakin ingin keluar sekarang?",
-        icon: 'question',
-        showCancelButton: true,
-        confirmButtonColor: '#EB580C',
-        cancelButtonColor: '#6B7280',
-        confirmButtonText: '<i class="fas fa-sign-out-alt"></i> Ya, Keluar',
-        cancelButtonText: '<i class="fas fa-times"></i> Batal',
-        reverseButtons: true,
-        customClass: {
-            popup: 'rounded-2xl',
-            confirmButton: 'font-fredoka px-6 py-2.5 rounded-lg',
-            cancelButton: 'font-fredoka px-6 py-2.5 rounded-lg'
-        }
-    }).then((result) => {
-        if (result.isConfirmed) {
-            // Tampilkan loading
-            Swal.fire({
-                title: 'Sedang Keluar...',
-                html: 'Sampai jumpa lagi! 👋',
-                allowOutsideClick: false,
-                didOpen: () => {
-                    Swal.showLoading();
-                }
-            });
-            
-            // Submit form logout
-            document.getElementById('logoutFormSiswaDesktop').submit();
-        }
-    });
-}
-</script>
+            <img src="https://img.icons8.com/color/96/exit.png" alt="Keluar" class="w-7 h-7 hover:scale-110 transition-transform">
+            <span class="text-gray-700 hover:text-red-500 transition-colors">Keluar</span>
+        </a>
+
+        <!-- Script Konfirmasi Logout Desktop -->
+        <script>
+            function confirmLogoutSiswaDesktop() {
+                Swal.fire({
+                    title: 'Keluar dari AlgoFun?',
+                    text: "Kamu yakin ingin keluar sekarang?",
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#EB580C',
+                    cancelButtonColor: '#6B7280',
+                    confirmButtonText: '<i class="fas fa-sign-out-alt"></i> Ya, Keluar',
+                    cancelButtonText: '<i class="fas fa-times"></i> Batal',
+                    reverseButtons: true,
+                    customClass: {
+                        popup: 'rounded-2xl',
+                        confirmButton: 'font-fredoka px-6 py-2.5 rounded-lg',
+                        cancelButton: 'font-fredoka px-6 py-2.5 rounded-lg'
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Tampilkan loading
+                        Swal.fire({
+                            title: 'Sedang Keluar...',
+                            html: 'Sampai jumpa lagi! 👋',
+                            allowOutsideClick: false,
+                            didOpen: () => {
+                                Swal.showLoading();
+                            }
+                        });
+
+                        // Submit form logout
+                        document.getElementById('logoutFormSiswaDesktop').submit();
+                    }
+                });
+            }
+        </script>
     </nav>
 </aside>
 @endsection
@@ -206,63 +207,59 @@ function confirmLogoutSiswaDesktop() {
             </a>
 
             <!-- Form Logout Mobile (Hidden) -->
-          <form action="{{ route('logout') }}" method="POST" id="logoutFormSiswaMobile" class="hidden">
-          @csrf
-          </form>
+            <form action="{{ route('logout') }}" method="POST" id="logoutFormSiswaMobile" class="hidden">
+                @csrf
+            </form>
 
-        <!-- Button Keluar Mobile -->
-        <a href="#" 
-        onclick="event.preventDefault(); confirmLogoutSiswaMobile();"
-        class="font-fredoka flex items-center gap-2 px-4 py-2 hover:bg-orange-50 text-sm text-red-500 rounded-lg transition-all">
-        <img src="https://img.icons8.com/color/96/exit.png" class="w-5 h-5">
-        <span>Keluar</span>
-        </a>
+            <!-- Button Keluar Mobile -->
+            <a href="#"
+                onclick="event.preventDefault(); confirmLogoutSiswaMobile();"
+                class="font-fredoka flex items-center gap-2 px-4 py-2 hover:bg-orange-50 text-sm text-red-500 rounded-lg transition-all">
+                <img src="https://img.icons8.com/color/96/exit.png" class="w-5 h-5">
+                <span>Keluar</span>
+            </a>
         </div>
     </div>
 
-
-
-
-
     <!-- Script Konfirmasi Logout Mobile -->
-<script>
-function confirmLogoutSiswaMobile() {
-    Swal.fire({
-        title: 'Keluar?',
-        text: "Yakin mau keluar sekarang?",
-        icon: 'question',
-        showCancelButton: true,
-        confirmButtonColor: '#EB580C',
-        cancelButtonColor: '#6B7280',
-        confirmButtonText: 'Ya, Keluar',
-        cancelButtonText: 'Batal',
-        reverseButtons: true,
-        customClass: {
-            popup: 'rounded-2xl',
-            title: 'text-lg',
-            confirmButton: 'font-fredoka px-5 py-2 rounded-lg text-sm',
-            cancelButton: 'font-fredoka px-5 py-2 rounded-lg text-sm'
-        }
-    }).then((result) => {
-        if (result.isConfirmed) {
-            // Tampilkan loading
+    <script>
+        function confirmLogoutSiswaMobile() {
             Swal.fire({
-                title: 'Keluar...',
-                html: 'Sampai jumpa! 👋',
-                timer: 1000,
-                allowOutsideClick: false,
-                didOpen: () => {
-                    Swal.showLoading();
+                title: 'Keluar?',
+                text: "Yakin mau keluar sekarang?",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#EB580C',
+                cancelButtonColor: '#6B7280',
+                confirmButtonText: 'Ya, Keluar',
+                cancelButtonText: 'Batal',
+                reverseButtons: true,
+                customClass: {
+                    popup: 'rounded-2xl',
+                    title: 'text-lg',
+                    confirmButton: 'font-fredoka px-5 py-2 rounded-lg text-sm',
+                    cancelButton: 'font-fredoka px-5 py-2 rounded-lg text-sm'
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Tampilkan loading
+                    Swal.fire({
+                        title: 'Keluar...',
+                        html: 'Sampai jumpa! 👋',
+                        timer: 1000,
+                        allowOutsideClick: false,
+                        didOpen: () => {
+                            Swal.showLoading();
+                        }
+                    });
+
+                    // Submit form logout
+                    setTimeout(() => {
+                        document.getElementById('logoutFormSiswaMobile').submit();
+                    }, 1000);
                 }
             });
-            
-            // Submit form logout
-            setTimeout(() => {
-                document.getElementById('logoutFormSiswaMobile').submit();
-            }, 1000);
         }
-    });
-}
-</script>
+    </script>
 </nav>
 @endsection

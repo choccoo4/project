@@ -28,7 +28,7 @@
       </span>
 
       <div class="relative">
-        <img src="/icons/avatar-hero.png" alt="Avatar"
+        <img src="/icons/blank.jpeg" alt="Avatar"
           class="w-14 h-14 rounded-full border-4 border-[#EB580C] shadow-md">
         <span class="absolute -top-2 -right-2 bg-[#EB580C] text-white text-xs font-bold px-2 py-1 rounded-full shadow">
           Lv. 1
@@ -38,7 +38,7 @@
 
     <!-- Right: Avatar (Mobile Only) -->
     <div class="sm:hidden relative">
-      <img src="/icons/avatar-hero.png" alt="Avatar"
+      <img src="/icons/blank.jpeg" alt="Avatar"
         class="w-10 h-10 rounded-full border-2 border-[#EB580C] shadow-md">
       <span class="absolute -top-1 -right-1 bg-[#EB580C] text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full shadow">
         Lv. 1
@@ -118,7 +118,7 @@
 
 
   {{-- Evaluasi Belajar (AI Insight) --}}
-  <div class="mt-10 border border-gray-300 rounded-2xl p-4 sm:p-6 bg-orange-50 shadow-inner">
+  <div class="mt-10 border border-gray-300 rounded-2xl p-4 sm:p-6 bg-white shadow-inner">
     <div class="flex items-center gap-3 mb-3">
       <img
         src="/icons/robot.png"
@@ -138,7 +138,7 @@
         </p>
 
         <p class="text-gray-800 font-nunito text-base sm:text-lg">
-          <span class="font-semibold text-[#EB580C]">{{ $aiInsight['hebat'] }}</span>
+          <span class="font-semibold text-gray-800">{{ $aiInsight['hebat'] }}</span>
         </p>
 
         <p class="text-gray-800 font-nunito text-base sm:text-lg mt-3 font-bold">

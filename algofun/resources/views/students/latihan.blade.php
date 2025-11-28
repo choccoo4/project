@@ -23,7 +23,7 @@
                 Halo, <b class="text-[#EB580C]">{{ Auth::user()->name ?? 'Siswa' }}</b>
             </span>
             <div class="relative">
-                <img src="/icons/avatar-hero.png" alt="Avatar" class="w-14 h-14 rounded-full border-4 border-[#EB580C] shadow-md">
+                <img src="/icons/blank.jpeg" alt="Avatar" class="w-14 h-14 rounded-full border-4 border-[#EB580C] shadow-md">
                 <span class="absolute -top-2 -right-2 bg-[#EB580C] text-white text-xs font-bold px-2 py-1 rounded-full shadow">
                     Lv. 1
                 </span>
@@ -31,7 +31,7 @@
         </div>
         <!-- Mobile -->
         <div class="sm:hidden relative">
-            <img src="/icons/avatar-hero.png" alt="Avatar" class="w-10 h-10 rounded-full border-2 border-[#EB580C] shadow-md">
+            <img src="/icons/blank.jpeg" alt="Avatar" class="w-10 h-10 rounded-full border-2 border-[#EB580C] shadow-md">
             <span class="absolute -top-1 -right-1 bg-[#EB580C] text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full shadow">
                 Lv. 1
             </span>
@@ -74,9 +74,11 @@
                             ⚡ XP Potensial: <b>+{{ $card['xp'] }} XP</b>
                         </p>
                     </div>
-                    <button class="mt-3 sm:mt-0 bg-[#FFB84C] hover:bg-[#FFA500] text-white font-bold px-5 py-3 rounded-full shadow hover:scale-105 transition font-fredoka w-full sm:w-auto text-center">
+                    <x-button
+                        variant="warning"
+                        class="mt-3 sm:mt-0 w-full sm:w-auto">
                         Latihan Lagi
-                    </button>
+                    </x-button>
                 </div>
                 @endforeach
 

@@ -28,7 +28,7 @@
       </span>
 
       <div class="relative">
-        <img src="/icons/avatar-hero.png" alt="Avatar"
+        <img src="/icons/blank.jpeg" alt="Avatar"
           class="w-14 h-14 rounded-full border-4 border-[#EB580C] shadow-md">
         <span class="absolute -top-2 -right-2 bg-[#EB580C] text-white text-xs font-bold px-2 py-1 rounded-full shadow">
           Lv. 1
@@ -38,7 +38,7 @@
 
     <!-- Right: Avatar (Mobile Only) -->
     <div class="sm:hidden relative">
-      <img src="/icons/avatar-hero.png" alt="Avatar"
+      <img src="/icons/blank.jpeg" alt="Avatar"
         class="w-10 h-10 rounded-full border-2 border-[#EB580C] shadow-md">
       <span class="absolute -top-1 -right-1 bg-[#EB580C] text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full shadow">
         Lv. 1
@@ -52,7 +52,7 @@
     {{-- FOTO PROFIL --}}
     <div class="flex flex-col items-center mb-10 relative">
       <div class="relative">
-        <img src="{{ asset('icons/avatar-hero.png') }}"
+        <img src="{{ asset('icons/blank.jpeg') }}"
           class="w-32 sm:w-40 h-32 sm:h-40 rounded-xl border border-gray-300 bg-[#FFF8F2] object-cover"
           alt="Profile">
         <button class="absolute bottom-2 right-2 bg-white border border-gray-300 rounded-full p-2 shadow-sm hover:bg-gray-100">
@@ -131,16 +131,19 @@
 
       {{-- Tombol Aksi --}}
       <div class="flex flex-col sm:flex-row justify-end gap-4 mt-8 sm:mt-12">
-        <button type="button"
-          class="w-full sm:w-28 h-11 bg-[#F4F4F4] rounded-xl shadow-[0px_8px_4px_rgba(0,0,0,0.25)]
-                               text-[#4C4C4C] text-lg font-fredoka font-semibold hover:bg-white/50 transition-all duration-300">
+        <x-button
+          variant="soft"
+          type="button"
+          class="w-full sm:w-28 h-11 shadow-[0px_8px_4px_rgba(0,0,0,0.25)]">
           Batal
-        </button>
-        <button type="submit"
-          class="w-full sm:w-28 h-11 bg-[#8EE000] rounded-xl shadow-[0px_8px_4px_rgba(0,0,0,0.25)]
-                               text-white text-lg font-fredoka font-semibold hover:bg-[#ff6a1f] transition-all duration-300">
+        </x-button>
+
+        <x-button
+          variant="success"
+          type="submit"
+          class="w-full sm:w-28 h-11 shadow-[0px_8px_4px_rgba(0,0,0,0.25)]">
           Simpan
-        </button>
+        </x-button>
       </div>
 
     </form>

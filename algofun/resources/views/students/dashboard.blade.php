@@ -26,7 +26,7 @@
             </span>
 
             <div class="relative">
-                <img src="/icons/avatar-hero.png" alt="Avatar"
+                <img src="/icons/blank.jpeg" alt="Avatar"
                     class="w-14 h-14 rounded-full border-4 border-[#EB580C] shadow-md">
                 <span
                     class="absolute -top-2 -right-2 bg-[#EB580C] text-white text-xs font-bold px-2 py-1 rounded-full shadow">
@@ -37,7 +37,7 @@
 
         <!-- Right: Avatar (Mobile Only) -->
         <div class="sm:hidden relative">
-            <img src="/icons/avatar-hero.png" alt="Avatar"
+            <img src="/icons/blank.jpeg" alt="Avatar"
                 class="w-10 h-10 rounded-full border-2 border-[#EB580C] shadow-md">
             <span
                 class="absolute -top-1 -right-1 bg-[#EB580C] text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full shadow">
@@ -53,15 +53,15 @@
         <div class="col-span-2 bg-white rounded-2xl shadow p-6">
             <h2 class="text-xl font-semibold mb-6 flex items-center gap-2 font-fredoka text-[#555555]">
                 <img src="https://img.icons8.com/scribby/50/positive-dynamic.png" class="w-6 h-6" alt="Progress">
-                Progress Belajar
+                Perkembangan Belajar
             </h2>
 
             <!-- Level Aktif -->
-            <div class="bg-orange-400 text-white p-4 rounded-xl shadow-lg mb-6 hover:shadow-xl transition">
+            <div class="bg-[#EB580C] text-white p-4 rounded-xl shadow-lg mb-6 hover:shadow-xl transition">
                 <p class="font-bold text-lg heading-font">Level Aktif: Desa Pemula</p>
                 <p class="text-sm opacity-90">Selesaikan semua tantangan untuk membuka Level 2</p>
                 <div class="mt-3 w-full bg-white rounded-full h-4 overflow-hidden">
-                    <div class="bg-pink-500 h-4 rounded-full animate-[grow_2s_ease-out_forwards]" style="width: 70%;"></div>
+                    <div class="bg-[#FFC338] h-4 rounded-full animate-[grow_2s_ease-out_forwards]" style="width: 70%;"></div>
                 </div>
                 <p class="text-sm mt-1">XP: 70 / 100</p>
             </div>
@@ -149,10 +149,13 @@
 
         <!-- Button -->
         <div class="mt-4 md:mt-0 w-full md:w-auto">
-            <a href="{{ url('/latihan') }}"
-                class="bg-[#FFB84C] hover:bg-[#FFA500] text-white font-semibold px-5 py-3 rounded-full shadow-md transition font-fredoka w-full sm:w-auto text-center">
+            {{-- SESUDAH --}}
+            <x-button
+                variant="warning"
+                href="{{ url('/latihan') }}"
+                class="w-full sm:w-auto">
                 Latihan Lagi
-            </a>
+            </x-button>
         </div>
     </div>
 
@@ -174,23 +177,27 @@
     </div>
 
     <!-- Floating Button: + Kelas -->
-    <button
-        @click="window.location.href='{{ url('/kelas/tambah') }}'"
-        class="fixed bottom-20 md:bottom-6 right-6 flex items-center gap-2 rounded-full border-2 border-[#8EE000] bg-white text-[#555555] font-semibold shadow-md hover:shadow-[#8EE000]/40 px-5 py-3 transition-all duration-300 hover:scale-105 z-40">
-        <img src="https://img.icons8.com/?size=100&id=63650&format=png&color=000000" alt="Tambah" class="w-5 h-5">
-        <span class="hidden sm:inline font-fredoka">Kelas</span>
-    </button>
+    <x-button
+        variant="floating"
+        icon="https://img.icons8.com/?size=100&id=63650&format=png&color=000000"
+        iconSize="md"
+        href="{{ url('/kelas/tambah') }}"
+        class="fixed bottom-20 md:bottom-6 right-6 z-40">
+        <span class="hidden sm:inline">Kelas</span>
+    </x-button>
 
     <!-- Modal -->
     <div x-data="{ openModal: false, kode: '' }">
 
         <!-- Floating Button: + Kelas -->
-        <button
+        <x-button
+            variant="floating"
+            icon="https://img.icons8.com/?size=100&id=63650&format=png&color=000000"
+            iconSize="md"
             @click="openModal = true"
-            class="fixed bottom-20 md:bottom-6 right-6 flex items-center gap-2 rounded-full border-2 border-[#8EE000] bg-white text-[#555555] font-semibold shadow-md hover:shadow-[#8EE000]/40 px-5 py-3 transition-all duration-300 hover:scale-105 z-40">
-            <img src="https://img.icons8.com/?size=100&id=63650&format=png&color=000000" alt="Tambah" class="w-5 h-5">
-            <span class="hidden sm:inline font-fredoka">Kelas</span>
-        </button>
+            class="fixed bottom-20 md:bottom-6 right-6 z-40">
+            <span class="hidden sm:inline">Kelas</span>
+        </x-button>
 
         <!-- Modal Tambah Kelas (Siswa) -->
         <div x-show="openModal" x-transition.opacity
@@ -218,16 +225,13 @@
 
                     <!-- Tombol -->
                     <div class="flex justify-end gap-3 mt-6">
-                        <button type="button"
-                            @click="openModal = false"
-                            class="font-fredoka px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-all duration-200">
+                        <x-button variant="soft" type="button" @click="openModal = false">
                             Batal
-                        </button>
+                        </x-button>
 
-                        <button type="submit"
-                            class="font-fredoka px-5 py-2 bg-[#8EE000] text-white rounded-lg font-semibold hover:bg-lime-500 transition-all duration-200">
+                        <x-button variant="success" type="submit">
                             Gabung
-                        </button>
+                        </x-button>
                     </div>
 
                 </form>

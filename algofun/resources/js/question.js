@@ -10,14 +10,40 @@ document.addEventListener("alpine:init", () => {
         feedback: null,           // Feedback object {type, message, correctAnswer}
         draggedItem: null,        // Item yang sedang di-drag
         draggedIndex: -1,         // Index item yang di-drag (-1 = dari available options)
+        isChecking: false,        // Flag untuk mencegah multiple checks
 
         // ========================= MATCHING SPECIFIC VARIABLES =========================
-        // DIGUNAKAN OLEH: matching.blade.php
-        // FUNGSI: State untuk mengelola pemilihan pasangan kiri-kanan
         selectedLeft: null,       // ID item kiri yang sedang dipilih
         selectedLeftText: null,   // Text item kiri yang sedang dipilih  
         selectedRight: null,      // ID item kanan yang sedang dipilih
         selectedRightText: null,  // Text item kanan yang sedang dipilih
+
+        // ========================= COMPUTED PROPERTIES =========================
+        get hasAnswer() {
+            console.log("Checking hasAnswer - userAnswer:", this.userAnswer);
+
+            // MULTIPLE CHOICE & FILL BLANK: userAnswer harus ada nilai
+            if (this.userAnswer && this.userAnswer !== '' && this.userAnswer !== null && this.userAnswer !== undefined) {
+                console.log("Has answer: single value");
+                return true;
+            }
+
+            // ORDERING & DRAG_DROP: userAnswer array harus tidak kosong
+            if (Array.isArray(this.userAnswer) && this.userAnswer.length > 0) {
+                console.log("Has answer: array with length", this.userAnswer.length);
+                return true;
+            }
+
+            // MATCHING: userAnswer array of objects harus tidak kosong
+            if (Array.isArray(this.userAnswer) && this.userAnswer.length > 0 &&
+                this.userAnswer[0] && typeof this.userAnswer[0] === 'object') {
+                console.log("Has answer: array of objects with length", this.userAnswer.length);
+                return true;
+            }
+
+            console.log("No answer detected");
+            return false;
+        },
 
         // ========================= INITIALIZATION =========================
         init() {
@@ -38,14 +64,11 @@ document.addEventListener("alpine:init", () => {
             // Debug info
             console.log("Initial User Answer:", this.userAnswer);
             console.log("Initial Available Options:", this.availableOptions);
+            console.log("Initial hasAnswer:", this.hasAnswer);
         },
 
         // ========================= MATCHING FUNCTIONS =========================
-        // DIGUNAKAN OLEH: matching.blade.php
-        // FUNGSI: Mengelola pemilihan dan pencocokan pasangan kiri-kanan
-
         selectLeft(leftId, leftText) {
-            // Toggle selection - klik lagi untuk unselect
             if (this.selectedLeft === leftId) {
                 this.selectedLeft = null;
                 this.selectedLeftText = null;
@@ -53,7 +76,6 @@ document.addEventListener("alpine:init", () => {
                 this.selectedLeft = leftId;
                 this.selectedLeftText = leftText;
 
-                // Jika sudah ada right selected, langsung buat pasangan
                 if (this.selectedRight) {
                     this.createMatchingPair();
                 }
@@ -61,7 +83,6 @@ document.addEventListener("alpine:init", () => {
         },
 
         selectRight(rightId, rightText) {
-            // Toggle selection - klik lagi untuk unselect
             if (this.selectedRight === rightId) {
                 this.selectedRight = null;
                 this.selectedRightText = null;
@@ -69,7 +90,6 @@ document.addEventListener("alpine:init", () => {
                 this.selectedRight = rightId;
                 this.selectedRightText = rightText;
 
-                // Jika sudah ada left selected, langsung buat pasangan
                 if (this.selectedLeft) {
                     this.createMatchingPair();
                 }
@@ -77,11 +97,9 @@ document.addEventListener("alpine:init", () => {
         },
 
         createMatchingPair() {
-            // Cek apakah left atau right sudah dipasangkan dengan yang lain
             const leftExists = this.userAnswer.some(pair => pair.leftId === this.selectedLeft);
             const rightExists = this.userAnswer.some(pair => pair.rightId === this.selectedRight);
 
-            // Hanya buat pasangan jika keduanya belum dipasangkan
             if (!leftExists && !rightExists) {
                 this.userAnswer.push({
                     leftId: this.selectedLeft,
@@ -91,53 +109,49 @@ document.addEventListener("alpine:init", () => {
                 });
             }
 
-            // Reset selection setelah membuat pasangan
             this.selectedLeft = null;
             this.selectedLeftText = null;
             this.selectedRight = null;
             this.selectedRightText = null;
+
+            console.log("After create pair - userAnswer:", this.userAnswer);
+            console.log("hasAnswer:", this.hasAnswer);
         },
 
         getPairColor(itemId) {
-            // Cari pasangan berdasarkan itemId (bisa left atau right)
             const pair = this.userAnswer.find(p => p.leftId === itemId || p.rightId === itemId);
             if (!pair) return null;
 
-            // Dapatkan index pasangan
             const pairIndex = this.userAnswer.findIndex(p =>
                 p.leftId === pair.leftId && p.rightId === pair.rightId
             );
 
-            // Warna baru dari palette
             const colors = ['pink', 'blue', 'green', 'yellow', 'orange'];
             return colors[pairIndex % colors.length];
         },
 
         getPairColorByIndex(index) {
-            // Warna baru dari palette
             const colors = ['pink', 'blue', 'green', 'yellow', 'orange'];
             return colors[index % colors.length];
         },
 
         removePair(index) {
-            // Hapus pasangan dari userAnswer
             this.userAnswer.splice(index, 1);
+            console.log("After remove pair - userAnswer:", this.userAnswer);
+            console.log("hasAnswer:", this.hasAnswer);
         },
 
         getPairForLeft(leftId) {
-            // Cari pasangan untuk item kiri, return rightId jika ada
             const pair = this.userAnswer.find(p => p.leftId === leftId);
             return pair ? pair.rightId : null;
         },
 
         getPairForRight(rightId) {
-            // Cari pasangan untuk item kanan, return leftId jika ada
             const pair = this.userAnswer.find(p => p.rightId === rightId);
             return pair ? pair.leftId : null;
         },
 
         getPairBadge(id) {
-            // Beri badge (A, B, C, ...) untuk pasangan yang sudah dibuat
             const colors = ['A', 'B', 'C', 'D', 'E', 'F'];
             const allPairedItems = [
                 ...this.userAnswer.map(p => p.leftId),
@@ -148,10 +162,6 @@ document.addEventListener("alpine:init", () => {
         },
 
         // ========================= DRAG & DROP FUNCTIONS =========================
-        // DIGUNAKAN OLEH: ordering.blade.php, drag_drop.blade.php
-        // FUNGSI: Mengatur drag & drop untuk soal tipe ordering dan drag_drop
-
-        // ========================= DRAG & DROP FUNCTIONS =========================
         handleDragStart(event, index) {
             event.stopPropagation();
 
@@ -159,28 +169,21 @@ document.addEventListener("alpine:init", () => {
             let draggedValue = '';
 
             if (index === -1) {
-                // Dragging dari available options
                 draggedValue = event.target.getAttribute('data-value') ||
                     event.target.textContent.trim();
             } else {
-                // Dragging dari answer area
                 draggedValue = this.userAnswer[index];
             }
 
             this.draggedItem = draggedValue;
-
-            // Pastikan data transfer berisi teks yang benar
             event.dataTransfer.setData('text/plain', draggedValue);
             event.dataTransfer.effectAllowed = 'move';
-
-            // Tambahkan class untuk visual feedback
             event.target.classList.add('opacity-50');
 
             console.log("Drag Start:", draggedValue, "Index:", index);
         },
 
         handleDragEnd(event) {
-            // Hapus class opacity setelah drag selesai
             event.target.classList.remove('opacity-50');
         },
 
@@ -191,14 +194,12 @@ document.addEventListener("alpine:init", () => {
 
         handleDragEnter(event) {
             event.preventDefault();
-            // Highlight drop zone
             if (event.target.closest('[x-ref="answerArea"]')) {
                 this.$refs.answerArea.classList.add('border-[#3DA9FC]', 'bg-[#DAF8FF]');
             }
         },
 
         handleDragLeave(event) {
-            // Remove highlight ketika keluar dari drop zone
             if (!this.$refs.answerArea.contains(event.relatedTarget)) {
                 this.$refs.answerArea.classList.remove('border-[#3DA9FC]', 'bg-[#DAF8FF]');
             }
@@ -208,84 +209,82 @@ document.addEventListener("alpine:init", () => {
             event.preventDefault();
             event.stopPropagation();
 
-            // Remove highlight
             this.$refs.answerArea.classList.remove('border-[#3DA9FC]', 'bg-[#DAF8FF]');
 
             const draggedValue = event.dataTransfer.getData('text/plain');
             console.log("Drop:", draggedValue, "Dragged Index:", this.draggedIndex);
 
             if (this.draggedIndex === -1) {
-                // Add new item dari available options
                 if (!this.userAnswer.includes(draggedValue)) {
                     this.userAnswer.push(draggedValue);
-                    // Remove dari available options
                     this.availableOptions = this.availableOptions.filter(opt => opt !== draggedValue);
                 }
-            } else {
-                // Untuk drag_drop, kita tidak butuh reordering dari answer area
-                // Biarkan remove button yang handle penghapusan
             }
 
-            // Reset
             this.draggedItem = null;
             this.draggedIndex = -1;
+
+            console.log("After drop - userAnswer:", this.userAnswer);
+            console.log("hasAnswer:", this.hasAnswer);
         },
 
         // ========================= ANSWER MANAGEMENT =========================
-        // DIGUNAKAN OLEH: ordering.blade.php, drag_drop.blade.php
-        // FUNGSI: Menghapus jawaban dan mengembalikan ke available options
-
         removeAnswer(index) {
             const removedItem = this.userAnswer[index];
             this.userAnswer.splice(index, 1);
-            // Kembalikan ke available options jika belum ada
             if (!this.availableOptions.includes(removedItem)) {
                 this.availableOptions.push(removedItem);
             }
             console.log("After Remove - User Answer:", this.userAnswer, "Available:", this.availableOptions);
+            console.log("hasAnswer:", this.hasAnswer);
         },
 
         // ========================= ANSWER CHECKING =========================
-        // DIGUNAKAN OLEH: SEMUA TIPE SOAL
-        // FUNGSI: Memeriksa kebenaran jawaban user berdasarkan tipe soal
-
         checkAnswer() {
+            // Prevent multiple checks
+            if (this.isChecking) return;
+
+            console.log("checkAnswer called - hasAnswer:", this.hasAnswer);
+
+            // Cek apakah sudah memilih jawaban
+            if (!this.hasAnswer) {
+                console.log("No answer selected, showing warning");
+                this.showToast("Silakan pilih jawaban terlebih dahulu", "warning");
+
+                // Tambahkan efek visual pada tombol untuk feedback
+                const checkBtn = this.$refs.checkBtn;
+                checkBtn.classList.add('shake-animation');
+                setTimeout(() => {
+                    checkBtn.classList.remove('shake-animation');
+                }, 500);
+
+                return; // STOP di sini, jangan lanjut ke pengecekan
+            }
+
+            console.log("Answer selected, proceeding to check...");
+            this.isChecking = true;
+
             let isCorrect = false;
 
             console.log("User Answer:", this.userAnswer);
             console.log("Correct Answer:", this.correctAnswer);
 
-            // ========================= MULTIPLE CHOICE & FILL BLANK =========================
-            // TIPE: string (single value)
-            // CONTOH: correctAnswer = "4" atau "tawar"
+            // Logic pengecekan jawaban
             if (Array.isArray(this.correctAnswer)) {
-                // ========================= ORDERING, MATCHING, DRAG_DROP =========================
-                // TIPE: array (multiple values, sequence matters)
                 if (Array.isArray(this.userAnswer)) {
-
-                    // ========================= MATCHING SPECIFIC CHECK =========================
-                    // FORMAT: correctAnswer = [[1, 'a'], [2, 'b']] (array of pairs)
-                    // FORMAT: userAnswer = [{leftId, rightId}, ...] (array of objects)
                     if (this.userAnswer[0] && typeof this.userAnswer[0] === 'object') {
-                        // Convert user answer ke format yang sama dengan correct answer
+                        // Matching type
                         const userAnswerFormatted = this.userAnswer.map(pair => [pair.leftId, pair.rightId]);
-
-                        // Normalisasi: urutkan pairs berdasarkan leftId dan bandingkan
                         const userSorted = userAnswerFormatted
                             .map(pair => [String(pair[0]), String(pair[1])])
                             .sort((a, b) => a[0].localeCompare(b[0]));
-
                         const correctSorted = this.correctAnswer
                             .map(pair => [String(pair[0]), String(pair[1])])
                             .sort((a, b) => a[0].localeCompare(b[0]));
 
                         isCorrect = JSON.stringify(userSorted) === JSON.stringify(correctSorted);
-                    }
-                    // ========================= ORDERING & DRAG_DROP CHECK =========================
-                    // FORMAT: correctAnswer = ["A", "B", "C"] (array of strings)
-                    // FORMAT: userAnswer = ["A", "B", "C"] (array of strings)
-                    else {
-                        // Normalisasi: lowercase dan bandingkan sebagai string
+                    } else {
+                        // Array type (ordering, drag drop)
                         const userAnswerNormalized = this.userAnswer.map(a =>
                             String(a).trim().toLowerCase()
                         );
@@ -293,34 +292,34 @@ document.addEventListener("alpine:init", () => {
                             String(a).trim().toLowerCase()
                         );
 
-                        // Untuk ordering: urutan HARUS sama persis
                         isCorrect = JSON.stringify(userAnswerNormalized) ===
                             JSON.stringify(correctAnswerNormalized);
                     }
                 }
             } else {
-                // ========================= MULTIPLE CHOICE & FILL BLANK =========================
-                // TIPE: string (single value)
+                // Single answer type
                 const userAnswerStr = String(this.userAnswer || '').trim().toLowerCase();
                 const correctAnswerStr = String(this.correctAnswer || '').trim().toLowerCase();
-
                 isCorrect = userAnswerStr === correctAnswerStr;
             }
 
             console.log("Is Correct:", isCorrect);
 
             // ========================= FEEDBACK HANDLING =========================
+            this.showFeedback(isCorrect);
+            this.isChecking = false;
+        },
+
+        showFeedback(isCorrect) {
             if (isCorrect) {
                 this.feedback = { type: "success", message: "Hebat! +10 XP" };
                 this.xp += 10;
             } else {
                 let correctDisplay = "";
 
-                // ========================= MATCHING FEEDBACK FORMAT =========================
                 if (Array.isArray(this.correctAnswer) && this.correctAnswer[0] && Array.isArray(this.correctAnswer[0])) {
-                    // Format untuk matching: "Pensil → Menulis, Buku → Membaca"
+                    // Matching pairs
                     this.correctAnswer.forEach((pair, index) => {
-                        // Cari text dari data attributes di DOM
                         const leftItem = document.querySelector(`[data-id="${pair[0]}"]`);
                         const rightItem = document.querySelector(`[data-id="${pair[1]}"]`);
                         const leftText = leftItem ? leftItem.getAttribute('data-text') : pair[0];
@@ -331,13 +330,11 @@ document.addEventListener("alpine:init", () => {
                             correctDisplay += ", ";
                         }
                     });
-                }
-                // ========================= ORDERING & DRAG_DROP FEEDBACK FORMAT =========================
-                else if (Array.isArray(this.correctAnswer)) {
+                } else if (Array.isArray(this.correctAnswer)) {
+                    // Array answer
                     correctDisplay = this.correctAnswer.join(" → ");
-                }
-                // ========================= MULTIPLE CHOICE & FILL BLANK FEEDBACK FORMAT =========================
-                else {
+                } else {
+                    // Single answer
                     correctDisplay = this.correctAnswer;
                 }
 
@@ -348,33 +345,46 @@ document.addEventListener("alpine:init", () => {
                 };
             }
 
-            // Toggle tombol Check -> Next
-            this.$refs.checkBtn.classList.add("hidden");
-            this.$refs.nextBtn.classList.remove("hidden");
-
             this.progress = Math.min(this.progress + 10, 100);
-            this.showToast();
         },
 
         // ========================= UI FUNCTIONS =========================
-        // DIGUNAKAN OLEH: SEMUA TIPE SOAL
-        // FUNGSI: Menampilkan toast notification
+        showToast(message = "", type = "info") {
+            let toast = document.getElementById("toast");
+            if (!toast) {
+                toast = document.createElement("div");
+                toast.id = "toast";
+                toast.className = "fixed top-4 left-1/2 transform -translate-x-1/2 -translate-y-full opacity-0 z-50 transition-all duration-300 px-4 py-3 rounded-xl font-semibold text-white max-w-xs text-center";
+                document.body.appendChild(toast);
+            }
 
-        showToast() {
-            const toast = document.getElementById("toast");
-            if (!toast) return;
-            toast.classList.remove("translate-y-full", "opacity-0");
-            toast.classList.add("translate-y-0", "opacity-100");
+            // Reset and set new styles
+            const baseClasses = "fixed top-4 left-1/2 transform -translate-x-1/2 -translate-y-full opacity-0 z-50 transition-all duration-300 px-4 py-3 rounded-xl font-semibold text-white max-w-xs text-center";
+
+            if (type === "warning") {
+                toast.className = baseClasses + " bg-amber-500 text-white";
+            } else if (type === "success") {
+                toast.className = baseClasses + " bg-green-500 text-white";
+            } else {
+                toast.className = baseClasses + " bg-blue-500 text-white";
+            }
+
+            toast.textContent = message;
+
+            // Show toast
+            setTimeout(() => {
+                toast.classList.remove("translate-y-full", "opacity-0");
+                toast.classList.add("translate-y-0", "opacity-100");
+            }, 10);
+
+            // Hide toast after 3 seconds
             setTimeout(() => {
                 toast.classList.add("translate-y-full", "opacity-0");
                 toast.classList.remove("translate-y-0", "opacity-100");
-            }, 2500);
+            }, 3000);
         },
 
         // ========================= NAVIGATION FUNCTIONS =========================
-        // DIGUNAKAN OLEH: SEMUA TIPE SOAL
-        // FUNGSI: Navigasi ke soal berikutnya atau hasil quiz
-
         nextQuestion() {
             if (window.nextQuestionId) {
                 window.location.href = `/soal/${window.nextQuestionId}`;

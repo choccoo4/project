@@ -17,7 +17,7 @@
                 Halo, <b class="text-[#EB580C]">{{ Auth::user()->name ?? 'Siswa' }}</b>
             </span>
             <div class="relative">
-                <img src="/icons/avatar-hero.png" alt="Avatar"
+                <img src="/icons/blank.jpeg" alt="Avatar"
                     class="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full border-2 sm:border-4 border-[#EB580C] shadow">
                 <span class="absolute -top-1 -right-1 sm:-top-1 sm:-right-2 bg-[#EB580C] text-white text-[8px] sm:text-[10px] font-bold px-1 py-0.5 rounded-full shadow">
                     Lv. 1
@@ -209,20 +209,13 @@
 
 <!-- ===== NAVIGATION ===== -->
 <div class="flex flex-col sm:flex-row justify-between items-center gap-3 sm:gap-4 mt-6">
-    <button class="bg-white border border-zinc-300 text-gray-700 rounded-3xl py-2 sm:py-2.5 font-fredoka shadow-md hover:bg-gray-50 text-[clamp(12px,1.8vw,14px)] flex items-center justify-center transition-all duration-300 w-full sm:w-32 md:w-44 order-2 sm:order-1">
-        Sebelumnya
-    </button>
+    <x-button variant="secondary" size="md" disabled="true">Sebelumnya</x-button>
+
 
     <div class="flex gap-2 sm:gap-3 w-full sm:w-auto order-1 sm:order-2">
-        <a href="{{ route('quiz.results') }}"
-            class="flex-1 sm:flex-none bg-[#EB580C] text-white rounded-3xl py-2 sm:py-2.5 font-fredoka shadow-md hover:bg-[#ff6b1c] text-[clamp(12px,1.8vw,14px)] flex items-center justify-center transition-all duration-300 hover:scale-105 px-4 sm:px-6">
-            Kembali ke Hasil
-        </a>
+        <x-button variant="primary" size="md" href="{{ route('quiz.results') }}">Kembali ke Hasil</x-button>
 
-        <a href="{{ route('quiz.restart') }}"
-            class="flex-1 sm:flex-none bg-lime-500 text-white rounded-3xl py-2 sm:py-2.5 font-fredoka shadow-md hover:bg-lime-600 text-[clamp(12px,1.8vw,14px)] flex items-center justify-center transition-all duration-300 hover:scale-105 px-4 sm:px-6">
-            Ulangi Kuis
-        </a>
+        <x-button variant="success" size="md" href="{{ route('quiz.restart') }}">Ulangi Kuis</x-button>
     </div>
 </div>
 

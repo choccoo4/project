@@ -226,9 +226,8 @@
 
             startLearning() {
                 const stepId = this.tooltipData.stepId;
-                const url = this.tooltipData.isCompleted ?
-                    "{{ url('/latihan') }}/" + stepId :
-                    "{{ url('/belajar') }}/" + stepId;
+
+                const url = `/soal/${stepId}`;
 
                 window.location.href = url;
                 this.closeTooltip();

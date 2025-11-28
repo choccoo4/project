@@ -8,7 +8,6 @@
 
     {{-- Styles --}}
     @vite('resources/css/app.css')
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
     {{-- Script --}}
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

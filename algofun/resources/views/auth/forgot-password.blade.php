@@ -7,8 +7,8 @@
     {{-- LOGO --}}
     <div class="relative w-full flex justify-center">
         <img src="/images/logo.svg"
-             alt="AlgoFun Logo"
-             class="absolute -top-18 w-90 drop-shadow-lg">
+            alt="AlgoFun Logo"
+            class="absolute -top-18 w-90 drop-shadow-lg">
     </div>
 
     <h2 class="text-center text-3xl font-fredoka font-semibold text-[#4a5565] mb-2 mt-16">
@@ -33,10 +33,12 @@
         </div>
 
         {{-- BUTTON --}}
-        <button
-            class="w-full bg-[#EB580C] hover:bg-[#ff6a1f] text-white text-sm font-fredoka font-semibold py-2 rounded-lg shadow-md">
+        <x-button
+            variant="primary"
+            type="submit"
+            block>
             Kirim
-        </button>
+        </x-button>
 
         {{-- BACK TO LOGIN --}}
         <p class="text-center text-sm text-gray-600 mt-1">

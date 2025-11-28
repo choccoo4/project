@@ -31,7 +31,7 @@
 
                 {{-- Login Button --}}
                 <x-button
-                    variant="outline"
+                    variant="secondary"
                     href="{{ url('/login') }}">
                     Login
                 </x-button>
@@ -68,7 +68,7 @@
             <div class="flex flex-col space-y-2 mt-3">
                 {{-- Login Mobile --}}
                 <x-button
-                    variant="outline"
+                    variant="secondary"
                     block
                     href="{{ url('/login') }}">
                     Login
@@ -109,7 +109,7 @@
 
                 {{-- Lihat Fitur --}}
                 <x-button
-                    variant="outline"
+                    variant="secondary"
                     size="lg"
                     href="#fitur">
                     Lihat Fitur

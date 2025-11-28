@@ -65,20 +65,27 @@
     <nav
         class="flex justify-between items-center w-11/12 sm:w-10/12 md:w-8/12 mx-auto mt-8 sm:mt-10 mb-10 sm:mb-12 gap-3 sm:gap-4">
 
-        <button x-ref="skipBtn" @click="skipQuestion"
-            class="flex-1 sm:flex-none sm:w-40 h-12 bg-zinc-100 rounded-3xl shadow-md hover:bg-zinc-200 transition text-neutral-600 text-lg font-semibold font-fredoka">
+        <x-button
+            x-ref="skipBtn"
+            variant="soft"
+            size="md"
+            block="true"
+            class="sm:w-40"
+            @click="skipQuestion">
             Lompati
-        </button>
+        </x-button>
 
-        <button x-ref="checkBtn" @click="checkAnswer"
-            class="flex-1 sm:flex-none sm:w-40 h-12 bg-sky-500 rounded-3xl shadow-md hover:bg-sky-600 transition text-white text-lg font-semibold font-fredoka">
+        <x-button
+            x-ref="checkBtn"
+            variant="info"
+            size="md"
+            block="true"
+            class="sm:w-40 relative transition-all duration-200"
+            x-bind:disabled="!hasAnswer"
+            @click="checkAnswer"
+            x-tooltip="!hasAnswer ? 'Silakan pilih jawaban terlebih dahulu' : ''">
             Periksa
-        </button>
-
-        <button x-ref="nextBtn" @click="nextQuestion"
-            class="hidden flex-1 sm:flex-none sm:w-40 h-12 bg-gradient-to-r from-[#EB580C] to-[#F97316] hover:from-[#F97316] hover:to-[#EA580C] rounded-3xl shadow-md transition text-white text-lg font-semibold font-fredoka">
-            Lanjutkan
-        </button>
+        </x-button>
     </nav>
 
     <!-- ========================= FEEDBACK SECTION - SIMPLE VERSION ========================= -->
@@ -104,12 +111,14 @@
                     </div>
 
                     <!-- Button -->
-                    <button @click="nextQuestion()"
-                        class="w-full sm:w-44 h-12 bg-[#8EE000] hover:bg-[#7BC800] rounded-3xl shadow-[0px_8px_4px_0px_rgba(0,0,0,0.25)] 
-                           transition-all duration-300 hover:scale-105 
-                           text-white text-xl font-semibold font-fredoka flex items-center justify-center">
+                    <x-button
+                        variant="success"
+                        size="lg"
+                        block="true"
+                        class="w-full sm:w-44 hover:scale-105 transition-all duration-300"
+                        @click="nextQuestion()">
                         Lanjutkan
-                    </button>
+                    </x-button>
                 </div>
             </div>
         </template>
@@ -147,12 +156,14 @@
                     </div>
 
                     <!-- Button -->
-                    <button @click="nextQuestion()"
-                        class="w-full h-12 bg-[#E03F00] hover:bg-[#C73600] rounded-3xl shadow-[0px_8px_4px_0px_rgba(0,0,0,0.25)] 
-                           transition-all duration-300 hover:scale-105 
-                           text-white text-xl font-semibold font-fredoka flex items-center justify-center">
+                    <x-button
+                        variant="danger"
+                        size="lg"
+                        block="true"
+                        class="w-full hover:scale-105 transition-all duration-300"
+                        @click="nextQuestion()">
                         Lanjutkan
-                    </button>
+                    </x-button>
                 </div>
             </div>
         </template>

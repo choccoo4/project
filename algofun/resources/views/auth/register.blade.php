@@ -4,15 +4,15 @@
             border border-[#EAEAEA] rounded-3xl 
             p-4 lg:p-8 
             mt-0 lg:mt-20"
-     x-data="{ role: '', openDropdown: false }">
-    
+    x-data="{ role: '', openDropdown: false }">
+
     {{-- LOGO --}}
     <div class="relative w-full flex justify-center">
         <img src="/images/logo.svg"
-             alt="AlgoFun Logo"
-             class="absolute -top-23 w-100 drop-shadow-lg">
+            alt="AlgoFun Logo"
+            class="absolute -top-23 w-100 drop-shadow-lg">
     </div>
-    
+
     <h2 class="text-center text-3xl font-fredoka font-semibold text-[#4a5565] mb-2 mt-10">
         Selamat Datang di AlgoFun!
     </h2>
@@ -22,20 +22,20 @@
 
     {{-- ERROR MESSAGES --}}
     @if($errors->any())
-        <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-4">
-            <ul class="list-disc list-inside text-sm">
-                @foreach($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
+    <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-4">
+        <ul class="list-disc list-inside text-sm">
+            @foreach($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
     @endif
 
     {{-- SUCCESS MESSAGE --}}
     @if(session('success'))
-        <div class="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg mb-4">
-            {{ session('success') }}
-        </div>
+    <div class="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg mb-4">
+        {{ session('success') }}
+    </div>
     @endif
 
     {{-- FORM --}}
@@ -45,10 +45,10 @@
         {{-- ROLE (Custom Dropdown) --}}
         <div>
             <label class="font-semibold text-gray-800 text-sm block mb-1">Daftar Sebagai? <span class="text-red-500">*</span></label>
-            
+
             {{-- Hidden Input untuk form submission --}}
             <input type="hidden" name="role" :value="role">
-            
+
             {{-- Custom Dropdown --}}
             <div class="relative" @click.outside="openDropdown = false">
                 <button type="button"
@@ -70,14 +70,14 @@
                     x-transition:leave-start="opacity-100 scale-100"
                     x-transition:leave-end="opacity-0 scale-95"
                     class="absolute top-full left-0 right-0 mt-1 bg-white border border-[#E7E7E7] rounded-lg shadow-lg z-50 overflow-hidden">
-                    
+
                     <button type="button"
                         @click="role = 'siswa'; openDropdown = false"
                         class="w-full px-3 py-2.5 text-left text-sm hover:bg-[#FFF5F0] transition"
                         :class="{'bg-[#EB580C] text-white': role === 'siswa', 'text-gray-700': role !== 'siswa'}">
                         Siswa
                     </button>
-                    
+
                     <button type="button"
                         @click="role = 'guru'; openDropdown = false"
                         class="w-full px-3 py-2.5 text-left text-sm hover:bg-[#FFF5F0] transition border-t border-[#E7E7E7]"
@@ -121,10 +121,12 @@
         </div>
 
         {{-- SUBMIT --}}
-        <button type="submit"
-            class="w-full bg-[#EB580C] hover:bg-[#ff6a1f] text-white text-sm font-fredoka font-semibold py-2.5 rounded-lg shadow-md transition active:scale-95">
+        <x-button
+            variant="primary"
+            type="submit"
+            block>
             Daftar
-        </button>
+        </x-button>
 
         {{-- DIVIDER --}}
         <div class="relative flex items-center justify-center my-4">
@@ -133,13 +135,14 @@
         </div>
 
         {{-- GOOGLE BUTTON --}}
-        <a href="{{ route('google.redirect', ['role' => 'siswa']) }}"
-           x-bind:href="role ? '{{ route('google.redirect') }}?role=' + role : '#'"
-           @click="if(!role) { alert('Silakan pilih role terlebih dahulu!'); $event.preventDefault(); }"
-           class="w-full flex items-center justify-center gap-2 bg-white border border-gray-300 py-2.5 rounded-lg text-sm shadow-sm hover:bg-gray-100 transition">
-            <img src="https://img.icons8.com/color/48/google-logo.png" class="w-4">
-            <span class="font-nunito">Daftar dengan Google</span>
-        </a>
+        <x-button
+            variant="secondary"
+            x-bind:href="role ? '{{ route('google.redirect') }}?role=' + role : '#'"
+            @click="if(!role) { alert('Silakan pilih role terlebih dahulu!'); $event.preventDefault(); }"
+            block>
+            <img src="https://img.icons8.com/color/48/google-logo.png" class="w-4 h-4">
+            Daftar dengan Google
+        </x-button>
 
         {{-- LOGIN LINK --}}
         <p class="text-center text-sm text-gray-600 mt-4">

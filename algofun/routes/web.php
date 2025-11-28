@@ -147,6 +147,8 @@ Route::middleware(['auth:siswa'])->group(function () {
     // QUIZ ROUTES
     Route::get('/soal/{id}', [QuizController::class, 'show'])->name('question.show');
     Route::get('/quiz-results', [QuizController::class, 'results'])->name('quiz.results');
+    Route::get('/quiz/restart', [QuizController::class, 'restart'])->name('quiz.restart');
+    Route::get('/ulas-pelajaran', [QuizController::class, 'lessonReview'])->name('lesson.review');
 });
 
 // =========================

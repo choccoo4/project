@@ -19,7 +19,7 @@
                 Halo, <b class="text-[#EB580C]">{{ Auth::user()->name ?? 'Siswa' }}</b>
             </span>
             <div class="relative">
-                <img src="/icons/avatar-hero.png" alt="Avatar"
+                <img src="/icons/blank.jpeg" alt="Avatar"
                     class="w-10 sm:w-12 md:w-14 h-10 sm:h-12 md:h-14 rounded-full border-4 border-[#EB580C] shadow">
                 <span class="absolute -top-1 -right-2 bg-[#EB580C] text-white text-[10px] sm:text-xs font-bold px-1.5 py-0.5 rounded-full shadow">
                     Lv. 1
@@ -73,7 +73,7 @@
             </div>
 
             <!-- AI INSIGHT -->
-            <div class="mt-10 border border-gray-300 rounded-2xl p-5 sm:p-6 bg-orange-50 shadow-inner">
+            <div class="mt-10 border border-gray-300 rounded-2xl p-5 sm:p-6 bg-white shadow-inner">
                 <div class="flex items-center gap-3 mb-3">
                     <img src="/icons/robot.png" class="w-8 sm:w-10 h-8 sm:h-10" alt="Robot Icon">
                     <h3 class="text-[#EB580C] font-fredoka text-[clamp(16px,2.5vw,24px)] font-semibold">Evaluasi Belajar (AI Insight)</h3>

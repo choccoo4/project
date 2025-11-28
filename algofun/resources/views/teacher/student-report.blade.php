@@ -46,7 +46,7 @@
 
         <!-- STUDENT PROFILE -->
         <div class="flex items-center gap-4 mb-6 sm:mb-8">
-            <img src="/icons/avatar-hero.png"
+            <img src="/icons/blank.jpeg"
                 alt="Foto Siswa"
                 class="w-14 h-14 sm:w-16 sm:h-16 rounded-full border-2 border-[#EB580C]">
             <h2 class="text-2xl sm:text-3xl font-bold font-nunito">ChoccoLatter</h2>

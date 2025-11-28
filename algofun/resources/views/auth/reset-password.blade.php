@@ -7,8 +7,8 @@
     {{-- LOGO --}}
     <div class="relative w-full flex justify-center">
         <img src="/images/logo.svg"
-             alt="AlgoFun Logo"
-             class="absolute -top-18 w-95 drop-shadow-lg">
+            alt="AlgoFun Logo"
+            class="absolute -top-18 w-95 drop-shadow-lg">
     </div>
 
     <h2 class="text-center text-3xl font-fredoka font-medium text-[#4a5565] mb-2 mt-16">
@@ -33,10 +33,11 @@
         </div>
 
         {{-- BUTTON --}}
-        <button
-            class="w-full bg-[#EB580C] hover:bg-[#ff6a1f] text-white text-sm font-fredoka font-semibold py-2 rounded-lg shadow-md transition transform hover:scale-105">
+        <x-button
+            variant="primary"
+            class="w-full">
             Ubah
-        </button>
+        </x-button>
 
     </form>
 </div>

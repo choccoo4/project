@@ -29,14 +29,14 @@
     </div>
 
     <!-- kanan: tombol beranda -->
-    <a href="{{ url('/dashboard') }}"
-        class="bg-white rounded-2xl shadow-md flex items-center justify-center hover:bg-orange-50 transition font-fredoka
-               w-10 h-10 sm:w-auto sm:h-auto sm:px-5 sm:py-3 gap-0 sm:gap-2">
-        <!-- icon -->
-        <img src="https://img.icons8.com/fluency/32/home.png" alt="Beranda" class="w-6 h-6 sm:w-7 sm:h-7">
-        <!-- teks hanya muncul di tablet/desktop -->
-        <span class="hidden sm:inline text-[clamp(12px,2vw,16px)] text-gray-700">Beranda</span>
-    </a>
+    <x-button
+        variant="secondary"
+        size="md"
+        href="{{ url('/dashboard') }}"
+        icon="https://img.icons8.com/fluency/32/home.png"
+        iconSize="lg">
+        <span class="hidden md:inline">Beranda</span>
+    </x-button>
 </header>
 
 <!-- ===== MAIN CONTENT ===== -->

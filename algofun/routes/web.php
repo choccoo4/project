@@ -91,10 +91,6 @@ Route::middleware('guest')->group(function () {
     Route::post('/reset-password', [PasswordController::class, 'resetPassword'])->name('password.update');
 });
 
-Route::get('/aturan', function () {
-    return view('students.rule');
-});
-
 // =========================
 // LOGOUT ROUTE (Untuk semua role)
 // =========================
@@ -104,6 +100,11 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 // STUDENTS ROUTES (Auth: Siswa)
 // =========================
 Route::middleware(['auth:siswa'])->group(function () {
+    // QUIZ ROUTES
+    Route::get('/soal/{id}', [QuizController::class, 'show'])->name('question.show');
+    Route::get('/quiz-results', [QuizController::class, 'results'])->name('quiz.results');
+    Route::get('/quiz/restart', [QuizController::class, 'restart'])->name('quiz.restart');
+    Route::get('/ulas-pelajaran', [QuizController::class, 'lessonReview'])->name('lesson.review');
 
     // DASHBOARD
     Route::get('/dashboard', function () {
@@ -144,11 +145,9 @@ Route::middleware(['auth:siswa'])->group(function () {
     // PAPAN SKOR
     Route::get('/papan-skor', [PapanSkorController::class, 'index'])->name('students.papan-skor');
 
-    // QUIZ ROUTES
-    Route::get('/soal/{id}', [QuizController::class, 'show'])->name('question.show');
-    Route::get('/quiz-results', [QuizController::class, 'results'])->name('quiz.results');
-    Route::get('/quiz/restart', [QuizController::class, 'restart'])->name('quiz.restart');
-    Route::get('/ulas-pelajaran', [QuizController::class, 'lessonReview'])->name('lesson.review');
+    Route::get('/aturan', function () {
+    return view('students.rule');
+});
 });
 
 // =========================
@@ -175,10 +174,6 @@ Route::middleware(['auth:guru'])->prefix('guru')->name('guru.')->group(function 
 // =========================
 // ADMIN ROUTES (Auth: Admin)
 // =========================
-Route::get('/soal/{id}', [QuizController::class, 'show'])->name('question.show');
-Route::get('/quiz-results', [QuizController::class, 'results'])->name('quiz.results');
-Route::get('/quiz/restart', [QuizController::class, 'restart'])->name('quiz.restart');
-Route::get('/ulas-pelajaran', [QuizController::class, 'lessonReview'])->name('lesson.review');
 Route::middleware(['auth:admin'])->prefix('admin')->name('admin.')->group(function () {
 
     // DASHBOARD

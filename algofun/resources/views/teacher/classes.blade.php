@@ -55,12 +55,14 @@
     </div>
 
     <!-- Floating Button -->
-    <button
+    <x-button
+        variant="floating"
+        icon="https://img.icons8.com/?size=100&id=63650&format=png&color=000000"
+        iconSize="sm"
         @click="openModal = true"
-        class="fixed bottom-20 md:bottom-6 right-6 flex items-center gap-2 rounded-full border-2 border-[#8EE000] bg-white text-[#555555] font-semibold shadow-md hover:shadow-[#8EE000]/40 px-5 py-3 transition-all duration-300 hover:scale-105 z-40">
-        <img src="https://img.icons8.com/?size=100&id=63650&format=png&color=000000" alt="Tambah" class="w-5 h-5">
-        <span class="hidden sm:inline font-fredoka">Kelas</span>
-    </button>
+        class="fixed bottom-20 md:bottom-6 right-6 hover:scale-105 hover:shadow-[#8EE000]/40 z-40">
+        <span class="hidden sm:inline">Kelas</span>
+    </x-button>
 
 
     <!-- Modal Tambah Kelas -->
@@ -87,25 +89,31 @@
                         <input type="text" x-model="kodeKelas" placeholder="Klik buat kode"
                             class="flex-1 rounded-lg border border-gray-300 px-4 py-2 focus:ring-2 focus:ring-orange-400 focus:outline-none"
                             readonly>
-                        <button type="button"
-                            @click="kodeKelas = Math.random().toString(36).substr(2, 6).toUpperCase()"
-                            class="font-fredoka bg-[#8EE000] text-white font-semibold px-4 py-2 rounded-lg hover:bg-lime-500 transition-all duration-200">
-                            Buat
-                        </button>
+                        <x-button
+                            type="button"
+                            variant="info"
+                            size="sm"
+                            @click="kodeKelas = Math.random().toString(36).substr(2, 6).toUpperCase()">
+                            Buat kode
+                        </x-button>
                     </div>
                 </div>
 
                 <!-- Tombol -->
                 <div class="flex justify-end gap-3 mt-6">
-                    <button type="button"
-                        @click="openModal = false"
-                        class="font-fredoka px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-all duration-200">
-                        Batal
-                    </button>
-                    <button type="submit"
-                        class="font-fredoka px-5 py-2 bg-[#EB580C] text-white rounded-lg font-semibold hover:bg-orange-500 transition-all duration-200">
+                    <x-button
+                        type="button"
+                        variant="success"
+                        size="sm"
+                        @click="kodeKelas = Math.random().toString(36).substr(2, 6).toUpperCase()">
+                        Buat
+                    </x-button>
+                    <x-button
+                        type="submit"
+                        variant="primary"
+                        size="sm">
                         Simpan
-                    </button>
+                    </x-button>
                 </div>
             </form>
         </div>

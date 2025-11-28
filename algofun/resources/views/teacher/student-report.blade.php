@@ -136,16 +136,16 @@
 
 
         <!-- AI Insight -->
-        <div class="mt-10 border border-gray-300 rounded-2xl p-4 sm:p-6 bg-orange-50 shadow-inner">
+        <div class="mt-10 border border-gray-300 rounded-2xl p-4 sm:p-6 bg-white shadow-inner">
             <div class="flex items-center gap-3 mb-3">
-                <img src="https://img.icons8.com/color/48/artificial-intelligence.png" class="w-8 h-8 sm:w-10 sm:h-10">
+                <img src="/icons/robot.png" class="w-8 h-8 sm:w-10 sm:h-10">
                 <h3 class="text-[#EB580C] font-fredoka text-xl sm:text-2xl font-semibold">
                     Evaluasi Belajar (AI Insight)
                 </h3>
             </div>
 
             <div class="bg-orange-200 p-4 sm:p-5 rounded-2xl shadow-md flex flex-col sm:flex-row gap-4 items-start sm:items-center">
-                <img src="https://img.icons8.com/color/48/idea.png" class="w-8 h-8 sm:w-10 sm:h-10">
+                <img src="https://img.icons8.com/color/48/idea.png" class="w-8 h-8 sm:w-10 sm:h-10 hidden sm:block">
                 <div>
                     <p class="text-gray-800 font-nunito text-base sm:text-lg font-bold mb-1">
                         Siswa memiliki kelemahan pada materi:

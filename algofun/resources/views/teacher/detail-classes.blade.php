@@ -56,13 +56,14 @@
                     30 Siswa
                 </h2>
 
-                <button class="flex items-center gap-2 border-2 border-orange-600 
-                    text-neutral-600 font-fredoka font-semibold px-4 py-2 rounded-2xl 
-                    hover:bg-orange-50 transition w-full sm:w-auto justify-center">
-                    <img src="https://img.icons8.com/color/48/export-csv.png"
-                        alt="Export" class="w-5 h-5">
+                <x-button
+                    variant="secondary"
+                    icon="https://img.icons8.com/color/48/export-csv.png"
+                    iconSize="lg"
+                    block="true"
+                    class="sm:w-auto rounded-2xl hover:bg-orange-50 border-orange-600 text-neutral-600">
                     Ekspor Laporan
-                </button>
+                </x-button>
             </div>
 
 

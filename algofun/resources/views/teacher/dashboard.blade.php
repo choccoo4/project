@@ -55,13 +55,13 @@
   </div>
 
   <!-- Insight AI -->
-  <div class="bg-white rounded-2xl shadow p-6 mt-8 border-l-8 border-[#EB580C]">
+  <div class="mt-10 border border-gray-300 rounded-2xl p-4 sm:p-6 bg-white shadow-inner">
     <div class="flex items-center gap-3 mb-3">
-      <img src="https://img.icons8.com/color/48/artificial-intelligence.png" class="w-10 h-10">
+      <img src="/icons/robot.png" class="w-10 h-10">
       <h3 class="text-[#EB580C] font-fredoka text-2xl font-semibold">Evaluasi Belajar (AI Insight)</h3>
     </div>
     <div class="bg-orange-200 p-5 rounded-2xl shadow-md flex gap-4">
-      <img src="https://img.icons8.com/color/48/idea.png" class="w-10 h-10">
+      <img src="https://img.icons8.com/color/48/idea.png" class="w-10 h-10 hidden sm:block">
       <div>
         <p class="text-gray-700 text-sm leading-relaxed">
           30% siswa gagal di <b>soal cerita pecahan</b>.<br>

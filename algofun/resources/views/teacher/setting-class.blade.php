@@ -83,19 +83,23 @@
 
                     {{-- Tombol --}}
                     <div class="flex flex-col sm:flex-row justify-end gap-3 sm:gap-4 pt-4">
-                        <button type="button"
-                            class="flex items-center justify-center gap-2 bg-red-500 hover:bg-red-600 
-                            text-white text-lg font-fredoka font-semibold rounded-full 
-                            px-6 py-3 shadow-md transition w-full sm:w-auto">
+                        <x-button
+                            type="button"
+                            variant="danger"
+                            size="md"
+                            block="true"
+                            class="sm:w-auto rounded-full">
                             Hapus Kelas
-                        </button>
+                        </x-button>
 
-                        <button type="submit"
-                            class="flex items-center justify-center gap-2 bg-sky-500 hover:bg-sky-600 
-                            text-white text-lg font-fredoka font-semibold rounded-full 
-                            px-6 py-3 shadow-md transition w-full sm:w-auto">
+                        <x-button
+                            type="submit"
+                            variant="info"
+                            size="md"
+                            block="true"
+                            class="sm:w-auto rounded-full">
                             Simpan Perubahan
-                        </button>
+                        </x-button>
                     </div>
 
                 </form>

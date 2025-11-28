@@ -40,8 +40,7 @@
                     class="w-32 h-32 sm:w-40 sm:h-40 rounded-xl border border-gray-300 bg-[#FFF8F2] object-cover">
 
                 <!-- Tombol edit foto -->
-                <button
-                    class="absolute bottom-2 right-2 bg-white border border-gray-300 rounded-full p-2 shadow-sm hover:bg-gray-100">
+                <button class="absolute bottom-2 right-2 bg-white border border-gray-300 rounded-full p-2 shadow-sm hover:bg-gray-100">
                     <img src="https://img.icons8.com/ios-glyphs/20/EB580C/edit.png" alt="Edit" class="w-4 h-4">
                 </button>
             </div>
@@ -112,17 +111,19 @@
 
             <!-- Tombol Aksi -->
             <div class="flex flex-col sm:flex-row justify-end gap-3 sm:gap-6 mt-12">
-                <button type="reset"
-                    class="w-full sm:w-28 h-11 bg-[#F4F4F4] rounded-xl shadow-[0px_8px_4px_rgba(0,0,0,0.25)] 
-                    text-[#4C4C4C] text-lg font-fredoka font-semibold hover:bg-white/50 transition-all duration-300">
+                <x-button
+                    variant="soft"
+                    type="button"
+                    class="w-full sm:w-28 h-11 shadow-[0px_8px_4px_rgba(0,0,0,0.25)]">
                     Batal
-                </button>
+                </x-button>
 
-                <button type="submit"
-                    class="w-full sm:w-28 h-11 bg-[#8EE000] rounded-xl shadow-[0px_8px_4px_rgba(0,0,0,0.25)] 
-                    text-white text-lg font-fredoka font-semibold hover:bg-[#ff6a1f] transition-all duration-300">
+                <x-button
+                    variant="success"
+                    type="submit"
+                    class="w-full sm:w-28 h-11 shadow-[0px_8px_4px_rgba(0,0,0,0.25)]">
                     Simpan
-                </button>
+                </x-button>
             </div>
 
         </form>

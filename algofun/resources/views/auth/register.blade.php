@@ -1,23 +1,23 @@
 @extends('layouts.authregis')
 @section('content')
 
-<div x-data="{ loading: true }" 
-     x-init="setTimeout(() => loading = false, 800)">
-    
+<div x-data="{ loading: true }"
+    x-init="setTimeout(() => loading = false, 800)">
+
     {{-- SKELETON --}}
-    <div x-show="loading" 
-         x-transition:leave="transition ease-in duration-300"
-         class="fixed inset-0 z-50 bg-[#FFF8F2]">
+    <div x-show="loading"
+        x-transition:leave="transition ease-in duration-300"
+        class="fixed inset-0 z-50 bg-[#FFF8F2]">
         <x-auth-skeleton :fields="2" :hasGoogleButton="true" layout="auth" />
     </div>
 
     {{-- KONTEN ASLI --}}
-    <div x-show="!loading" 
-         x-transition:enter="transition ease-out duration-300" 
-         x-transition:enter-start="opacity-0 transform scale-95" 
-         x-transition:enter-end="opacity-100 transform scale-100"
-         style="display: none;">
-        
+    <div x-show="!loading"
+        x-transition:enter="transition ease-out duration-300"
+        x-transition:enter-start="opacity-0 transform scale-95"
+        x-transition:enter-end="opacity-100 transform scale-100"
+        style="display: none;">
+
         <div class="w-full max-w-lg mx-auto bg-white shadow-[0_8px_30px_rgba(255,150,90,0.25)]
                     border border-[#EAEAEA] rounded-3xl 
                     p-4 lg:p-8 
@@ -56,9 +56,9 @@
             </div>
             @endif
 
-    {{-- FORM --}}
-    <form action="{{ route('register.post') }}" method="POST" class="space-y-3 font-nunito" novalidate x-data="{ role: '', openDropdown: false }">
-        @csrf
+            {{-- FORM --}}
+            <form action="{{ route('register.post') }}" method="POST" class="space-y-3 font-nunito" novalidate x-data="{ role: '', openDropdown: false }">
+                @csrf
 
                 {{-- ROLE (Custom Dropdown) --}}
                 <div>
@@ -66,17 +66,17 @@
 
                     <input type="hidden" name="role" :value="role">
 
-            {{-- Custom Dropdown --}}
-            <div class="relative" @click.outside="openDropdown = false">
-                <button type="button"
-                    @click="openDropdown = !openDropdown"
-                    class="form-select text-left flex justify-between items-center hover:bg-gray-50 transition pr-10"
-                    :class="{ 'form-select-error': !role && '{{ $errors->has('role') ? 'true' : 'false' }}' === 'true' }">
-                    <span x-text="role ? (role === 'siswa' ? 'Siswa' : 'Guru') : 'Pilih Role'"></span>
-                    <svg class="w-4 h-4 text-gray-600 absolute right-3 top-1/2 transform -translate-y-1/2" :class="{'rotate-180': openDropdown}" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-                    </svg>
-                </button>
+                    {{-- Custom Dropdown --}}
+                    <div class="relative" @click.outside="openDropdown = false">
+                        <button type="button"
+                            @click="openDropdown = !openDropdown"
+                            class="form-select text-left flex justify-between items-center hover:bg-gray-50 transition pr-10"
+                            :class="{ 'form-select-error': !role && '{{ $errors->has('role') ? 'true' : 'false' }}' === 'true' }">
+                            <span x-text="role ? (role === 'siswa' ? 'Siswa' : 'Guru') : 'Pilih Role'"></span>
+                            <svg class="w-4 h-4 text-gray-600 absolute right-3 top-1/2 transform -translate-y-1/2" :class="{'rotate-180': openDropdown}" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                            </svg>
+                        </button>
 
                         <div x-show="openDropdown"
                             x-transition:enter="transition ease-out duration-100"
@@ -94,59 +94,99 @@
                                 Siswa
                             </button>
 
-                    <button type="button"
-                        @click="role = 'guru'; openDropdown = false"
-                        class="w-full px-3 py-2.5 text-left text-sm hover:bg-[#FFF5F0] transition border-t border-[#E7E7E7]"
-                        :class="{'bg-[#EB580C] text-white': role === 'guru', 'text-gray-700': role !== 'guru'}">
-                        Guru
-                    </button>
+                            <button type="button"
+                                @click="role = 'guru'; openDropdown = false"
+                                class="w-full px-3 py-2.5 text-left text-sm hover:bg-[#FFF5F0] transition border-t border-[#E7E7E7]"
+                                :class="{'bg-[#EB580C] text-white': role === 'guru', 'text-gray-700': role !== 'guru'}">
+                                Guru
+                            </button>
+                        </div>
+                    </div>
+                    @error('role')
+                    <p class="mt-1 text-sm text-[#EF4444]">{{ $message }}</p>
+                    @enderror
                 </div>
-            </div>
-            @error('role')
-            <p class="mt-1 text-sm text-[#EF4444]">{{ $message }}</p>
-            @enderror
-        </div>
 
-        {{-- USERNAME --}}
-        <div>
-            <label class="font-semibold text-gray-800 text-sm block mb-1">Nama Pengguna <span class="text-red-500">*</span></label>
-            <input type="text" name="username" value="{{ old('username') }}"
-                class="form-input @error('username') form-input-error @enderror"
-                placeholder="Masukkan Nama Pengguna">
-            @error('username')
-            <p class="mt-1 text-sm text-[#EF4444]">{{ $message }}</p>
-            @enderror
-        </div>
+                {{-- USERNAME --}}
+                <div>
+                    <label class="font-semibold text-gray-800 text-sm block mb-1">Nama Pengguna <span class="text-red-500">*</span></label>
+                    <input type="text" name="username" value="{{ old('username') }}"
+                        class="form-input @error('username') form-input-error @enderror"
+                        placeholder="Masukkan Nama Pengguna">
+                    @error('username')
+                    <p class="mt-1 text-sm text-[#EF4444]">{{ $message }}</p>
+                    @enderror
+                </div>
 
-        {{-- EMAIL --}}
-        <div>
-            <label class="font-semibold text-gray-800 text-sm block mb-1">Email <span class="text-red-500">*</span></label>
-            <input type="email" name="email" value="{{ old('email') }}"
-                class="form-input @error('email') form-input-error @enderror"
-                placeholder="contoh@gmail.com">
-            @error('email')
-            <p class="mt-1 text-sm text-[#EF4444]">{{ $message }}</p>
-            @enderror
-        </div>
+                {{-- EMAIL --}}
+                <div>
+                    <label class="font-semibold text-gray-800 text-sm block mb-1">Email <span class="text-red-500">*</span></label>
+                    <input type="email" name="email" value="{{ old('email') }}"
+                        class="form-input @error('email') form-input-error @enderror"
+                        placeholder="contoh@gmail.com">
+                    @error('email')
+                    <p class="mt-1 text-sm text-[#EF4444]">{{ $message }}</p>
+                    @enderror
+                </div>
 
-        {{-- PASSWORD --}}
-        <div>
-            <label class="font-semibold text-gray-800 text-sm block mb-1">Kata Sandi <span class="text-red-500">*</span></label>
-            <input type="password" name="password"
-                class="form-input @error('password') form-input-error @enderror"
-                placeholder="Minimal 8 karakter, mengandung huruf dan angka">
-            @error('password')
-            <p class="mt-1 text-sm text-[#EF4444]">{{ $message }}</p>
-            @enderror
-        </div>
+                {{-- PASSWORD --}}
+                <div>
+                    <label class="font-semibold text-gray-800 text-sm block mb-1">Kata Sandi <span class="text-red-500">*</span></label>
+                    <div class="relative">
+                        <input type="password" name="password" id="password"
+                            class="form-input @error('password') form-input-error @enderror pr-10"
+                            placeholder="Minimal 8 karakter, mengandung huruf dan angka">
 
-        {{-- CONFIRM PASSWORD --}}
-        <div>
-            <label class="font-semibold text-gray-800 text-sm block mb-1">Konfirmasi Kata Sandi <span class="text-red-500">*</span></label>
-            <input type="password" name="password_confirmation"
-                class="form-input"
-                placeholder="Konfirmasi Kata Sandi">
-        </div>
+                        {{-- Toggle Password Icon --}}
+                        <button type="button"
+                            class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-gray-700"
+                            onclick="togglePassword()">
+                            {{-- Icon mata tertutup (default) --}}
+                            <svg id="eye-off-icon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L6.59 6.59m9.02 9.02l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
+                            </svg>
+                            {{-- Icon mata terbuka (hidden) --}}
+                            <svg id="eye-icon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                            </svg>
+                        </button>
+                    </div>
+                    @error('password')
+                    <p class="mt-1 text-sm text-[#EF4444]">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                {{-- CONFIRM PASSWORD --}}
+                <div>
+                    <label class="font-semibold text-gray-800 text-sm block mb-1">Konfirmasi Kata Sandi <span class="text-red-500">*</span></label>
+                    <div class="relative">
+                        <input type="password" name="password_confirmation" id="confirm-password"
+                            class="form-input pr-10"
+                            placeholder="Konfirmasi Kata Sandi">
+
+                        {{-- Toggle Password Icon --}}
+                        <button type="button"
+                            class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-gray-700"
+                            onclick="toggleConfirmPassword()">
+                            {{-- Icon mata tertutup (default) --}}
+                            <svg id="confirm-eye-off-icon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L6.59 6.59m9.02 9.02l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
+                            </svg>
+                            {{-- Icon mata terbuka (hidden) --}}
+                            <svg id="confirm-eye-icon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
 
                 {{-- SUBMIT --}}
                 <x-button
@@ -162,16 +202,16 @@
                     <span class="absolute bg-white px-3 text-gray-500 text-sm">atau</span>
                 </div>
 
-        {{-- GOOGLE BUTTON --}}
-        <x-button
-            variant="secondary"
-            href="#"
-            x-bind:href="role ? '{{ route('google.redirect') }}?role=' + role : '#'"
-            @click="if(!role) { alert('Silakan pilih role terlebih dahulu!'); $event.preventDefault(); }"
-            block>
-            <img src="https://img.icons8.com/color/48/google-logo.png" class="w-4 h-4">
-            Daftar dengan Google
-        </x-button>
+                {{-- GOOGLE BUTTON --}}
+                <x-button
+                    variant="secondary"
+                    href="#"
+                    x-bind:href="role ? '{{ route('google.redirect') }}?role=' + role : '#'"
+                    @click="if(!role) { alert('Silakan pilih role terlebih dahulu!'); $event.preventDefault(); }"
+                    block>
+                    <img src="https://img.icons8.com/color/48/google-logo.png" class="w-4 h-4">
+                    Daftar dengan Google
+                </x-button>
 
                 {{-- LOGIN LINK --}}
                 <p class="text-center text-sm text-gray-600 mt-4">
@@ -182,6 +222,38 @@
     </div>
 </div>
 
+<script>
+    function togglePassword() {
+        const passwordInput = document.getElementById('password');
+        const eyeIcon = document.getElementById('eye-icon');
+        const eyeOffIcon = document.getElementById('eye-off-icon');
+
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            eyeOffIcon.classList.add('hidden');
+            eyeIcon.classList.remove('hidden');
+        } else {
+            passwordInput.type = 'password';
+            eyeIcon.classList.add('hidden');
+            eyeOffIcon.classList.remove('hidden');
+        }
+    }
+
+    function toggleConfirmPassword() {
+        const confirmPasswordInput = document.getElementById('confirm-password');
+        const eyeIcon = document.getElementById('confirm-eye-icon');
+        const eyeOffIcon = document.getElementById('confirm-eye-off-icon');
+
+        if (confirmPasswordInput.type === 'password') {
+            confirmPasswordInput.type = 'text';
+            eyeOffIcon.classList.add('hidden');
+            eyeIcon.classList.remove('hidden');
+        } else {
+            confirmPasswordInput.type = 'password';
+            eyeIcon.classList.add('hidden');
+            eyeOffIcon.classList.remove('hidden');
+        }
+    }
+</script>
+
 @endsection
-
-

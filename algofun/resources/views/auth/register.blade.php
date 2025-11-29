@@ -137,6 +137,7 @@
         {{-- GOOGLE BUTTON --}}
         <x-button
             variant="secondary"
+            href="#" 
             x-bind:href="role ? '{{ route('google.redirect') }}?role=' + role : '#'"
             @click="if(!role) { alert('Silakan pilih role terlebih dahulu!'); $event.preventDefault(); }"
             block>

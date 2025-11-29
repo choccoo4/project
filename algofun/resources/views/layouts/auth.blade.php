@@ -93,7 +93,7 @@
             {{-- MOBILE WAVE TOP --}}
             <div class="lg:hidden w-full leading-none absolute top-0 z-0 wave-top">
                 <img src="{{ asset('images/asset/waves.svg') }}"
-                    class="w-full h-full object-cover wave-mobile rotate-180"
+                    class="w-full h-full object-cover wave-mobile"
                     alt="Wave Top">
             </div>
 

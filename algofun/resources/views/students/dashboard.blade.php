@@ -169,7 +169,7 @@
     </div>
 
     <!-- Fun Fact / Tips -->
-    <div class="mt-6 bg-blue-50 rounded-2xl shadow p-6 hover:shadow-md transition">
+    <div class="mt-6 bg-blue-50 rounded-2xl shadow p-6 hover:scale-[1.02] transition">
         <h2 class="text-lg font-bold text-blue-700 mb-2 flex items-center gap-2 heading-font">
             <img src="https://img.icons8.com/scribby/50/info.png" class="w-5 h-5"> Tahukah Kamu?
         </h2>

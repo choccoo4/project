@@ -135,15 +135,13 @@
         </div>
 
         {{-- GOOGLE BUTTON --}}
-        <x-button
-            variant="secondary"
-            href="#" 
-            x-bind:href="role ? '{{ route('google.redirect') }}?role=' + role : '#'"
-            @click="if(!role) { alert('Silakan pilih role terlebih dahulu!'); $event.preventDefault(); }"
-            block>
-            <img src="https://img.icons8.com/color/48/google-logo.png" class="w-4 h-4">
-            Daftar dengan Google
-        </x-button>
+        <a href="{{ route('google.redirect', ['role' => 'siswa']) }}"
+           x-bind:href="role ? '{{ route('google.redirect') }}?role=' + role : '#'"
+           @click="if(!role) { alert('Silakan pilih role terlebih dahulu!'); $event.preventDefault(); }"
+           class="w-full flex items-center justify-center gap-2 bg-white border border-gray-300 py-2.5 rounded-lg text-sm shadow-sm hover:bg-gray-100 transition">
+            <img src="https://img.icons8.com/color/48/google-logo.png" class="w-4">
+            <span class="font-nunito">Daftar dengan Google</span>
+        </a>
 
         {{-- LOGIN LINK --}}
         <p class="text-center text-sm text-gray-600 mt-4">

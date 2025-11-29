@@ -64,7 +64,7 @@
                         </label>
                         <div
                             class="bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 shadow-sm 
-                            text-gray-500 font-nunito text-lg font-semibold cursor-not-allowed">
+            text-gray-500 font-nunito text-lg font-semibold cursor-not-allowed">
                             xudmzc
                         </div>
                     </div>
@@ -75,33 +75,29 @@
                             Nama Kelas
                         </label>
                         <input type="text" x-model="namaKelas"
-                            class="w-full bg-white border-2 border-gray-200 rounded-lg px-4 py-3 shadow-sm 
-                            text-gray-700 text-lg font-nunito focus:outline-none 
-                            focus:ring-2 focus:ring-[#EB580C]"
+                            class="form-input text-lg @error('nama_kelas') form-input-error @enderror"
                             placeholder="Masukkan nama kelas baru">
+                        @error('nama_kelas')
+                        <p class="mt-1 text-sm text-[#E03F00]">{{ $message }}</p>
+                        @enderror
                     </div>
 
-                    {{-- Tombol --}}
-                    <div class="flex flex-col sm:flex-row justify-end gap-3 sm:gap-4 pt-4">
+                    <!-- Tombol -->
+                    <div class="flex justify-end gap-3 mt-6">
                         <x-button
                             type="button"
-                            variant="danger"
-                            size="md"
-                            block="true"
-                            class="sm:w-auto rounded-full">
-                            Hapus Kelas
+                            variant="success"
+                            size="sm"
+                            @click="kodeKelas = Math.random().toString(36).substr(2, 6).toUpperCase()">
+                            Buat
                         </x-button>
-
                         <x-button
                             type="submit"
-                            variant="info"
-                            size="md"
-                            block="true"
-                            class="sm:w-auto rounded-full">
-                            Simpan Perubahan
+                            variant="primary"
+                            size="sm">
+                            Simpan
                         </x-button>
                     </div>
-
                 </form>
             </div>
 

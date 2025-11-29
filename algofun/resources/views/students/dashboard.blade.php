@@ -219,8 +219,11 @@
                         <input type="text"
                             x-model="kode"
                             placeholder="Masukkan kode kelas"
-                            class="w-full rounded-lg border border-gray-300 px-4 py-2 focus:ring-2 focus:ring-orange-400 focus:outline-none uppercase tracking-widest"
+                            class="form-input uppercase tracking-widest @error('kode_kelas') form-input-error @enderror"
                             maxlength="8">
+                        @error('kode_kelas')
+                        <p class="mt-1 text-sm text-[#E03F00]">{{ $message }}</p>
+                        @enderror
                     </div>
 
                     <!-- Tombol -->

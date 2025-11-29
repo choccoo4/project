@@ -22,11 +22,11 @@ class RegisterController extends Controller
         if (Auth::guard('siswa')->check()) {
             return redirect()->route('siswa.dashboard');
         }
-        
+
         if (Auth::guard('guru')->check()) {
             return redirect()->route('guru.dashboard');
         }
-        
+
         if (Auth::guard('admin')->check()) {
             return redirect()->route('admin.dashboard');
         }
@@ -42,6 +42,7 @@ class RegisterController extends Controller
         // Validasi input dasar
         $validator = Validator::make($request->all(), [
             'role' => 'required|in:siswa,guru',
+            'username' => 'required|string|max:255|regex:/^[a-zA-Z0-9_]+$/',
             'email' => 'required|email|max:255',
             'password' => [
                 'required',
@@ -53,6 +54,9 @@ class RegisterController extends Controller
         ], [
             'role.required' => 'Silakan pilih role terlebih dahulu',
             'role.in' => 'Role tidak valid. Hanya siswa atau guru yang diperbolehkan.',
+            'username.required' => 'Nama pengguna wajib diisi',
+            'username.regex' => 'Nama pengguna hanya boleh mengandung huruf, angka, dan underscore',
+            'username.max' => 'Nama pengguna maksimal 255 karakter',
             'email.required' => 'Email wajib diisi',
             'email.email' => 'Format email tidak valid',
             'email.max' => 'Email maksimal 255 karakter',

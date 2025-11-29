@@ -73,13 +73,16 @@
 
             <h2 class="font-fredoka text-2xl font-extrabold text-[#EB580C] mb-4 text-center">Buat Kelas</h2>
 
-            <form @submit.prevent class="space-y-5">
+            <form x-data="{ kodeKelas: '' }" @submit.prevent class="space-y-5">
 
                 <!-- Nama Kelas -->
                 <div>
                     <label class="block text-gray-700 font-semibold mb-1">Nama Kelas</label>
                     <input type="text" placeholder="Masukkan nama kelas"
-                        class="w-full rounded-lg border border-gray-300 px-4 py-2 focus:ring-2 focus:ring-orange-400 focus:outline-none">
+                        class="form-input @error('nama_kelas') form-input-error @enderror">
+                    @error('nama_kelas')
+                    <p class="mt-1 text-sm text-[#E03F00]">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <!-- Kode Kelas -->
@@ -87,7 +90,7 @@
                     <label class="block text-gray-700 font-semibold mb-1">Kode Kelas</label>
                     <div class="flex gap-2">
                         <input type="text" x-model="kodeKelas" placeholder="Klik buat kode"
-                            class="flex-1 rounded-lg border border-gray-300 px-4 py-2 focus:ring-2 focus:ring-orange-400 focus:outline-none"
+                            class="form-input flex-1 @error('kode_kelas') form-input-error @enderror"
                             readonly>
                         <x-button
                             type="button"
@@ -97,6 +100,9 @@
                             Buat kode
                         </x-button>
                     </div>
+                    @error('kode_kelas')
+                    <p class="mt-1 text-sm text-[#E03F00]">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <!-- Tombol -->
@@ -104,8 +110,7 @@
                     <x-button
                         type="button"
                         variant="success"
-                        size="sm"
-                        @click="kodeKelas = Math.random().toString(36).substr(2, 6).toUpperCase()">
+                        size="sm">
                         Buat
                     </x-button>
                     <x-button

@@ -6,6 +6,24 @@
 @source '../**/*.blade.php';
 @source '../**/*.js';
 
+@layer components {
+    .form-input {
+        @apply w-full border border-[#E7E7E7] rounded-lg px-4 py-2.5 bg-[#FDFDFD] text-[#333] focus:outline-none focus:ring-2 focus:ring-[#EB580C] focus:border-[#EB580C] transition-all duration-200;
+    }
+
+    .form-input-error {
+        @apply border-2 border-[#EF4444] focus:ring-2 focus:ring-[#EF4444] focus:border-[#EF4444];
+    }
+
+    .form-select {
+        @apply w-full border border-[#E7E7E7] rounded-lg px-4 py-2.5 bg-white text-[#333] focus:outline-none focus:ring-2 focus:ring-[#EB580C] focus:border-[#EB580C] transition-all duration-200;
+    }
+
+    .form-select-error {
+        @apply border-[#EF44440] focus:ring-[#EF4444] focus:border-[#EF4444];
+    }
+}
+
 @theme {
     --font-sans: 'Poppins', 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';

@@ -54,8 +54,10 @@
                 <label class="font-semibold sm:text-right">Nama Lengkap</label>
                 <input type="text"
                     value="{{ $dataDiri['nama_lengkap'] ?? 'Septia Riski Masturiy' }}"
-                    class="sm:col-span-2 w-full border border-[#EAEAEA] rounded-lg px-4 py-2 
-                    bg-[#FDFDFD] text-[#333] focus:outline-none focus:ring-2 focus:ring-[#EB580C]">
+                    class="form-input sm:col-span-2 @error('nama_lengkap') form-input-error @enderror">
+                @error('nama_lengkap')
+                <p class="sm:col-span-2 text-red-500 text-sm mt-1 text-sm tect-[#E03F00]">{{ $message }}</p>
+                @enderror
             </div>
 
             <!-- Nama Pengguna -->
@@ -63,8 +65,10 @@
                 <label class="font-semibold sm:text-right">Nama Pengguna</label>
                 <input type="text"
                     value="{{ $dataDiri['nama_pengguna'] ?? 'septia_rm' }}"
-                    class="sm:col-span-2 w-full border border-[#EAEAEA] rounded-lg px-4 py-2 
-                    bg-[#FDFDFD] text-[#333] focus:outline-none focus:ring-2 focus:ring-[#EB580C]">
+                    class="form-input sm:col-span-2 @error('nama_pengguna') form-input-error @enderror">
+                @error('nama_pengguna')
+                <p class="sm:col-span-2 col-start-2 mt-1 text-sm text-[#E03F00]">{{ $message }}</p>
+                @enderror
             </div>
 
             <!-- Email -->
@@ -72,8 +76,10 @@
                 <label class="font-semibold sm:text-right">Email</label>
                 <input type="email"
                     value="{{ $dataDiri['email'] ?? 'septia@gmail.com' }}"
-                    class="sm:col-span-2 w-full border border-[#EAEAEA] rounded-lg px-4 py-2 
-                    bg-[#FDFDFD] text-[#333] focus:outline-none focus:ring-2 focus:ring-[#EB580C]">
+                    class="form-input sm:col-span-2 @error('email') form-input-error @enderror">
+                @error('email')
+                <p class="sm:col-span-2 col-start-2 mt-1 text-sm text-[#E03F00]">{{ $message }}</p>
+                @enderror
             </div>
 
             <!-- Asal Sekolah -->
@@ -83,18 +89,24 @@
                 <div class="sm:col-span-2 space-y-3">
                     <select
                         @change="otherSchool = $event.target.value === 'lainnya'"
-                        class="w-full border border-[#EAEAEA] rounded-lg px-4 py-2 bg-white text-[#333] focus:outline-none">
+                        class="form-select @error('asal_sekolah') form-select-error @enderror">
                         <option value="">-- Pilih Sekolah --</option>
                         <option value="SD Negeri 001" {{ (isset($dataDiri['asal_sekolah']) && $dataDiri['asal_sekolah'] == 'SD Negeri 001') ? 'selected' : '' }}>SD Negeri 001</option>
                         <option value="SD Negeri 002" {{ (isset($dataDiri['asal_sekolah']) && $dataDiri['asal_sekolah'] == 'SD Negeri 002') ? 'selected' : '' }}>SD Negeri 002</option>
                         <option value="SD Negeri 003" {{ (isset($dataDiri['asal_sekolah']) && $dataDiri['asal_sekolah'] == 'SD Negeri 003') ? 'selected' : '' }}>SD Negeri 003</option>
                         <option value="lainnya">Lainnya...</option>
                     </select>
+                    @error('asal_sekolah')
+                    <p class="text-sm text-[#E03F00]">{{ $message }}</p>
+                    @enderror
 
                     <!-- Input manual -->
                     <div x-show="otherSchool" x-transition>
                         <input type="text" placeholder="Tulis nama sekolah Anda"
-                            class="w-full border border-[#EAEAEA] rounded-lg px-4 py-2 bg-[#FDFDFD] text-[#333] focus:outline-none">
+                            class="form-input @error('sekolah_lainnya') form-input-error @enderror">
+                        @error('sekolah_lainnya')
+                        <p class="mt-1 text-sm text-[#E03F00]">{{ $message }}</p>
+                        @enderror
                     </div>
                 </div>
             </div>
@@ -105,8 +117,10 @@
                 <input type="text"
                     value="{{ $dataDiri['nip'] ?? '' }}"
                     placeholder="Belum diisi"
-                    class="sm:col-span-2 w-full border border-[#EAEAEA] rounded-lg px-4 py-2 
-                    bg-[#FDFDFD] text-[#333] focus:outline-none focus:ring-2 focus:ring-[#EB580C]">
+                    class="form-input sm:col-span-2 @error('nip') form-input-error @enderror">
+                @error('nip')
+                <p class="sm:col-span-2 col-start-2 mt-1 text-sm text-[#E03F00]">{{ $message }}</p>
+                @enderror
             </div>
 
             <!-- Tombol Aksi -->

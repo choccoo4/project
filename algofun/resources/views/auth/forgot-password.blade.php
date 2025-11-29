@@ -20,16 +20,18 @@
     </p>
 
     {{-- FORM --}}
-    <form action="{{ route('password.email') }}" method="POST" class="space-y-3 font-nunito">
+    <form action="{{ route('password.email') }}" method="POST" class="space-y-3 font-nunito" novalidate>
         @csrf
 
         {{-- EMAIL --}}
         <div>
             <label class="font-semibold text-gray-800 text-sm">Email</label>
             <input type="email" name="email"
-                class="w-full border border-[#E7E7E7] rounded-lg px-3 py-2 bg-[#FDFDFD] 
-                       focus:ring-2 focus:ring-[#EB580C] text-sm"
+                class="form-input @error('email') form-input-error @enderror"
                 placeholder="contoh@gmail.com" required>
+            @error('email')
+            <p class="mt-1 text-sm text-[#EF4444]">{{ $message }}</p>
+            @enderror
         </div>
 
         {{-- BUTTON --}}

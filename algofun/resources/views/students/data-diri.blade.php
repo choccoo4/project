@@ -3,7 +3,7 @@
 @section('title', 'Data Diri')
 
 @section('content')
-<div class="min-h-screen bg-[#FFF8F2] p-6">
+<div class="min-h-screen bg-[#FFF8F2] p-6" x-data="{ otherSchool: false }">
 
   <!-- Header -->
   <header class="mb-8 bg-white rounded-2xl shadow px-4 sm:px-6 py-4 
@@ -86,21 +86,30 @@
       <div class="sm:grid sm:grid-cols-3 sm:items-center sm:gap-4">
         <label class="font-semibold text-right sm:pr-6">Nama Lengkap</label>
         <input type="text" value="{{ $dataDiri['nama_lengkap'] }}"
-          class="col-span-2 w-full border border-[#EAEAEA] rounded-lg px-4 py-2 bg-[#FDFDFD] text-[#333] focus:outline-none focus:ring-2 focus:ring-[#EB580C]">
+          class="form-input col-span-2 @error('nama_lengkap') form-input-error @enderror">
+        @error('nama_lengkap')
+        <p class="col-span-2 col-start-2 mt-1 text-sm text-[#E03F00]">{{ $message }}</p>
+        @enderror
       </div>
 
       {{-- Nama Pengguna --}}
       <div class="sm:grid sm:grid-cols-3 sm:items-center sm:gap-4">
         <label class="font-semibold text-right sm:pr-6">Nama Pengguna</label>
         <input type="text" value="{{ $dataDiri['nama_pengguna'] }}"
-          class="col-span-2 w-full border border-[#EAEAEA] rounded-lg px-4 py-2 bg-[#FDFDFD] text-[#333] focus:outline-none focus:ring-2 focus:ring-[#EB580C]">
+          class="form-input col-span-2 @error('nama_pengguna') form-input-error @enderror">
+        @error('nama_pengguna')
+        <p class="col-span-2 col-start-2 mt-1 text-sm text-[#E03F00]">{{ $message }}</p>
+        @enderror
       </div>
 
       {{-- Email --}}
       <div class="sm:grid sm:grid-cols-3 sm:items-center sm:gap-4">
         <label class="font-semibold text-right sm:pr-6">Email</label>
         <input type="email" value="{{ $dataDiri['email'] }}"
-          class="col-span-2 w-full border border-[#EAEAEA] rounded-lg px-4 py-2 bg-[#FDFDFD] text-[#333] focus:outline-none focus:ring-2 focus:ring-[#EB580C]">
+          class="form-input col-span-2 @error('email') form-input-error @enderror">
+        @error('email')
+        <p class="col-span-2 col-start-2 mt-1 text-sm text-[#E03F00]">{{ $message }}</p>
+        @enderror
       </div>
 
       {{-- Asal Sekolah --}}
@@ -108,7 +117,7 @@
         <label class="font-semibold text-right sm:pr-6 pt-2">Asal Sekolah</label>
         <div class="col-span-2 space-y-3">
           <select @change="otherSchool = $event.target.value === 'lainnya'"
-            class="w-full border border-[#EAEAEA] rounded-lg px-4 py-2 bg-white text-[#333] focus:outline-none">
+            class="form-select @error('sekolah') form-select-error @enderror">
             <option value="">-- Pilih Sekolah --</option>
             <option value="SD Negeri 001">SD Negeri 001</option>
             <option value="SD Negeri 002">SD Negeri 002</option>
@@ -117,7 +126,7 @@
           </select>
           <div x-show="otherSchool" x-transition>
             <input type="text" placeholder="Tulis nama sekolah Anda"
-              class="w-full border border-[#EAEAEA] rounded-lg px-4 py-2 bg-[#FDFDFD] text-[#333] focus:outline-none">
+              class="form-input @error('sekolah_lainnya') form-input-error @enderror">
           </div>
         </div>
       </div>
@@ -126,7 +135,10 @@
       <div class="sm:grid sm:grid-cols-3 sm:items-center sm:gap-4">
         <label class="font-semibold text-right sm:pr-6">NISN</label>
         <input type="text" value="{{ $dataDiri['nisn'] }}"
-          class="col-span-2 w-full border border-[#EAEAEA] rounded-lg px-4 py-2 bg-[#FDFDFD] text-[#333] focus:outline-none focus:ring-2 focus:ring-[#EB580C]">
+          class="form-input col-span-2 @error('nisn') form-input-error @enderror">
+        @error('nisn')
+        <p class="col-span-2 col-start-2 mt-1 text-sm text-[#E03F00]">{{ $message }}</p>
+        @enderror
       </div>
 
       {{-- Tombol Aksi --}}

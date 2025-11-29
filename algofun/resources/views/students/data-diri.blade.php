@@ -47,7 +47,8 @@
   </header>
 
   {{-- FORM CARD --}}
-  <div class="w-full max-w-4xl bg-white rounded-2xl shadow p-6 sm:p-10 border border-[#E7E7E7]">
+  <div x-data="{ otherSchool: false }" 
+ <div class="w-full max-w-4xl mx-auto bg-white rounded-2xl shadow p-6 sm:p-10 border border-[#E7E7E7]">
 
     {{-- FOTO PROFIL --}}
     <div class="flex flex-col items-center mb-10 relative">
@@ -104,23 +105,35 @@
       </div>
 
       {{-- Asal Sekolah --}}
-      <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4">
-        <label class="font-semibold text-right sm:pr-6 pt-2">Asal Sekolah</label>
-        <div class="col-span-2 space-y-3">
-          <select @change="otherSchool = $event.target.value === 'lainnya'"
-            class="w-full border border-[#EAEAEA] rounded-lg px-4 py-2 bg-white text-[#333] focus:outline-none">
+<div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4" x-data="{ otherSchool: false }">
+    <label class="font-semibold text-right sm:pr-6 pt-2">
+        Asal Sekolah
+    </label>
+
+    <div class="col-span-2">
+        <select
+            @change="otherSchool = ($event.target.value === 'lainnya')"
+            class="w-full border border-[#EAEAEA] rounded-lg px-4 py-2 bg-white text-[#333]
+                   focus:outline-none focus:ring-2 focus:ring-[#EB580C]">
+
             <option value="">-- Pilih Sekolah --</option>
             <option value="SD Negeri 001">SD Negeri 001</option>
             <option value="SD Negeri 002">SD Negeri 002</option>
             <option value="SD Negeri 003">SD Negeri 003</option>
             <option value="lainnya">Lainnya...</option>
-          </select>
-          <div x-show="otherSchool" x-transition>
-            <input type="text" placeholder="Tulis nama sekolah Anda"
-              class="w-full border border-[#EAEAEA] rounded-lg px-4 py-2 bg-[#FDFDFD] text-[#333] focus:outline-none">
-          </div>
-        </div>
-      </div>
+
+        </select>
+
+        <input
+            x-show="otherSchool"
+            x-transition
+            type="text"
+            placeholder="Tulis nama sekolah Anda"
+            class="mt-3 w-full border border-[#EAEAEA] rounded-lg px-4 py-2 bg-[#FDFDFD] text-[#333]
+                   focus:outline-none focus:ring-2 focus:ring-[#EB580C]">
+    </div>
+</div>
+
 
       {{-- NISN --}}
       <div class="sm:grid sm:grid-cols-3 sm:items-center sm:gap-4">

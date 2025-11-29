@@ -47,7 +47,8 @@
   </header>
 
   {{-- FORM CARD --}}
-  <div class="w-full max-w-4xl bg-white rounded-2xl shadow p-6 sm:p-10 border border-[#E7E7E7]">
+  <div x-data="{ otherSchool: false }" 
+ <div class="w-full max-w-4xl mx-auto bg-white rounded-2xl shadow p-6 sm:p-10 border border-[#E7E7E7]">
 
     {{-- FOTO PROFIL --}}
     <div class="flex flex-col items-center mb-10 relative">

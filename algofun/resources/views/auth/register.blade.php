@@ -1,53 +1,70 @@
 @extends('layouts.authregis')
 @section('content')
-<div class="w-full max-w-lg mx-auto bg-white shadow-[0_8px_30px_rgba(255,150,90,0.25)]
-            border border-[#EAEAEA] rounded-3xl 
-            p-4 lg:p-8 
-            mt-0 lg:mt-20"
-    x-data="{ role: '', openDropdown: false }">
 
-    {{-- LOGO --}}
-    <div class="relative w-full flex justify-center">
-        <img src="/images/logo.svg"
-            alt="AlgoFun Logo"
-            class="absolute -top-23 w-100 drop-shadow-lg">
+<div x-data="{ loading: true }" 
+     x-init="setTimeout(() => loading = false, 800)">
+    
+    {{-- SKELETON --}}
+    <div x-show="loading" 
+         x-transition:leave="transition ease-in duration-300"
+         class="fixed inset-0 z-50 bg-[#FFF8F2]">
+        <x-auth-skeleton :fields="2" :hasGoogleButton="true" layout="auth" />
     </div>
 
-    <h2 class="text-center text-3xl font-fredoka font-semibold text-[#4a5565] mb-2 mt-10">
-        Selamat Datang di AlgoFun!
-    </h2>
-    <p class="text-center text-gray-600 text-lg font-nunito mb-4">
-        Buat akunmu dan ayo belajar dengan seru hari ini.
-    </p>
+    {{-- KONTEN ASLI --}}
+    <div x-show="!loading" 
+         x-transition:enter="transition ease-out duration-300" 
+         x-transition:enter-start="opacity-0 transform scale-95" 
+         x-transition:enter-end="opacity-100 transform scale-100"
+         style="display: none;">
+        
+        <div class="w-full max-w-lg mx-auto bg-white shadow-[0_8px_30px_rgba(255,150,90,0.25)]
+                    border border-[#EAEAEA] rounded-3xl 
+                    p-4 lg:p-8 
+                    mt-0 lg:mt-20"
+            x-data="{ role: '', openDropdown: false }">
 
-    {{-- ERROR MESSAGES --}}
-    @if($errors->any())
-    <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-4">
-        <ul class="list-disc list-inside text-sm">
-            @foreach($errors->all() as $error)
-            <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-    @endif
+            {{-- LOGO --}}
+            <div class="relative w-full flex justify-center">
+                <img src="/images/logo.svg"
+                    alt="AlgoFun Logo"
+                    class="absolute -top-23 w-100 drop-shadow-lg">
+            </div>
 
-    {{-- SUCCESS MESSAGE --}}
-    @if(session('success'))
-    <div class="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg mb-4">
-        {{ session('success') }}
-    </div>
-    @endif
+            <h2 class="text-center text-3xl font-fredoka font-semibold text-[#4a5565] mb-2 mt-10">
+                Selamat Datang di AlgoFun!
+            </h2>
+            <p class="text-center text-gray-600 text-lg font-nunito mb-4">
+                Buat akunmu dan ayo belajar dengan seru hari ini.
+            </p>
+
+            {{-- ERROR MESSAGES --}}
+            @if($errors->any())
+            <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-4">
+                <ul class="list-disc list-inside text-sm">
+                    @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
+
+            {{-- SUCCESS MESSAGE --}}
+            @if(session('success'))
+            <div class="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg mb-4">
+                {{ session('success') }}
+            </div>
+            @endif
 
     {{-- FORM --}}
     <form action="{{ route('register.post') }}" method="POST" class="space-y-3 font-nunito" novalidate x-data="{ role: '', openDropdown: false }">
         @csrf
 
-        {{-- ROLE (Custom Dropdown) --}}
-        <div>
-            <label class="font-semibold text-gray-800 text-sm block mb-1">Daftar Sebagai? <span class="text-red-500">*</span></label>
+                {{-- ROLE (Custom Dropdown) --}}
+                <div>
+                    <label class="font-semibold text-gray-800 text-sm block mb-1">Daftar Sebagai? <span class="text-red-500">*</span></label>
 
-            {{-- Hidden Input untuk form submission --}}
-            <input type="hidden" name="role" :value="role">
+                    <input type="hidden" name="role" :value="role">
 
             {{-- Custom Dropdown --}}
             <div class="relative" @click.outside="openDropdown = false">
@@ -61,22 +78,21 @@
                     </svg>
                 </button>
 
-                {{-- Dropdown Menu --}}
-                <div x-show="openDropdown"
-                    x-transition:enter="transition ease-out duration-100"
-                    x-transition:enter-start="opacity-0 scale-95"
-                    x-transition:enter-end="opacity-100 scale-100"
-                    x-transition:leave="transition ease-in duration-75"
-                    x-transition:leave-start="opacity-100 scale-100"
-                    x-transition:leave-end="opacity-0 scale-95"
-                    class="absolute top-full left-0 right-0 mt-1 bg-white border border-[#E7E7E7] rounded-lg shadow-lg z-50 overflow-hidden">
+                        <div x-show="openDropdown"
+                            x-transition:enter="transition ease-out duration-100"
+                            x-transition:enter-start="opacity-0 scale-95"
+                            x-transition:enter-end="opacity-100 scale-100"
+                            x-transition:leave="transition ease-in duration-75"
+                            x-transition:leave-start="opacity-100 scale-100"
+                            x-transition:leave-end="opacity-0 scale-95"
+                            class="absolute top-full left-0 right-0 mt-1 bg-white border border-[#E7E7E7] rounded-lg shadow-lg z-50 overflow-hidden">
 
-                    <button type="button"
-                        @click="role = 'siswa'; openDropdown = false"
-                        class="w-full px-3 py-2.5 text-left text-sm hover:bg-[#FFF5F0] transition"
-                        :class="{'bg-[#EB580C] text-white': role === 'siswa', 'text-gray-700': role !== 'siswa'}">
-                        Siswa
-                    </button>
+                            <button type="button"
+                                @click="role = 'siswa'; openDropdown = false"
+                                class="w-full px-3 py-2.5 text-left text-sm hover:bg-[#FFF5F0] transition"
+                                :class="{'bg-[#EB580C] text-white': role === 'siswa', 'text-gray-700': role !== 'siswa'}">
+                                Siswa
+                            </button>
 
                     <button type="button"
                         @click="role = 'guru'; openDropdown = false"
@@ -132,19 +148,19 @@
                 placeholder="Konfirmasi Kata Sandi">
         </div>
 
-        {{-- SUBMIT --}}
-        <x-button
-            variant="primary"
-            type="submit"
-            block>
-            Daftar
-        </x-button>
+                {{-- SUBMIT --}}
+                <x-button
+                    variant="primary"
+                    type="submit"
+                    block>
+                    Daftar
+                </x-button>
 
-        {{-- DIVIDER --}}
-        <div class="relative flex items-center justify-center my-4">
-            <div class="border-t border-gray-300 w-full"></div>
-            <span class="absolute bg-white px-3 text-gray-500 text-sm">atau</span>
-        </div>
+                {{-- DIVIDER --}}
+                <div class="relative flex items-center justify-center my-4">
+                    <div class="border-t border-gray-300 w-full"></div>
+                    <span class="absolute bg-white px-3 text-gray-500 text-sm">atau</span>
+                </div>
 
         {{-- GOOGLE BUTTON --}}
         <x-button
@@ -157,10 +173,15 @@
             Daftar dengan Google
         </x-button>
 
-        {{-- LOGIN LINK --}}
-        <p class="text-center text-sm text-gray-600 mt-4">
-            Sudah punya akun? <a href="{{ route('login') }}" class="text-[#EB580C] font-semibold hover:underline">Yuk Masuk!</a>
-        </p>
-    </form>
+                {{-- LOGIN LINK --}}
+                <p class="text-center text-sm text-gray-600 mt-4">
+                    Sudah punya akun? <a href="{{ route('login') }}" class="text-[#EB580C] font-semibold hover:underline">Yuk Masuk!</a>
+                </p>
+            </form>
+        </div>
+    </div>
 </div>
+
 @endsection
+
+

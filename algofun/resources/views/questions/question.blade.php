@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -19,8 +20,8 @@
 </head>
 
 <body x-data="{ ...questionHandler(), loading: true }"
-      x-init="setTimeout(() => loading = false, 700)"
-      class="bg-orange-50 min-h-screen flex flex-col font-nunito">
+    x-init="setTimeout(() => loading = false, 700)"
+    class="bg-orange-50 min-h-screen flex flex-col font-nunito">
 
     {{-- SKELETON LOADING --}}
     <div x-show="loading" class="flex-1 flex flex-col items-center mt-6 sm:mt-10 px-4 space-y-4 animate-pulse">
@@ -53,14 +54,14 @@
 
             <!-- Tombol Exit -->
             <a href="{{ url('/belajar') }}"
-               class="flex-shrink-0 flex items-center gap-2 text-neutral-600 hover:text-neutral-800 text-lg font-semibold">
+                class="flex-shrink-0 flex items-center gap-2 text-neutral-600 hover:text-neutral-800 text-lg font-semibold">
                 <img src="https://img.icons8.com/?size=100&id=m98bKDgySJIR&format=png" class="w-7 h-7">
             </a>
 
             <!-- Progress Bar -->
             <div class="flex-1 relative h-3 bg-zinc-300 rounded-full overflow-hidden">
                 <div class="absolute top-0 left-0 h-3 bg-amber-400 rounded-full transition-all duration-500"
-                     :style="'width:' + progress + '%'"></div>
+                    :style="'width:' + progress + '%'"></div>
             </div>
 
             <!-- XP -->
@@ -77,7 +78,7 @@
                        flex items-center justify-center gap-2 sm:gap-3 bg-white px-3 sm:px-4">
                 <img src="https://img.icons8.com/color/48/alarm-clock.png" class="w-7 sm:w-9 h-7 sm:h-9 flex-shrink-0">
                 <span class="text-orange-500 text-lg sm:text-2xl font-semibold font-fredoka whitespace-nowrap"
-                      x-text="timeLeft + ' detik'"></span>
+                    x-text="timeLeft + ' detik'"></span>
             </div>
         </section>
 
@@ -107,7 +108,7 @@
                 size="md"
                 block="true"
                 class="sm:w-40 relative transition-all duration-200"
-                x-bind:disabled="!hasAnswer"
+                x-bind:disabled="false"
                 @click="checkAnswer"
                 x-tooltip="!hasAnswer ? 'Silakan pilih jawaban terlebih dahulu' : ''">
                 Periksa
@@ -116,7 +117,7 @@
 
         <!-- ========================= FEEDBACK SECTION - SIMPLE VERSION ========================= -->
         <div x-show="feedback" x-transition
-             class="fixed inset-0 bg-black/40 flex items-end sm:items-center justify-center z-50 px-4 pb-6 sm:pb-10">
+            class="fixed inset-0 bg-black/40 flex items-end sm:items-center justify-center z-50 px-4 pb-6 sm:pb-10">
 
             <!-- FEEDBACK BENAR -->
             <template x-if="feedback?.type === 'success'">
@@ -162,13 +163,13 @@
                                         <template x-for="(answer, index) in correctAnswer" :key="index">
                                             <div class="bg-[#FFE2E2] text-[#ED4141] text-lg sm:text-xl font-semibold font-nunito 
                                                         px-4 py-2 rounded-xl border border-[#ED4141]"
-                                                 x-text="answer"></div>
+                                                x-text="answer"></div>
                                         </template>
                                     </div>
                                 </template>
                                 <template x-if="!Array.isArray(correctAnswer)">
                                     <div class="text-[#ED4141] text-2xl sm:text-3xl font-bold font-nunito underline py-2"
-                                         x-text="correctAnswer"></div>
+                                        x-text="correctAnswer"></div>
                                 </template>
                             </div>
                         </div>

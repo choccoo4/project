@@ -247,18 +247,23 @@ document.addEventListener("alpine:init", () => {
             console.log("checkAnswer called - hasAnswer:", this.hasAnswer);
 
             // Cek apakah sudah memilih jawaban
-            if (!this.hasAnswer) {
-                console.log("No answer selected, showing warning");
+            // ======== CEK BELUM MEMILIH JAWABAN ========
+            const noAnswer =
+                !this.userAnswer ||
+                (Array.isArray(this.userAnswer) && this.userAnswer.length === 0) ||
+                !this.hasAnswer;
+
+            if (noAnswer) {
                 this.showToast("Silakan pilih jawaban terlebih dahulu", "warning");
 
-                // Tambahkan efek visual pada tombol untuk feedback
+                // Shake button
                 const checkBtn = this.$refs.checkBtn;
-                checkBtn.classList.add('shake-animation');
+                checkBtn.classList.add("shake-animation");
                 setTimeout(() => {
-                    checkBtn.classList.remove('shake-animation');
+                    checkBtn.classList.remove("shake-animation");
                 }, 500);
 
-                return; // STOP di sini, jangan lanjut ke pengecekan
+                return;
             }
 
             console.log("Answer selected, proceeding to check...");

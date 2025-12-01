@@ -20,13 +20,13 @@ class LoginController extends Controller
     {
         // Jika sudah login, redirect ke dashboard sesuai role
         if (Auth::guard('siswa')->check()) {
-            return redirect('/dashboard');
+            return redirect()->route('students.onboarding');
         }
-        
+
         if (Auth::guard('guru')->check()) {
             return redirect()->route('guru.dashboard');
         }
-        
+
         if (Auth::guard('admin')->check()) {
             return redirect()->route('admin.dashboard');
         }
@@ -72,8 +72,8 @@ class LoginController extends Controller
                 // Login sebagai siswa
                 Auth::guard('siswa')->login($siswa, $remember);
                 $request->session()->regenerate();
-                
-                return redirect('/dashboard')
+
+                return redirect()->route('students.onboarding')
                     ->with('success', 'Selamat datang kembali, ' . $siswa->username . '! 🎉');
             } else {
                 // Email ketemu tapi password salah
@@ -91,7 +91,7 @@ class LoginController extends Controller
                 // Login sebagai guru
                 Auth::guard('guru')->login($guru, $remember);
                 $request->session()->regenerate();
-                
+
                 return redirect()->route('guru.dashboard')
                     ->with('success', 'Selamat datang kembali, ' . $guru->nama . '! 🎉');
             } else {
@@ -110,7 +110,7 @@ class LoginController extends Controller
                 // Login sebagai admin
                 Auth::guard('admin')->login($admin, $remember);
                 $request->session()->regenerate();
-                
+
                 return redirect()->route('admin.dashboard')
                     ->with('success', 'Selamat datang kembali, Admin! 🎉');
             } else {

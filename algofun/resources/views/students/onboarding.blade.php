@@ -25,7 +25,7 @@
     <div class="w-full h-full relative overflow-hidden">
 
         <!-- SKIP -->
-        <a href="{{ url('/login') }}"
+        <a href="{{ url('/dashboard') }}"
             class="absolute top-5 right-5 font-fredoka text-orange-500 font-semibold z-20">
             Skip
         </a>
@@ -81,7 +81,7 @@
                     AI membantu menemukan kelemahanmu dan memberi latihan remedial yang tepat sasaran.
                 </p>
 
-                <a href="{{ url('/login') }}"
+                <a href="{{ url('/dashboard') }}"
                     class="mt-6 bg-orange-500 text-white font-fredoka px-8 py-3 rounded-2xl text-lg shadow hover:bg-orange-600">
                     Mulai Belajar
                 </a>

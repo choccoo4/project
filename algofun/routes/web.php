@@ -100,6 +100,11 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 // STUDENTS ROUTES (Auth: Siswa)
 // =========================
 Route::middleware(['auth:siswa'])->group(function () {
+    // ONBOARDING
+    Route::get('/onboarding', function () {
+        return view('students.onboarding');
+    })->name('students.onboarding');
+
     // QUIZ ROUTES
     Route::get('/soal/{id}', [QuizController::class, 'show'])->name('question.show');
     Route::get('/quiz-results', [QuizController::class, 'results'])->name('quiz.results');
@@ -111,7 +116,7 @@ Route::middleware(['auth:siswa'])->group(function () {
         return view('students.dashboard');
     })->name('siswa.dashboard');
 
-    // ONBOARDING & RULES
+    // RULES
     Route::get('/onboarding', function () {
         return view('students.onboarding');
     })->name('students.onboarding');
@@ -146,8 +151,8 @@ Route::middleware(['auth:siswa'])->group(function () {
     Route::get('/papan-skor', [PapanSkorController::class, 'index'])->name('students.papan-skor');
 
     Route::get('/aturan', function () {
-    return view('students.rule');
-});
+        return view('students.rule');
+    });
 });
 
 // =========================

@@ -25,7 +25,7 @@ class GoogleController extends Controller
             // Simpan role untuk register
             session(['register_role' => $request->role]);
         }
-        
+
         // Jika dari halaman login (tidak ada role), kosongkan session
         if (!$request->has('role')) {
             session()->forget('register_role');
@@ -44,16 +44,16 @@ class GoogleController extends Controller
         try {
             // Ambil data user dari Google
             $googleUser = Socialite::driver('google')->user();
-            
+
             // ============================================
             // AUTO-DETECT: Cek di database
             // ============================================
-            
+
             // 1. CEK DI TABEL SISWA (by google_id atau email)
             $siswa = Siswa::where('google_id', $googleUser->getId())
-                        ->orWhere('email', $googleUser->getEmail())
-                        ->first();
-            
+                ->orWhere('email', $googleUser->getEmail())
+                ->first();
+
             if ($siswa) {
                 // Update google_id jika belum ada
                 if (!$siswa->google_id) {
@@ -62,20 +62,20 @@ class GoogleController extends Controller
                         'avatar' => $googleUser->getAvatar(),
                     ]);
                 }
-                
+
                 // Login sebagai siswa
                 Auth::guard('siswa')->login($siswa);
                 session()->forget('register_role');
-                
-                return redirect('/dashboard')
+
+                return redirect()->route('students.onboarding')
                     ->with('success', 'Selamat datang kembali! 🎉');
             }
-            
+
             // 2. CEK DI TABEL GURU (by google_id atau email)
             $guru = Guru::where('google_id', $googleUser->getId())
-                      ->orWhere('email', $googleUser->getEmail())
-                      ->first();
-            
+                ->orWhere('email', $googleUser->getEmail())
+                ->first();
+
             if ($guru) {
                 // Update google_id jika belum ada
                 if (!$guru->google_id) {
@@ -84,29 +84,29 @@ class GoogleController extends Controller
                         'foto_profil' => $googleUser->getAvatar(),
                     ]);
                 }
-                
+
                 // Login sebagai guru
                 Auth::guard('guru')->login($guru);
                 session()->forget('register_role');
-                
+
                 return redirect()->route('guru.dashboard')
                     ->with('success', 'Selamat datang kembali! 🎉');
             }
-            
+
             // ============================================
             // JIKA TIDAK DITEMUKAN: REGISTER BARU
             // ============================================
-            
+
             // Cek apakah ada role dari session (dari halaman register)
             $role = session('register_role');
-            
+
             if (!$role) {
                 // Jika dari halaman login (tidak ada role di session)
                 // Redirect ke register dengan pesan
                 return redirect()->route('register')
                     ->with('error', 'Email Anda belum terdaftar. Silakan daftar terlebih dahulu dan pilih role (Siswa atau Guru).');
             }
-            
+
             // Register baru berdasarkan role
             if ($role === 'siswa') {
                 return $this->registerSiswaGoogle($googleUser);
@@ -116,7 +116,6 @@ class GoogleController extends Controller
 
             return redirect()->route('register')
                 ->with('error', 'Role tidak valid');
-
         } catch (Exception $e) {
             return redirect()->route('login')
                 ->with('error', 'Terjadi kesalahan saat login dengan Google: ' . $e->getMessage());
@@ -132,7 +131,7 @@ class GoogleController extends Controller
         $username = explode('@', $googleUser->getEmail())[0];
         $baseUsername = $username;
         $counter = 1;
-        
+
         // Pastikan username unik
         while (Siswa::where('username', $username)->exists()) {
             $username = $baseUsername . $counter;
@@ -153,7 +152,7 @@ class GoogleController extends Controller
         Auth::guard('siswa')->login($siswa);
         session()->forget('register_role');
 
-        return redirect('/dashboard')
+        return redirect()->route('students.onboarding')
             ->with('success', 'Akun siswa berhasil dibuat dengan Google! 🎉');
     }
 

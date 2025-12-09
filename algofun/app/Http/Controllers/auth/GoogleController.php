@@ -144,7 +144,7 @@ class GoogleController extends Controller
             'password' => Hash::make(uniqid()), // Random password
             'google_id' => $googleUser->getId(),
             'avatar' => $googleUser->getAvatar(),
-            'nama_pengguna' => $googleUser->getName(),
+            'nama_lengkap' => $googleUser->getName(),
             'role' => 'siswa',
         ]);
 

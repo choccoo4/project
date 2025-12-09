@@ -24,11 +24,11 @@
     <!-- Right: User (Desktop Only) -->
     <div class="hidden sm:flex items-center space-x-4 font-nunito-semibold">
       <span class="text-gray-700 text-lg">
-        Halo, <b class="text-[#EB580C]">{{ Auth::user()->name ?? 'Siswa' }}</b>
+        Halo, <b class="text-[#EB580C]">{{ $siswa->nama_lengkap ?? 'Siswa' }}</b>
       </span>
 
       <div class="relative">
-        <img src="/icons/blank.jpeg" alt="Avatar"
+        <img src="{{ $siswa->getAvatarUrl() }}" alt="Avatar"
           class="w-14 h-14 rounded-full border-4 border-[#EB580C] shadow-md">
         <span class="absolute -top-2 -right-2 bg-[#EB580C] text-white text-xs font-bold px-2 py-1 rounded-full shadow">
           Lv. 1
@@ -38,7 +38,7 @@
 
     <!-- Right: Avatar (Mobile Only) -->
     <div class="sm:hidden relative">
-      <img src="/icons/blank.jpeg" alt="Avatar"
+      <img src="{{ $siswa->avatar ?? asset('icons/blank.jpeg') }}" alt="Avatar"
         class="w-10 h-10 rounded-full border-2 border-[#EB580C] shadow-md">
       <span class="absolute -top-1 -right-1 bg-[#EB580C] text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full shadow">
         Lv. 1
@@ -47,119 +47,122 @@
   </header>
 
   {{-- FORM CARD --}}
-  <div x-data="{ otherSchool: false }" 
- <div class="w-full max-w-4xl mx-auto bg-white rounded-2xl shadow p-6 sm:p-10 border border-[#E7E7E7]">
+  <div x-data="{ otherSchool: false }">
+    <div class="w-full max-w-4xl mx-auto bg-white rounded-2xl shadow p-6 sm:p-10 border border-[#E7E7E7]">
 
-    {{-- FOTO PROFIL --}}
-    <div class="flex flex-col items-center mb-10 relative">
-      <div class="relative">
-        <img src="{{ asset('icons/blank.jpeg') }}"
-          class="w-32 sm:w-40 h-32 sm:h-40 rounded-xl border border-gray-300 bg-[#FFF8F2] object-cover"
-          alt="Profile">
-        <button class="absolute bottom-2 right-2 bg-white border border-gray-300 rounded-full p-2 shadow-sm hover:bg-gray-100">
-          <img src="https://img.icons8.com/ios-glyphs/20/EB580C/edit.png" alt="Edit" class="w-4 h-4">
-        </button>
-      </div>
-    </div>
-
-    {{-- FORM DATA DIRI --}}
-    <form class="space-y-6 sm:space-y-8 font-nunito text-gray-700">
-
-      {{-- Kelasku --}}
-      <div class="sm:grid sm:grid-cols-3 sm:items-center sm:gap-4">
-        <label class="font-semibold text-right sm:pr-6 pt-2">Kelasku</label>
-        <div class="col-span-2 bg-[#FFF8E7] border border-[#EB580C]/40 rounded-xl p-4 flex justify-between items-center">
-          {{-- Kiri: Nama Kelas + Guru --}}
-          <div>
-            <p class="font-bold text-[#EB580C] text-lg">{{ $dataDiri['kelas'] ?? 'Matematik3D' }}</p>
-            <p class="text-gray-600 text-sm">{{ $dataDiri['guru'] ?? 'Septia Riski Masturiy' }}</p>
-          </div>
-
-          {{-- Kanan: Tombol keluar kelas --}}
+      {{-- FOTO PROFIL --}}
+      <div class="flex flex-col items-center mb-10 relative">
+        <div class="relative">
+          <img src="{{ $siswa->avatar ?? asset('icons/blank.jpeg') }}"
+            class="w-32 sm:w-40 h-32 sm:h-40 rounded-xl border border-gray-300 bg-[#FFF8F2] object-cover"
+            alt="Profile">
           <button type="button"
-            class="hover:bg-gray-200 rounded-full p-2 transition flex-shrink-0">
-            <img src="https://img.icons8.com/ios-glyphs/24/fa314a/delete-sign.png" alt="Keluar Kelas" class="w-5 h-5">
+            onclick="document.getElementById('avatar').click()"
+            class="absolute bottom-2 right-2 bg-white border border-gray-300 rounded-full p-2 shadow-sm hover:bg-gray-100">
+            <img src="https://img.icons8.com/ios-glyphs/20/EB580C/edit.png" class="w-4 h-4">
           </button>
+
+          <input type="file" id="avatar" name="avatar" accept="image/*" class="hidden">
         </div>
       </div>
 
-      {{-- Nama Lengkap --}}
-      <div class="sm:grid sm:grid-cols-3 sm:items-center sm:gap-4">
-        <label class="font-semibold text-right sm:pr-6">Nama Lengkap</label>
-        <input type="text" value="{{ $dataDiri['nama_lengkap'] }}"
-          class="form-input col-span-2 @error('nama_lengkap') form-input-error @enderror">
-        @error('nama_lengkap')
-        <p class="col-span-2 col-start-2 mt-1 text-sm text-[#E03F00]">{{ $message }}</p>
-        @enderror
-      </div>
+      {{-- FORM DATA DIRI --}}
+      <form action="{{ route('students.data-diri.update') }}" method="POST" class="space-y-6 sm:space-y-8 font-nunito text-gray-700">
+        @csrf
 
-      {{-- Nama Pengguna --}}
-      <div class="sm:grid sm:grid-cols-3 sm:items-center sm:gap-4">
-        <label class="font-semibold text-right sm:pr-6">Nama Pengguna</label>
-        <input type="text" value="{{ $dataDiri['nama_pengguna'] }}"
-          class="form-input col-span-2 @error('nama_pengguna') form-input-error @enderror">
-        @error('nama_pengguna')
-        <p class="col-span-2 col-start-2 mt-1 text-sm text-[#E03F00]">{{ $message }}</p>
-        @enderror
-      </div>
+        {{-- Nama Lengkap --}}
+        <div class="sm:grid sm:grid-cols-3 sm:items-center sm:gap-4">
+          <label class="font-semibold text-right sm:pr-6">Nama Lengkap</label>
+          <input type="text" name="nama_lengkap" value="{{ $siswa->nama_lengkap }}"
+            class="form-input col-span-2 @error('nama_lengkap') form-input-error @enderror">
+          @error('nama_lengkap')
+          <p class="col-span-2 col-start-2 mt-1 text-sm text-[#E03F00]">{{ $message }}</p>
+          @enderror
+        </div>
 
-      {{-- Email --}}
-      <div class="sm:grid sm:grid-cols-3 sm:items-center sm:gap-4">
-        <label class="font-semibold text-right sm:pr-6">Email</label>
-        <input type="email" value="{{ $dataDiri['email'] }}"
-          class="form-input col-span-2 @error('email') form-input-error @enderror">
-        @error('email')
-        <p class="col-span-2 col-start-2 mt-1 text-sm text-[#E03F00]">{{ $message }}</p>
-        @enderror
-      </div>
+        {{-- Nama Pengguna --}}
+        <div class="sm:grid sm:grid-cols-3 sm:items-center sm:gap-4">
+          <label class="font-semibold text-right sm:pr-6">Nama Pengguna</label>
+          <input type="text" name="nama_pengguna" value="{{ $siswa->nama_pengguna }}"
+            class="form-input col-span-2 @error('nama_pengguna') form-input-error @enderror">
+          @error('nama_pengguna')
+          <p class="col-span-2 col-start-2 mt-1 text-sm text-[#E03F00]">{{ $message }}</p>
+          @enderror
+        </div>
 
-      {{-- Asal Sekolah --}}
-      <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4">
-        <label class="font-semibold text-right sm:pr-6 pt-2">Asal Sekolah</label>
-        <div class="col-span-2 space-y-3">
-          <select @change="otherSchool = $event.target.value === 'lainnya'"
-            class="form-select @error('sekolah') form-select-error @enderror">
-            <option value="">-- Pilih Sekolah --</option>
-            <option value="SD Negeri 001">SD Negeri 001</option>
-            <option value="SD Negeri 002">SD Negeri 002</option>
-            <option value="SD Negeri 003">SD Negeri 003</option>
-            <option value="lainnya">Lainnya...</option>
-          </select>
-          <div x-show="otherSchool" x-transition>
-            <input type="text" placeholder="Tulis nama sekolah Anda"
-              class="form-input @error('sekolah_lainnya') form-input-error @enderror">
+        {{-- Email --}}
+        <div class="sm:grid sm:grid-cols-3 sm:items-center sm:gap-4">
+          <label class="font-semibold text-right sm:pr-6">Email</label>
+          <input type="email" name="email" value="{{ $siswa->email }}"
+            class="form-input col-span-2 @error('email') form-input-error @enderror">
+          @error('email')
+          <p class="col-span-2 col-start-2 mt-1 text-sm text-[#E03F00]">{{ $message }}</p>
+          @enderror
+        </div>
+
+        {{-- Asal Sekolah --}}
+        <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4">
+          <label class="font-semibold text-right sm:pr-6 pt-2">Asal Sekolah</label>
+          <div class="col-span-2 space-y-3" x-data="{ otherSchool: {{ in_array($siswa->nama_sekolah, $daftarSekolah->pluck('nama')->toArray()) ? 'false' : 'true' }} }">
+
+            <select name="nama_sekolah"
+              @change="otherSchool = $event.target.value === 'lainnya'"
+              class="form-select w-full @error('nama_sekolah') form-select-error @enderror">
+
+              <option value="">-- Pilih Sekolah --</option>
+
+              @foreach($daftarSekolah as $sek)
+              <option value="{{ $sek->nama }}"
+                {{ strtolower(trim($siswa->nama_sekolah)) == strtolower(trim($sek->nama)) ? 'selected' : '' }}>
+                {{ $sek->nama }}
+              </option>
+              @endforeach
+
+              <option value="lainnya" {{ in_array($siswa->nama_sekolah, $daftarSekolah->pluck('nama')->toArray()) ? '' : 'selected' }}>
+                Lainnya...
+              </option>
+            </select>
+
+            {{-- Input field muncul hanya jika pilih Lainnya --}}
+            <div x-show="otherSchool" x-transition class="mt-2">
+              <input type="text" name="nama_sekolah_lainnya"
+                value="{{ in_array($siswa->nama_sekolah, $daftarSekolah->pluck('nama')->toArray()) ? '' : $siswa->nama_sekolah }}"
+                placeholder="Tulis nama sekolah Anda"
+                class="form-input w-full @error('nama_sekolah_lainnya') form-input-error @enderror">
+            </div>
           </div>
         </div>
-      </div>
 
-      {{-- NISN --}}
-      <div class="sm:grid sm:grid-cols-3 sm:items-center sm:gap-4">
-        <label class="font-semibold text-right sm:pr-6">NISN</label>
-        <input type="text" value="{{ $dataDiri['nisn'] }}"
-          class="form-input col-span-2 @error('nisn') form-input-error @enderror">
-        @error('nisn')
-        <p class="col-span-2 col-start-2 mt-1 text-sm text-[#E03F00]">{{ $message }}</p>
-        @enderror
-      </div>
+        {{-- NISN --}}
+        <div class="sm:grid sm:grid-cols-3 sm:items-center sm:gap-4">
+          <label class="font-semibold text-right sm:pr-6">NISN</label>
+          <input type="text" name="nisn" value="{{ $siswa->nisn }}"
+            class="form-input col-span-2 @error('nisn') form-input-error @enderror" inputmode="numeric"
+            pattern="[0-9]*"
+            oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+          @error('nisn')
+          <p class="col-span-2 col-start-2 mt-1 text-sm text-[#E03F00]">{{ $message }}</p>
+          @enderror
+        </div>
 
-      {{-- Tombol Aksi --}}
-      <div class="flex flex-col sm:flex-row justify-end gap-4 mt-8 sm:mt-12">
-        <x-button
-          variant="soft"
-          type="button"
-          class="w-full sm:w-28 h-11 shadow-[0px_8px_4px_rgba(0,0,0,0.25)]">
-          Batal
-        </x-button>
+        {{-- Tombol Aksi --}}
+        <div class="flex flex-col sm:flex-row justify-end gap-4 mt-8 sm:mt-12">
+          <x-button
+            variant="soft"
+            type="button"
+            class="w-full sm:w-28 h-11 shadow-[0px_8px_4px_rgba(0,0,0,0.25)]">
+            Batal
+          </x-button>
 
-        <x-button
-          variant="success"
-          type="submit"
-          class="w-full sm:w-28 h-11 shadow-[0px_8px_4px_rgba(0,0,0,0.25)]">
-          Simpan
-        </x-button>
-      </div>
+          <x-button
+            variant="success"
+            type="submit"
+            class="w-full sm:w-28 h-11 shadow-[0px_8px_4px_rgba(0,0,0,0.25)]">
+            Simpan
+          </x-button>
+        </div>
 
-    </form>
+      </form>
+    </div>
   </div>
-</div>
-@endsection
+  @endsection

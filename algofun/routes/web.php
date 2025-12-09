@@ -146,6 +146,8 @@ Route::middleware(['auth:siswa'])->group(function () {
 
     // DATA DIRI (Profile Siswa)
     Route::get('/data-diri', [DataDiriController::class, 'index'])->name('students.data-diri');
+    Route::post('/data-diri', [DataDiriController::class, 'update'])->name('students.data-diri.update');
+
 
     // PAPAN SKOR
     Route::get('/papan-skor', [PapanSkorController::class, 'index'])->name('students.papan-skor');
